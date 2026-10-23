@@ -10,6 +10,9 @@
 .story{height:280vh;height:280svh}
 .sequence-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;opacity:0;pointer-events:none}
 .sequence-video.ready{opacity:1}
+.visuals{isolation:isolate}
+.visual-finish{z-index:1;background:#070a0b}
+.chapters{width:48%;max-width:560px}
 .scene-right h2{font-size:clamp(54px,5.7vw,90px)}
 .scene-right{right:7%;max-width:50%}
 .scene-right:before{background:radial-gradient(ellipse,#050906d9,transparent 75%)}

@@ -6,7 +6,8 @@
   const chapters=[...document.querySelectorAll('[data-chapter]')];
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=n=>Math.min(1,Math.max(0,n));
-  const stops=[0,.35,.67];
+  const stops=[0,.19,.36,.69,.89];
+  const videoEnd=.88;
   let queued=false, displayed=0, target=0, lastTick=0, ready=false, video;
   const progress=document.querySelector('.story-progress span');
   function readProgress(){
@@ -14,7 +15,7 @@
   }
   function seek(){
     if(!video||!ready||!Number.isFinite(video.duration))return;
-    const time=displayed*Math.max(0,video.duration-1/24);
+    const time=clamp(displayed/videoEnd)*Math.max(0,video.duration-1/24);
     video._target=time;
     if(!video.seeking&&Math.abs(video.currentTime-time)>1/48)video.currentTime=time;
   }
@@ -36,8 +37,12 @@
     const dt=Math.min(64,lastTick?now-lastTick:16);lastTick=now;
     displayed+=(target-displayed)*(1-Math.exp(-dt/85));
     if(Math.abs(target-displayed)<.0005)displayed=target;
-    const active=displayed<stops[1]?0:displayed<stops[2]?1:2;
-    visuals.forEach((el,i)=>{el.style.opacity=i===active?'1':'0';el.style.transform='none'});
+    const active=stops.reduce((current,start,i)=>displayed>=start?i:current,0);
+    const finishOpacity=clamp((displayed-.86)/.06);
+    visuals.forEach((el,i)=>{
+      el.style.opacity=i===4?String(finishOpacity):i===Math.min(active,3)?'1':'0';
+      el.style.transform='none';
+    });
     copies.forEach((el,i)=>{
       const start=stops[i],end=stops[i+1]??1.1;
       const opacity=i===active?Math.min(i===0?1:clamp((displayed-start)/.045),clamp((end-displayed)/.045)):0;
@@ -45,7 +50,7 @@
       el.setAttribute('aria-hidden',i!==active);
     });
     chapters.forEach((el,i)=>{el.classList.toggle('active',i===active);el.setAttribute('aria-pressed',i===active)});
-    document.getElementById('chapter-number').textContent=`0${active+1} / 03`;
+    document.getElementById('chapter-number').textContent=`0${active+1} / 0${stops.length}`;
     progress.style.transform=`scaleX(${displayed})`;
     seek();
     if(displayed!==target)schedule();

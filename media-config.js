@@ -1,2 +1,2 @@
-// Three Artlist clips, edited into one continuous scroll-controlled video.
-window.BMD_MEDIA = { sequence: "assets/detailing-sequence.mp4" };
+// Five Artlist clips, followed by a still reveal of Tim.
+window.BMD_MEDIA = { sequence: "assets/detailing-water-sequence.mp4" };

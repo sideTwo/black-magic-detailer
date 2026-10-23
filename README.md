@@ -2,9 +2,9 @@
 
 Website-Entwurf für Tim Rupprecht, Mannheim / Rhein-Neckar.
 
-Statische Website mit einer scrollgesteuerten BMW-, Motorhauben- und Politur-Sequenz. Läuft ohne Build-Schritt direkt auf GitHub Pages.
+Statische Website mit einer scrollgesteuerten BMW-, Motorhauben-, Politur- und Wasserperlen-Sequenz sowie einem Abschlussbild von Tim. Die Scrollstrecke bleibt bei 1,8 Bildschirmhöhen auf Desktop und 1,6 auf Mobilgeräten. Läuft ohne Build-Schritt direkt auf GitHub Pages.
 
-Die Anfragefunktion bereitet eine Instagram-Nachricht vor; sie sendet nichts automatisch und reserviert keinen Termin. Bilder und Videos sind KI-Visualisierungen. Wasserperlen-Video und ein echtes Motiv von Tim sind noch nicht Teil dieser Version.
+Die Anfragefunktion bereitet eine Instagram-Nachricht vor; sie sendet nichts automatisch und reserviert keinen Termin. Bilder und Videos sind KI-Visualisierungen. Tim trägt im Abschlussbild schwarze Handschuhe und steht nahe am vorderen Rad. Der Rückfahrt-Clip zu Tim und die Korrektur der Tattoos im Politur-Clip stehen noch aus.
 
 ## Entwicklung
 
