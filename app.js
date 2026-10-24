@@ -7,6 +7,8 @@
   const clamp=n=>Math.min(1,Math.max(0,n));
   const stops=[0,.185,.351,.672,.88];
   const videoEnd=.97;
+  // Reserve the last part of the existing pinned distance for Tim's final shot.
+  const journeyEnd=.78;
   let queued=false, displayed=0, target=0, lastTick=0, ready=false, video;
   const progress=document.querySelector('.story-progress span');
   function readProgress(){
@@ -24,7 +26,7 @@
     video.className='sequence-video';video.muted=true;video.playsInline=true;video.preload='auto';
     video.setAttribute('aria-hidden','true');video.setAttribute('disablepictureinpicture','');
     video.addEventListener('loadeddata',()=>{ready=true;seek();video.classList.add('ready');schedule()});
-    video.addEventListener('seeked',()=>{seek()});
+    video.addEventListener('seeked',()=>{seek();schedule()});
     video.addEventListener('error',()=>{ready=false;video.remove();video=null;schedule()});
     video.src=src;document.querySelector('.visuals').append(video);
   }
@@ -32,26 +34,34 @@
     queued=false;
     document.querySelector('.header').classList.toggle('scrolled',scrollY>40);
     if(reduced.matches)return;
-    target=readProgress();
+    const scrollProgress=readProgress();
+    target=clamp(scrollProgress/journeyEnd);
     const dt=Math.min(64,lastTick?now-lastTick:16);lastTick=now;
     // Ease wheel/touch impulses into one continuous camera movement.
     // Cap catch-up speed so a large wheel step cannot jump across a whole shot.
-    const easedStep=(target-displayed)*(1-Math.exp(-dt/240));
-    displayed+=Math.max(-dt/4500,Math.min(dt/4500,easedStep));
+    const easedStep=(target-displayed)*(1-Math.exp(-dt/200));
+    displayed+=Math.max(-dt/2200,Math.min(dt/2200,easedStep));
+    // A fast fling may leave the pinned area before the decoder catches up.
+    // Land on the matching final still while the scene is still pinned.
+    const finalLanding=scrollProgress>=.94;
+    if(finalLanding)displayed=1;
     if(Math.abs(target-displayed)<.0005)displayed=target;
-    const active=stops.reduce((current,start,i)=>displayed>=start?i:current,0);
-    const finishOpacity=clamp((displayed-.97)/.03);
+    // Keep captions and the final still attached to the frame actually decoded.
+    const frameProgress=finalLanding?videoEnd:ready&&video&&Number.isFinite(video.duration)
+      ?video.currentTime/Math.max(1/24,video.duration-1/24)*videoEnd:displayed;
+    const active=stops.reduce((current,start,i)=>frameProgress>=start?i:current,0);
+    const finishOpacity=frameProgress>=videoEnd-.002?clamp((displayed-.97)/.03):0;
     visuals.forEach((el,i)=>{
       el.style.opacity=i===4?String(finishOpacity):i===Math.min(active,3)?'1':'0';
       el.style.transform='none';
     });
     copies.forEach((el,i)=>{
       const start=stops[i],end=stops[i+1]??1.1;
-      const opacity=i===active?Math.min(i===0?1:clamp((displayed-start)/.045),clamp((end-displayed)/.045)):0;
+      const opacity=i===active?Math.min(i===0?1:clamp((frameProgress-start)/.045),clamp((end-frameProgress)/.045)):0;
       el.style.opacity=opacity;el.style.transform=`translateY(${(1-opacity)*12}px)`;
       el.setAttribute('aria-hidden',i!==active);
     });
-    progress.style.transform=`scaleX(${displayed})`;
+    progress.style.transform=`scaleX(${scrollProgress})`;
     seek();
     if(displayed!==target)schedule();
   }
@@ -63,7 +73,7 @@
     e.preventDefault();
     scrollBy({top:innerHeight*.35,behavior:'smooth'});
   });
-  displayed=readProgress();schedule();
+  displayed=clamp(readProgress()/journeyEnd);schedule();
   // Reveal each section once; the page remains fully visible without JavaScript.
   if(!reduced.matches&&'IntersectionObserver' in window){
     document.documentElement.classList.add('js');
@@ -167,7 +177,15 @@
     steps.forEach((step,i)=>step.hidden=i!==index);
     markers.forEach((marker,i)=>{marker.classList.toggle('current',i===index);marker.classList.toggle('done',i<index);if(i===index)marker.setAttribute('aria-current','step');else marker.removeAttribute('aria-current')});
     if(index===2)updatePreview();
-    if(focus)document.getElementById(`form-title-${index}`).focus({preventScroll:true});
+    if(focus){
+      const heading=document.getElementById(`form-title-${index}`);
+      heading.focus({preventScroll:true});
+      const rect=heading.getBoundingClientRect();
+      const headerHeight=document.querySelector('.header').offsetHeight;
+      if(rect.top<headerHeight+24||rect.bottom>innerHeight-40){
+        document.querySelector('.inquiry-panel').scrollIntoView({block:'start',behavior:reduced.matches?'instant':'smooth'});
+      }
+    }
   }
   document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>{if(validateCar())showStep(Number(button.dataset.next))}));
   document.querySelectorAll('[data-back]').forEach(button=>button.addEventListener('click',()=>showStep(Number(button.dataset.back))));

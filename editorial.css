@@ -32,3 +32,16 @@
 .comparison-slider{position:relative;aspect-ratio:4/3;overflow:hidden;background:#181818;isolation:isolate}.comparison-slider img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:contain;object-position:center;user-select:none;pointer-events:none}.compare-dirty{clip-path:inset(0 calc(100% - var(--split)) 0 0)}.compare-handle{position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:#fff;transform:translateX(-50%);pointer-events:none;box-shadow:0 0 10px #0005}.compare-handle span{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border:2px solid #fff;border-radius:50%;background:#171717;color:#c9ab77;display:grid;place-items:center;font-size:24px}.comparison-slider .compare-range{position:absolute;inset:0;width:100%;height:100%;padding:0;margin:0;border:0;opacity:0;cursor:ew-resize;touch-action:pan-y}.comparison-slider:focus-within{outline:3px solid #927447;outline-offset:4px}.compare-labels{display:flex;justify-content:space-between;padding-top:14px;font-size:11px;color:#444}.comparison .image-note{line-height:1.8}.contact-intro>p{max-width:370px}
 /* Reach full transparency before every edge, including the short ellipse axis. */
 .scene-right:before{inset:-100px -140px;background:radial-gradient(ellipse closest-side at center,rgba(8,8,8,.72) 0%,rgba(8,8,8,.62) 28%,rgba(8,8,8,.38) 50%,rgba(8,8,8,.14) 72%,rgba(8,8,8,.03) 88%,rgba(8,8,8,0) 100%);pointer-events:none}
+/* Match the video crop when its final frame becomes a still. */
+.visual-finish img{object-position:center 60%}
+.inquiry-panel{scroll-margin-top:100px}
+
+@media(max-width:600px){.visual-finish img{object-position:center 72%}.inquiry-panel{scroll-margin-top:85px}}
+.wish-options label>span{color:#303030}
+.form-step input::placeholder,.form-step textarea::placeholder{color:#6b6b6b}
+/* Keep the complete footage below the fixed navigation on every screen. */
+:root{--hero-header-height:84px}
+.visuals{inset:var(--hero-header-height) 0 0}
+.visual img,.visual video,.sequence-video{width:100%;height:100%;left:0;margin-left:0;object-fit:contain;object-position:center;background:#070a0b}
+@media(max-width:760px){:root{--hero-header-height:72px}}
+@media(max-width:600px){.visual img,.visual video,.sequence-video{width:100%;left:0;margin-left:0;object-fit:contain;object-position:center 68%}}
