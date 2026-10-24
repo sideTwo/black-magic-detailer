@@ -14,3 +14,4 @@
 - Keep the hero as one continuous scroll journey without chapter buttons or chapter numbering. Smooth wheel/touch impulses without increasing the short scroll distance.
 - Complete the film within the first 78% of the pinned distance and hold Tim before release. Keep footage below the fixed header and fill the frame without side bars. Desktop uses cover with vertical position 20%; mobile uses a full-height portrait crop with smooth subject tracking (Tim at 42% horizontal position). Keep the head and polisher visible and place final mobile text below the face.
 - Use inline SVG for arrows and decorative icons; Unicode arrows can render as colorful emoji on iOS. Keep SVG icons aria-hidden with meaningful text or button labels.
+- Encode public scroll video as H.264 High, yuv420p, avc1, with faststart and frequent keyframes. Never publish yuv444p/High 4:4:4 Intra for the mobile film. Keep inline muted playback and touch-triggered decoder priming for Safari.

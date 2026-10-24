@@ -12,6 +12,7 @@
   // Reserve the last part of the existing pinned distance for Tim's final shot.
   const journeyEnd=.78;
   let queued=false, displayed=0, target=0, lastTick=0, ready=false, video;
+  let priming=false,primed=false;
   const progress=document.querySelector('.story-progress span');
   function readProgress(){
     return clamp(-story.getBoundingClientRect().top / Math.max(1,story.offsetHeight-document.querySelector('.stage').offsetHeight));
@@ -23,14 +24,32 @@
     if(!video.seeking&&Math.abs(video.currentTime-time)>1/48)video.currentTime=time;
   }
   const src=window.BMD_MEDIA?.sequence;
+  function primeVideo(){
+    if(!video||priming||primed)return;
+    const candidate=video;
+    priming=true;
+    // Safari may defer fetching/decoding until play is requested. This is
+    // silent and inline, and is retried directly from a touch if necessary.
+    const attempt=candidate.play();
+    if(attempt?.then)attempt.then(()=>{
+      candidate.pause();priming=false;
+      if(candidate!==video)return;
+      primed=true;seek();schedule();
+    }).catch(()=>{priming=false});
+    else{candidate.pause();priming=false}
+  }
   if(src&&!reduced.matches){
     video=document.createElement('video');
-    video.className='sequence-video';video.muted=true;video.playsInline=true;video.preload='auto';
+    video.className='sequence-video';video.muted=true;video.defaultMuted=true;video.playsInline=true;video.preload='auto';
+    video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('webkit-playsinline','');
     video.setAttribute('aria-hidden','true');video.setAttribute('disablepictureinpicture','');
     video.addEventListener('loadeddata',()=>{ready=true;seek();video.classList.add('ready');schedule()});
+    video.addEventListener('loadedmetadata',primeVideo);
     video.addEventListener('seeked',()=>{seek();schedule()});
     video.addEventListener('error',()=>{ready=false;video.remove();video=null;schedule()});
-    video.src=src;document.querySelector('.visuals').append(video);
+    video.src=src;document.querySelector('.visuals').append(video);video.load();
+    story.addEventListener('pointerdown',primeVideo,{passive:true});
+    story.addEventListener('touchend',primeVideo,{passive:true});
   }
   function render(now){
     queued=false;
