@@ -67,32 +67,111 @@
     if(reduced.matches)return;e.preventDefault();chapters[1].click();
   });
   displayed=readProgress();schedule();
-  const dialog=document.getElementById('inquiry');
-  const form=document.getElementById('inquiry-form');
-  const result=document.getElementById('message-result');
-  const status=document.getElementById('copy-status');
-  let opener;
-  document.querySelectorAll('[data-contact]').forEach(button=>button.addEventListener('click',()=>{
-    opener=button;form.hidden=false;result.hidden=true;status.textContent='';
-    document.getElementById('service').value=button.dataset.service||'Ich wünsche mir eine Beratung';
-    dialog.showModal();document.body.classList.add('modal-open');
-  }));
-  dialog.querySelector('.close').addEventListener('click',()=>dialog.close());
-  dialog.addEventListener('click',e=>{const r=dialog.getBoundingClientRect();if(e.target===dialog&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))dialog.close()});
-  dialog.addEventListener('close',()=>{document.body.classList.remove('modal-open');opener?.focus()});
-  form.addEventListener('submit',e=>{
-    e.preventDefault();const data=new FormData(form);const car=String(data.get('car')).trim();
-    if(!car){document.getElementById('car').setCustomValidity('Bitte gib dein Fahrzeug ein.');document.getElementById('car').reportValidity();return;}
-    const wish=String(data.get('wish')).trim();
-    document.getElementById('message').value=`Hi Tim! Ich interessiere mich für eine Aufbereitung bei Black Magic Detailer.\n\nMein Fahrzeug: ${car}\nInteresse: ${data.get('service')}${wish?'\nMein Wunsch: '+wish:''}\n\nKönnen wir die Möglichkeiten und einen Termin besprechen?`;
-    form.hidden=true;result.hidden=false;document.getElementById('message').focus();
-  });
-  document.getElementById('car').addEventListener('input',e=>e.target.setCustomValidity(''));
-  document.getElementById('copy-message').addEventListener('click',async()=>{
-    const msg=document.getElementById('message');
-    try{await navigator.clipboard.writeText(msg.value);status.textContent='Kopiert. Öffne Instagram und füge die Nachricht im Chat mit Tim ein.'}
-    catch{msg.select();status.textContent='Bitte den markierten Text manuell kopieren.'}
-  });
-  document.getElementById('edit-message').addEventListener('click',()=>{result.hidden=true;form.hidden=false;document.getElementById('car').focus()});
-})();
+  // Reveal each section once; the page remains fully visible without JavaScript.
+  if(!reduced.matches&&'IntersectionObserver' in window){
+    document.documentElement.classList.add('js');
+    const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(entry.isIntersecting){entry.target.classList.add('visible');reveal.unobserve(entry.target)}
+    }),{threshold:.08});
+    document.querySelectorAll('.reveal').forEach(el=>reveal.observe(el));
+  }
+  const menu=document.querySelector('.menu-toggle'),nav=document.getElementById('site-nav');
+  function closeMenu(){menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Menü öffnen');nav.classList.remove('open')}
+  menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Menü schließen':'Menü öffnen');nav.classList.toggle('open',open)});
+  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+  addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
 
+  const serviceTabs=[...document.querySelectorAll('[data-service-tab]')];
+  function selectService(index,focus=false){
+    serviceTabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=i!==index});
+    if(focus)serviceTabs[index].focus();
+  }
+  serviceTabs.forEach((tab,i)=>{
+    tab.addEventListener('click',()=>selectService(i));
+    tab.addEventListener('keydown',e=>{
+      let next;
+      if(e.key==='ArrowDown'||e.key==='ArrowRight')next=(i+1)%serviceTabs.length;
+      if(e.key==='ArrowUp'||e.key==='ArrowLeft')next=(i+serviceTabs.length-1)%serviceTabs.length;
+      if(e.key==='Home')next=0;if(e.key==='End')next=serviceTabs.length-1;
+      if(next!==undefined){e.preventDefault();selectService(next,true)}
+    });
+  });
+
+  const gallery=document.getElementById('project-gallery');
+  const galleryImage=document.getElementById('gallery-image');
+  const photos=[
+    ['mercedes-feature','Das fertige Fahrzeug.','Weißer Mercedes-Benz 190 E nach der Aufbereitung'],
+    ['mercedes-front','Ein Klassiker mit Charakter.','Mercedes von schräg vorne vor einem historischen Gebäude'],
+    ['mercedes-rear','Das Finish aus einem anderen Blickwinkel.','Heck des aufbereiteten Mercedes'],
+    ['mercedes-paint','Lichtreflexionen auf der Motorhaube.','Weiße Motorhaube mit klaren Lichtreflexionen'],
+    ['mercedes-interior','Wieder gern einsteigen.','Aufbereiteter Mercedes-Innenraum mit karierten Stoffsitzen'],
+    ['detail-after','Sorgfalt bis in die Tankmulde.','Gereinigte Tankmulde am Mercedes'],
+    ['mercedes-profile','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes']
+  ];
+  let photoIndex=0,galleryOpener;
+  function showPhoto(index){
+    photoIndex=(index+photos.length)%photos.length;
+    const [file,caption,alt]=photos[photoIndex];
+    galleryImage.src=`assets/projects/${file}.webp`;galleryImage.alt=alt;
+    document.getElementById('gallery-caption').textContent=caption;
+    document.getElementById('gallery-count').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;
+  }
+  document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{galleryOpener=button;showPhoto(Number(button.dataset.gallery));gallery.showModal();document.body.classList.add('modal-open')}));
+  document.getElementById('gallery-prev').addEventListener('click',()=>showPhoto(photoIndex-1));
+  document.getElementById('gallery-next').addEventListener('click',()=>showPhoto(photoIndex+1));
+  gallery.querySelector('.gallery-close').addEventListener('click',()=>gallery.close());
+  gallery.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();showPhoto(photoIndex+1)}if(e.key==='ArrowLeft'){e.preventDefault();showPhoto(photoIndex-1)}});
+  gallery.addEventListener('click',e=>{const r=gallery.getBoundingClientRect();if(e.target===gallery&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))gallery.close()});
+  gallery.addEventListener('close',()=>{document.body.classList.remove('modal-open');galleryOpener?.focus()});
+
+  const form=document.getElementById('inquiry-form');
+  const car=document.getElementById('car');
+  const steps=[...document.querySelectorAll('[data-form-step]')];
+  const markers=[...document.querySelectorAll('.form-progress li')];
+  const status=document.getElementById('copy-status');
+  const phone='4917630595942';
+  function validateCar(){
+    const valid=car.value.trim().length>0;
+    car.setAttribute('aria-invalid',String(!valid));
+    document.getElementById('car-error').textContent=valid?'':'Bitte gib die Marke und das Modell deines Autos ein.';
+    if(!valid)car.focus();return valid;
+  }
+  function messageText(){
+    const data=new FormData(form),services=data.getAll('services');
+    const name=String(data.get('name')||'').trim(),year=String(data.get('year')||'').trim(),wish=String(data.get('wish')||'').trim();
+    return `Hi Tim!${name?' Ich bin '+name+'.':''} Ich interessiere mich für eine Aufbereitung bei Black Magic Detailer.\n\nFahrzeug: ${car.value.trim()}${year?' (Baujahr '+year+')':''}\nZustand: ${data.get('condition')}\nInteresse: ${services.length?services.join(', '):'Persönliche Beratung'}${wish?'\nMein Wunsch: '+wish:''}\n\nKönnen wir die Möglichkeiten und einen Termin besprechen?`;
+  }
+  function updatePreview(){
+    const message=messageText();
+    document.getElementById('message-preview').textContent=message;
+    document.getElementById('whatsapp-link').href=`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    status.textContent='';
+  }
+  function showStep(index,focus=true){
+    steps.forEach((step,i)=>step.hidden=i!==index);
+    markers.forEach((marker,i)=>{marker.classList.toggle('current',i===index);marker.classList.toggle('done',i<index);if(i===index)marker.setAttribute('aria-current','step');else marker.removeAttribute('aria-current')});
+    if(index===2)updatePreview();
+    if(focus)document.getElementById(`form-title-${index}`).focus({preventScroll:true});
+  }
+  document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>{if(validateCar())showStep(Number(button.dataset.next))}));
+  document.querySelectorAll('[data-back]').forEach(button=>button.addEventListener('click',()=>showStep(Number(button.dataset.back))));
+  document.querySelectorAll('[data-contact]').forEach(button=>button.addEventListener('click',()=>{
+    if(button.dataset.service){form.querySelectorAll('[name="services"]').forEach(input=>input.checked=input.value===button.dataset.service)}
+    closeMenu();showStep(0,false);document.getElementById('kontakt').scrollIntoView({behavior:reduced.matches?'instant':'smooth'});
+  }));
+  car.addEventListener('input',()=>{if(car.value.trim()){car.removeAttribute('aria-invalid');document.getElementById('car-error').textContent=''}});
+  document.getElementById('name').addEventListener('input',updatePreview);
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!validateCar()){showStep(0,false);return}
+    const current=steps.findIndex(step=>!step.hidden);
+    if(current<2){showStep(current+1);return}
+    const url=`https://wa.me/${phone}?text=${encodeURIComponent(messageText())}`;
+    window.open(url,'_blank','noopener,noreferrer');
+    status.textContent='Deine Nachricht ist für WhatsApp vorbereitet. Sende sie dort selbst ab.';
+  });
+  document.getElementById('copy-message').addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText(messageText());status.textContent='Nachricht kopiert. Du kannst sie in deinem Chat mit Tim einfügen.'}
+    catch{status.textContent='Kopieren nicht möglich. Markiere den Text in der Vorschau und kopiere ihn manuell.'}
+  });
+})();
