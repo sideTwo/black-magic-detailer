@@ -57,3 +57,6 @@
   .scene-copy[data-copy="4"] h2{font-size:clamp(42px,12vw,62px);line-height:.98}
   .scene-copy[data-copy="4"] p:not(.eyebrow){font-size:11px}
 }
+/* Fill wide screens while keeping the upper part of the subject visible. */
+@media(min-width:601px){.visual img,.visual video,.sequence-video{object-fit:cover;object-position:center 20%}}
+.visual-finish{transition:opacity .35s ease}
