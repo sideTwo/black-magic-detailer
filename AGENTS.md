@@ -7,3 +7,4 @@
 - Keep original footage and personal reference photographs outside this public repository. Publish only assets used by the website.
 - The user requested a complete editorial redesign below the film, using real project photographs, clean sans-serif typography and a guided WhatsApp inquiry. The approved temporary business WhatsApp destination is +49 176 30595942. Send only a prepared message into WhatsApp; never send it automatically.
 - Optimized derivatives of the supplied Mercedes project photos and Tim's portrait are used on the website. Keep their original source files outside this repository. Do not invent additional projects, reviews, prices or certifications.
+`n- Brand direction verified from Instagram on 2026-10-24: black backgrounds, champagne gold accents and silver typography. Preserve this palette and sans-serif typography.
