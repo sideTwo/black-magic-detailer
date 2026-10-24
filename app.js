@@ -6,8 +6,8 @@
   const chapters=[...document.querySelectorAll('[data-chapter]')];
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=n=>Math.min(1,Math.max(0,n));
-  const stops=[0,.19,.36,.69,.89];
-  const videoEnd=.88;
+  const stops=[0,.185,.351,.672,.88];
+  const videoEnd=.97;
   let queued=false, displayed=0, target=0, lastTick=0, ready=false, video;
   const progress=document.querySelector('.story-progress span');
   function readProgress(){
@@ -38,7 +38,7 @@
     displayed+=(target-displayed)*(1-Math.exp(-dt/85));
     if(Math.abs(target-displayed)<.0005)displayed=target;
     const active=stops.reduce((current,start,i)=>displayed>=start?i:current,0);
-    const finishOpacity=clamp((displayed-.86)/.06);
+    const finishOpacity=clamp((displayed-.97)/.03);
     visuals.forEach((el,i)=>{
       el.style.opacity=i===4?String(finishOpacity):i===Math.min(active,3)?'1':'0';
       el.style.transform='none';
