@@ -97,6 +97,25 @@
     });
   });
 
+  const compare=document.querySelector('.compare-range');
+  function updateCompare(){
+    const value=Number(compare.value);
+    compare.parentElement.style.setProperty('--split',`${value}%`);
+    compare.setAttribute('aria-valuetext',`${value} Prozent Vorher, ${100-value} Prozent Nachher`);
+  }
+  compare.addEventListener('input',updateCompare);
+  function moveCompare(e){
+    const rect=compare.getBoundingClientRect();
+    compare.value=Math.round(Math.max(0,Math.min(100,(e.clientX-rect.left)/rect.width*100)));
+    updateCompare();
+  }
+  compare.addEventListener('pointerdown',e=>{
+    if(e.button!==0)return;
+    e.preventDefault();compare.focus({preventScroll:true});compare.setPointerCapture(e.pointerId);moveCompare(e);
+  });
+  compare.addEventListener('pointermove',e=>{if(compare.hasPointerCapture(e.pointerId))moveCompare(e)});
+  compare.addEventListener('pointerup',e=>{if(compare.hasPointerCapture(e.pointerId)){moveCompare(e);compare.releasePointerCapture(e.pointerId)}});
+
   const gallery=document.getElementById('project-gallery');
   const galleryImage=document.getElementById('gallery-image');
   const photos=[
@@ -139,7 +158,7 @@
   function messageText(){
     const data=new FormData(form),services=data.getAll('services');
     const name=String(data.get('name')||'').trim(),year=String(data.get('year')||'').trim(),wish=String(data.get('wish')||'').trim();
-    return `Hi Tim!${name?' Ich bin '+name+'.':''} Ich interessiere mich für eine Aufbereitung bei Black Magic Detailer.\n\nFahrzeug: ${car.value.trim()}${year?' (Baujahr '+year+')':''}\nZustand: ${data.get('condition')}\nInteresse: ${services.length?services.join(', '):'Persönliche Beratung'}${wish?'\nMein Wunsch: '+wish:''}\n\nKönnen wir die Möglichkeiten und einen Termin besprechen?`;
+    return `Hi Tim!${name?' Ich bin '+name+'.':''} Ich interessiere mich für eine Aufbereitung bei Black Magic Detailer.\n\nFahrzeug: ${car.value.trim()}${year?' (Baujahr '+year+')':''}\nZustand: ${data.get('condition')}\nInteresse: ${services.length?services.join(', '):'Persönliche Beratung'}${wish?'\nMein Wunsch: '+wish:''}\n\nKönnen wir einen Termin zur Besichtigung meines Autos vereinbaren?`;
   }
   function updatePreview(){
     const message=messageText();
