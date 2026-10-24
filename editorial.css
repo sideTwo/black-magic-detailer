@@ -60,3 +60,7 @@
 /* Fill wide screens while keeping the upper part of the subject visible. */
 @media(min-width:601px){.visual img,.visual video,.sequence-video{object-fit:cover;object-position:center 20%}}
 .visual-finish{transition:opacity .35s ease}
+/* Vector icons are independent of the platform emoji font (including iOS). */
+.ui-icon{display:inline-block;width:1em;height:1em;min-width:14px;min-height:14px;vertical-align:-.14em;flex-shrink:0;pointer-events:none}
+.brand-mark i .ui-icon{min-width:0;min-height:0;vertical-align:0}
+.compare-labels .ui-icon,.back-step .ui-icon,.about-social .ui-icon,.footer-top>div .ui-icon,.contact .section-label a .ui-icon{width:14px;height:14px}
