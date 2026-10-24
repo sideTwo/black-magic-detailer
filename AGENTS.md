@@ -11,3 +11,4 @@
 - Brand direction verified from Instagram on 2026-10-24: black backgrounds, champagne gold accents and silver typography. Preserve this palette and sans-serif typography.
 
 - Tim inspects every car in person before quoting an individual price; no flat rates.
+- Keep the hero as one continuous scroll journey without chapter buttons or chapter numbering. Smooth wheel/touch impulses without increasing the short scroll distance.

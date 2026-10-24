@@ -3,7 +3,6 @@
   const story=document.querySelector('.story');
   const visuals=[...document.querySelectorAll('.visual')];
   const copies=[...document.querySelectorAll('[data-copy]')];
-  const chapters=[...document.querySelectorAll('[data-chapter]')];
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=n=>Math.min(1,Math.max(0,n));
   const stops=[0,.185,.351,.672,.88];
@@ -35,7 +34,10 @@
     if(reduced.matches)return;
     target=readProgress();
     const dt=Math.min(64,lastTick?now-lastTick:16);lastTick=now;
-    displayed+=(target-displayed)*(1-Math.exp(-dt/85));
+    // Ease wheel/touch impulses into one continuous camera movement.
+    // Cap catch-up speed so a large wheel step cannot jump across a whole shot.
+    const easedStep=(target-displayed)*(1-Math.exp(-dt/240));
+    displayed+=Math.max(-dt/4500,Math.min(dt/4500,easedStep));
     if(Math.abs(target-displayed)<.0005)displayed=target;
     const active=stops.reduce((current,start,i)=>displayed>=start?i:current,0);
     const finishOpacity=clamp((displayed-.97)/.03);
@@ -49,8 +51,6 @@
       el.style.opacity=opacity;el.style.transform=`translateY(${(1-opacity)*12}px)`;
       el.setAttribute('aria-hidden',i!==active);
     });
-    chapters.forEach((el,i)=>{el.classList.toggle('active',i===active);el.setAttribute('aria-pressed',i===active)});
-    document.getElementById('chapter-number').textContent=`0${active+1} / 0${stops.length}`;
     progress.style.transform=`scaleX(${displayed})`;
     seek();
     if(displayed!==target)schedule();
@@ -58,13 +58,10 @@
   function schedule(){if(!queued){queued=true;requestAnimationFrame(render)}}
   addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);
   reduced.addEventListener('change',()=>location.reload());
-  chapters.forEach((button,i)=>button.addEventListener('click',()=>{
-    const top=story.getBoundingClientRect().top+scrollY;
-    const distance=story.offsetHeight-document.querySelector('.stage').offsetHeight;
-    scrollTo({top:top+distance*(stops[i]+(i? .055:0)),behavior:reduced.matches?'instant':'smooth'});
-  }));
   document.querySelector('.scroll-cue').addEventListener('click',e=>{
-    if(reduced.matches)return;e.preventDefault();chapters[1].click();
+    if(reduced.matches)return;
+    e.preventDefault();
+    scrollBy({top:innerHeight*.35,behavior:'smooth'});
   });
   displayed=readProgress();schedule();
   // Reveal each section once; the page remains fully visible without JavaScript.
