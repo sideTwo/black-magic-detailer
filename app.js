@@ -3,6 +3,8 @@
   const story=document.querySelector('.story');
   const visuals=[...document.querySelectorAll('.visual')];
   const copies=[...document.querySelectorAll('[data-copy]')];
+  const visualStage=document.querySelector('.visuals');
+  const portrait=matchMedia('(max-width: 600px)');
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const clamp=n=>Math.min(1,Math.max(0,n));
   const stops=[0,.185,.351,.672,.88];
@@ -50,6 +52,15 @@
     const frameProgress=finalLanding?videoEnd:ready&&video&&Number.isFinite(video.duration)
       ?video.currentTime/Math.max(1/24,video.duration-1/24)*videoEnd:displayed;
     const active=stops.reduce((current,start,i)=>frameProgress>=start?i:current,0);
+    // Follow the subject in a portrait crop instead of shrinking the film
+    // into a landscape strip. Interpolate to avoid reframing jumps.
+    if(portrait.matches){
+      const focus=[60,55,40,48,42];
+      const next=Math.min(active+1,focus.length-1);
+      const mix=clamp((frameProgress-stops[active])/((stops[next]??1)-stops[active]||1));
+      const eased=mix*mix*(3-2*mix);
+      visualStage.style.setProperty('--film-focus-x',`${focus[active]+(focus[next]-focus[active])*eased}%`);
+    }
     const finishOpacity=frameProgress>=videoEnd-.002?clamp((displayed-.97)/.03):0;
     visuals.forEach((el,i)=>{
       el.style.opacity=i===4?String(finishOpacity):i===Math.min(active,3)?'1':'0';

@@ -12,4 +12,4 @@
 
 - Tim inspects every car in person before quoting an individual price; no flat rates.
 - Keep the hero as one continuous scroll journey without chapter buttons or chapter numbering. Smooth wheel/touch impulses without increasing the short scroll distance.
-- Complete the film within the first 78% of the pinned distance and hold Tim before release. Keep the entire video and final still below the fixed header using contain; do not crop the top of Tim.
+- Complete the film within the first 78% of the pinned distance and hold Tim before release. Keep footage below the fixed header. Desktop uses contain; mobile uses a full-height portrait crop with smooth subject tracking (Tim at 42% horizontal position). Keep the head and polisher visible and place final text below the face.

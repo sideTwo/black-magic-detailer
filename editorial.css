@@ -45,3 +45,15 @@
 .visual img,.visual video,.sequence-video{width:100%;height:100%;left:0;margin-left:0;object-fit:contain;object-position:center;background:#070a0b}
 @media(max-width:760px){:root{--hero-header-height:72px}}
 @media(max-width:600px){.visual img,.visual video,.sequence-video{width:100%;left:0;margin-left:0;object-fit:contain;object-position:center 68%}}
+/* Portrait screens keep the same immersive film and overlay typography. */
+@media(max-width:600px){
+  .visuals{--film-focus-x:60%}
+  .visual img,.visual video,.sequence-video{object-fit:cover;object-position:var(--film-focus-x) center}
+  .scene-copy{top:calc(var(--hero-header-height) + 40px);max-width:88%}
+  .scene-copy h1{font-size:clamp(58px,17vw,84px)}
+  .scene-right{top:calc(var(--hero-header-height) + 40px);left:6%;right:auto;max-width:88%}
+  .scene-right:before{display:block;inset:-75px -95px}
+  .scene-copy[data-copy="4"]{top:auto;bottom:14%;left:auto;right:6%;max-width:78%}
+  .scene-copy[data-copy="4"] h2{font-size:clamp(42px,12vw,62px);line-height:.98}
+  .scene-copy[data-copy="4"] p:not(.eyebrow){font-size:11px}
+}
