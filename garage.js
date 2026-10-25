@@ -82,7 +82,7 @@
     selected = key; opener = source;
     launchers.forEach(button => button.classList.toggle('selected', button.dataset.garageService === key));
     document.querySelector('#film-eyebrow').textContent = service.eyebrow;
-    document.querySelector('#film-service-title').textContent = service.title;
+    document.querySelector('#film-service-title').textContent = service.title.replace('Außenwäsche', 'Außen\u200bwäsche');
     document.querySelector('#film-service-copy').textContent = service.description;
     contact.dataset.service = service.service;
     contact.querySelector('.film-contact-label').textContent = `${service.title} anfragen`;
