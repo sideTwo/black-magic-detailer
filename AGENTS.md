@@ -15,3 +15,9 @@
 - Complete the film within the first 78% of the pinned distance and hold Tim before release. Keep footage below the fixed header and fill the frame without side bars. Desktop uses cover with vertical position 20%; mobile uses a full-height portrait crop with smooth subject tracking (Tim at 42% horizontal position). Keep the head and polisher visible and place final mobile text below the face.
 - Use inline SVG for arrows and decorative icons; Unicode arrows can render as colorful emoji on iOS. Keep SVG icons aria-hidden with meaningful text or button labels.
 - Encode public scroll video as H.264 High, yuv420p, avc1, with faststart and frequent keyframes. Never publish yuv444p/High 4:4:4 Intra for the mobile film. Keep inline muted playback and touch-triggered decoder priming for Safari.
+
+- Hero controller lives in `hero.js`; other interactions live in `app.js`. Keep them independent so a media failure cannot disable navigation or inquiry.
+- Displays <=600px use `assets/mobile-sequence/` (211 WebP frames, 12 fps, native 720x900) through a canvas, independent of autoplay permissions. Keep no more than 12 decoded images in memory; prioritize the requested frame and stop speculative requests while offscreen/hidden. Desktop retains the compatible H.264 video with a stalled-seek fallback to stills.
+- Mobile crop follows [60,55,26,26,48,42,42] at progress [0,.185,.351,.55,.672,.88,.97], keeping the polisher in view; synchronize generated crops and hero.js.
+- Use local WOFF2 fonts; quality.css holds readability, touch, small-screen and media refinements. Preserve 16px form fields on mobile. Check overflow at 320px and the header at tablet widths.
+- The user confirmed on 2026-10-25 that business address and email are not available yet. Do not fabricate legal or contact details.
