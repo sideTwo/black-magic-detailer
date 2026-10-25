@@ -12,25 +12,25 @@
   <meta property="og:title" content="Black Magic Detailer — Glanz ist kein Zufall.">
   <meta property="og:description" content="Fahrzeugaufbereitung mit Tim in Mannheim und Rhein-Neckar. Entdecke die Arbeit und vereinbare eine persönliche Besichtigung.">
   <meta property="og:url" content="https://sidetwo.github.io/black-magic-detailer/">
-  <meta property="og:image" content="https://sidetwo.github.io/black-magic-detailer/assets/tim-finish-sharp.webp">
+  <meta property="og:image" content="https://sidetwo.github.io/black-magic-detailer/assets/garage/tim-silberne-felgen.webp">
   <meta property="og:image:type" content="image/webp">
-  <meta property="og:image:width" content="1672">
-  <meta property="og:image:height" content="941">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
   <meta property="og:image:alt" content="Tim mit Poliermaschine neben dem weißen BMW Touring — KI-Visualisierung für Black Magic Detailer">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Black Magic Detailer — Glanz ist kein Zufall.">
   <meta name="twitter:description" content="Fahrzeugaufbereitung mit Tim in Mannheim und Rhein-Neckar. Individueller Preis nach persönlicher Besichtigung.">
-  <meta name="twitter:image" content="https://sidetwo.github.io/black-magic-detailer/assets/tim-finish-sharp.webp">
+  <meta name="twitter:image" content="https://sidetwo.github.io/black-magic-detailer/assets/garage/tim-silberne-felgen.webp">
   <meta name="twitter:image:alt" content="Tim mit Poliermaschine neben dem weißen BMW Touring — KI-Visualisierung für Black Magic Detailer">
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/tim-finish-sharp.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/garage/tim-silberne-felgen.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/fonts/manrope-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-condensed.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=garage-14">
-  <link rel="stylesheet" href="editorial.css?v=garage-14">
-  <link rel="stylesheet" href="quality.css?v=garage-14">
-  <link rel="stylesheet" href="garage.css?v=garage-14">
-  <script src="garage-media.js?v=garage-14" defer></script><script src="garage.js?v=garage-14" defer></script><script src="app.js?v=garage-14" defer></script>
+  <link rel="stylesheet" href="styles.css?v=garage-15">
+  <link rel="stylesheet" href="editorial.css?v=garage-15">
+  <link rel="stylesheet" href="quality.css?v=garage-15">
+  <link rel="stylesheet" href="garage.css?v=garage-15">
+  <script src="garage-media.js?v=garage-15" defer></script><script src="garage.js?v=garage-15" defer></script><script src="app.js?v=garage-15" defer></script>
 </head>
 <body>
 <a class="skip" href="#projekte">Zum Inhalt</a>
@@ -45,7 +45,7 @@
       <div class="garage-intro"><p class="eyebrow"><span class="status-dot"></span> DIE DETAILING-GARAGE · MANNHEIM</p><h1 id="garage-title">Black Magic.<br>Bis ins <em>Detail.</em></h1><p>Wähle einen Bereich am Auto.<br>Entdecke die Arbeit dahinter.</p></div>
       <div class="garage-vehicle" aria-hidden="true">BMW G31<span>WHITE TOURING</span></div>
     <div class="garage-photo">
-      <img class="garage-image" src="assets/tim-finish-sharp.webp" alt="Tim mit schwarzen Handschuhen und Poliermaschine neben dem weißen BMW Touring – KI-Visualisierung" width="1672" height="941" fetchpriority="high" decoding="async">
+      <img class="garage-image" src="assets/garage/tim-silberne-felgen.webp" alt="Tim mit schwarzen Handschuhen und Poliermaschine neben dem weißen BMW Touring – KI-Visualisierung" width="1600" height="900" fetchpriority="high" decoding="async">
       <div class="garage-shade" aria-hidden="true"></div>
       <div class="garage-hotspots" aria-label="Bereiche am Fahrzeug"><button class="garage-pin " type="button" data-garage-service="polish" data-x="0.64" data-y="0.485" aria-label="Polieren am Auto entdecken"><span class="pin-dot" aria-hidden="true"></span><span class="pin-label">Polieren</span></button>
 <button class="garage-pin " type="button" data-garage-service="wheels" data-x="0.485" data-y="0.68" aria-label="Felgen am Auto entdecken"><span class="pin-dot" aria-hidden="true"></span><span class="pin-label">Felgen</span></button>
@@ -69,8 +69,15 @@
       <div class="cinema-content"><div class="film-screen">
         <video id="service-film" controls playsinline webkit-playsinline muted preload="none" aria-label="Film zur Aufbereitung"></video>
         <img id="film-still" src="assets/hood.jpg" alt="" width="1600" height="900" hidden>
+        <div id="film-compare" class="paint-comparison" hidden>
+          <img id="paint-after" alt="KI-Visualisierung: glattes Lackbild nach der Politur" width="1600" height="900">
+          <img id="paint-before" class="paint-before" alt="KI-Visualisierung: feine Waschspuren vor der Politur" width="1600" height="900">
+          <span class="paint-before-label">VORHER</span><span class="paint-after-label">NACHHER</span>
+          <div class="paint-divider" aria-hidden="true"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12h18M8 7l-5 5 5 5m8-10 5 5-5 5"/></svg></span></div>
+          <input id="paint-range" type="range" min="0" max="100" value="50" aria-label="Lackbild vor und nach der Politur vergleichen" aria-valuetext="50 Prozent Vorher, 50 Prozent Nachher">
+        </div>
         <button id="film-play" class="film-play" type="button" aria-label="Film abspielen" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4v16l12-8Z"/></svg></button>
-        <div class="film-pending" id="film-pending" hidden><span class="micro">DER NÄCHSTE EINBLICK</span><p id="film-pending-text"></p></div>
+        <div class="film-pending" id="film-pending" hidden><span class="micro">KI-VISUALISIERUNG</span><p id="film-pending-text"></p></div>
         <div class="film-error" id="film-error" role="status" hidden><p>Der Film konnte nicht geladen werden.</p><button type="button" id="film-retry">Erneut versuchen</button></div>
       </div><div class="film-caption"><div><h3 id="film-title" aria-live="polite">Die Politur</h3><p id="film-description"></p></div><span class="film-caption-label">BLACK MAGIC DETAILER</span></div></div>
     </div>

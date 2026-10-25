@@ -14,6 +14,8 @@
   const error = document.querySelector('#film-error');
   const steps = document.querySelector('#film-steps');
   const contact = document.querySelector('#film-contact');
+  const comparison = document.querySelector('#film-compare');
+  const paintRange = document.querySelector('#paint-range');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let selected = 'polish', currentStep = 0, opener, revision = 0, layoutQueued = false;
 
@@ -21,8 +23,9 @@
   function layout() {
     layoutQueued = false;
     const width = scene.clientWidth, height = scene.clientHeight;
-    const scale = Math.max(width / 1672, height / 941);
-    const renderedWidth = 1672 * scale, renderedHeight = 941 * scale;
+    const sourceWidth = Number(car.getAttribute('width')), sourceHeight = Number(car.getAttribute('height'));
+    const scale = Math.max(width / sourceWidth, height / sourceHeight);
+    const renderedWidth = sourceWidth * scale, renderedHeight = sourceHeight * scale;
     const focusX = width <= 600 ? .54 : .5;
     const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * .2;
     car.style.objectPosition = `${focusX * 100}% 20%`;
@@ -51,10 +54,17 @@
     currentStep = index;
     const step = service.steps[index];
     releaseFilm();
-    error.hidden = true; pending.hidden = Boolean(step.video); play.hidden = true;
+    const hasComparison = Boolean(step.before && step.after);
+    error.hidden = true; pending.hidden = Boolean(step.video) || hasComparison; play.hidden = true;
     video.hidden = !step.video;
-    document.querySelector('#film-still').hidden = Boolean(step.video);
+    document.querySelector('#film-still').hidden = Boolean(step.video) || hasComparison;
     document.querySelector('#film-still').src = step.poster;
+    comparison.hidden = !hasComparison;
+    if (hasComparison) {
+      document.querySelector('#paint-before').src = step.before;
+      document.querySelector('#paint-after').src = step.after;
+      paintRange.value = 50; updatePaint();
+    }
     document.querySelector('#film-title').textContent = step.title;
     document.querySelector('#film-description').textContent = step.description;
     document.querySelector('#film-pending-text').textContent = step.pending || '';
@@ -113,6 +123,28 @@
   video.addEventListener('loadstart', () => play.setAttribute('aria-label', 'Film abspielen'));
   video.addEventListener('error', () => { if (video.getAttribute('src')) { error.hidden = false; play.hidden = true; } });
   document.querySelector('#film-retry').addEventListener('click', () => setStep(currentStep));
+  function updatePaint() {
+    const value = Number(paintRange.value);
+    comparison.style.setProperty('--split', `${value}%`);
+    paintRange.setAttribute('aria-valuetext', `${value} Prozent Vorher, ${100 - value} Prozent Nachher`);
+    comparison.querySelector('.paint-before-label').hidden = value < 8;
+    comparison.querySelector('.paint-after-label').hidden = value > 92;
+  }
+  paintRange.addEventListener('input', updatePaint);
+  function movePaint(event) {
+    const rect = paintRange.getBoundingClientRect();
+    paintRange.value = Math.round(Math.max(0, Math.min(100, (event.clientX - rect.left) / rect.width * 100)));
+    updatePaint();
+  }
+  paintRange.addEventListener('pointerdown', event => {
+    if (event.button !== 0) return;
+    event.preventDefault(); paintRange.focus({ preventScroll: true });
+    paintRange.setPointerCapture(event.pointerId); movePaint(event);
+  });
+  paintRange.addEventListener('pointermove', event => { if (paintRange.hasPointerCapture(event.pointerId)) movePaint(event); });
+  paintRange.addEventListener('pointerup', event => {
+    if (paintRange.hasPointerCapture(event.pointerId)) { movePaint(event); paintRange.releasePointerCapture(event.pointerId); }
+  });
   document.addEventListener('visibilitychange', () => { if (document.hidden) video.pause(); });
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => {
     if (!entries[0].isIntersecting) video.pause();
