@@ -1,4 +1,4 @@
-// Replace null videos with approved Artlist films as they become available.
+// All treatment films are silent web exports; the paint view is a comparison.
 window.BMD_GARAGE = {
   polish: {
     title: 'Polieren', eyebrow: 'LACKAUFBEREITUNG', service: 'Lackaufbereitung',
@@ -12,17 +12,17 @@ window.BMD_GARAGE = {
   wheels: {
     title: 'Felgen', eyebrow: 'FELGENREINIGUNG', service: 'Felgenreinigung',
     description: 'Sorgfalt bis zwischen die Speichen. Felgenreinigung mit Schaum, passender Bürste und dem Blick fürs Detail.',
-    steps: [{ title: 'Bis zwischen die Speichen.', label: 'Felgen', video: null, poster: 'assets/garage/felgen.webp', description: 'Felgenschaum und eine weiche Bürste lösen Schmutz auch an schwer erreichbaren Stellen.', pending: 'Der Film zur Felgenreinigung folgt.' }]
+    steps: [{ title: 'Bis zwischen die Speichen.', label: 'Felgen', video: 'assets/garage/felgen-film.mp4', poster: 'assets/garage/felgen.webp', description: 'Felgenschaum und eine weiche Bürste lösen Schmutz auch an schwer erreichbaren Stellen.' }]
   },
   leather: {
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
     description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
-    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: null, poster: 'assets/garage/leder.webp', description: 'Sorgfältige Reinigung und Pflege, passend zum Leder deines Fahrzeugs.', pending: 'Der Film zur Lederaufbereitung folgt.' }]
+    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-film.mp4', poster: 'assets/garage/leder.webp', description: 'Sorgfältige Reinigung und Pflege, passend zum Leder deines Fahrzeugs.' }]
   },
   wash: {
     title: 'Außenwäsche', eyebrow: 'SNOW FOAM', service: 'Außenwäsche',
     description: 'Der Anfang eines guten Finishs. Gründliche Vorreinigung und eine schonende Wäsche des Fahrzeugs.',
-    steps: [{ title: 'Ein guter Anfang. Schicht für Schicht.', label: 'Snow Foam', video: null, poster: 'assets/garage/snow-foam.webp', description: 'Eine Schicht Snow Foam als Teil der sorgfältigen Vorbereitung auf die Fahrzeugwäsche.', pending: 'Der Snow-Foam-Film folgt.' }]
+    steps: [{ title: 'Ein guter Anfang. Schicht für Schicht.', label: 'Snow Foam', video: 'assets/garage/snow-foam-film.mp4', poster: 'assets/garage/snow-foam.webp', description: 'Eine Schicht Snow Foam als Teil der sorgfältigen Vorbereitung auf die Fahrzeugwäsche.' }]
   },
   ceramic: {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
