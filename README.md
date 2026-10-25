@@ -1,29 +1,25 @@
 # Black Magic Detailer
 
-Website-Entwurf für Tim Rupprecht, Mannheim / Rhein-Neckar.
+Website-Entwurf für Tim Rupprecht, Mannheim / Rhein-Neckar. Statische Website ohne Build-Schritt, veröffentlicht über GitHub Pages (main, Stammverzeichnis).
 
-Statische Website mit einer scrollgesteuerten BMW-, Motorhauben-, Politur- und Wasserperlen-Sequenz sowie einem Abschlussbild von Tim. Die Scrollstrecke bleibt bei 1,8 Bildschirmhöhen auf Desktop und 1,6 auf Mobilgeräten. Läuft ohne Build-Schritt direkt auf GitHub Pages.
+## Interaktive Garage
 
-Der Bereich unter dem Film zeigt ein echtes Mercedes-Benz-190-E-Projekt mit sieben Bildern in einer Galerie, Vorher/Nachher-Details, auswählbaren Leistungen und Tims Originalporträt. Film und Keramikmotiv sind KI-Visualisierungen; Projektfotos und Porträt sind Originalaufnahmen.
+Das frühere Endbild von Tim neben dem BMW ist nun der Einstieg. Bereiche am Fahrzeug und das darunterliegende Menü öffnen einzelne Filme: Polieren, Felgen, Leder, Außenwäsche und Keramik. Die Startseite scrollt normal; Videos laufen nach dem Anklicken in Echtzeit. Es gibt keine Scroll-Steuerung und keinen festgehaltenen Filmabschnitt.
 
-Die Anfrage führt in drei Schritten durch Fahrzeug, Wünsche und Nachrichtenvorschau. Sie öffnet WhatsApp mit einem vorbereiteten Text an die vom Auftraggeber angegebene Nummer +49 176 30595942. Es werden keine Formulardaten auf einem Server gespeichert und keine Nachrichten automatisch gesendet. Die Anfrage reserviert keinen Termin. Die Nummer steht in `app.js` und den direkten WhatsApp-Links in `index.html`.
+`garage-media.js` enthält die Filme und Beschreibungen. Unter Polieren lassen sich Politur, Lackbild und Keramik wählen. `garage.js` steuert die Bildmarkierungen und den modalen Player. `garage.css` enthält die Gestaltung.
 
-Tim trägt im filmischen Abschlussbild schwarze Handschuhe und steht nahe am vorderen Rad. Die letzte brauchbare Rückfahrt aus dem bestätigten Clip wird durch einen kurzen Lichtübergang eingebunden; das Schlussbild stammt aus dem scharfen Original. Die Korrektur der Tattoos im Politur-Clip wartet noch auf Referenzbilder.
+Die vorhandene Politur und das Wasserperlen-Video werden als H.264 High/yuv420p, avc1, faststart abgespielt. Dateien werden erst bei Auswahl geladen; beim Schließen und Wechseln wird die Quelle freigegeben. Inline-Wiedergabe, native Video-Steuerung, Wiederholen, Fehlerhinweis und erneutes Laden werden unterstützt.
 
-## Entwicklung
+Noch zu liefern: Artlist-Filme für Felgen, Leder und Snow Foam sowie ein passendes Lackbild vor/nach der Politur. Die Einträge mit `video: null` sind offen als noch folgend markiert. Eine komplette Anleitung mit Bild- und Video-Prompts liegt im übergeordneten Projektordner in `ARTLIST-GARAGE-CLIPS.txt`.
 
-`index.html`, `styles.css`, `editorial.css`, `quality.css`, `hero.js`, `app.js` und `media-config.js` liegen direkt im Projektstamm. `styles.css` enthält die Basis des Filmeinstiegs; `editorial.css` gestaltet den neuen Projekt-, Leistungs- und Kontaktbereich. Medien liegen in `assets/`. Manrope und Barlow Condensed werden lokal geladen; ihre Lizenztexte liegen in `assets/fonts/`.
+Die alte Scroll-Implementierung und ihre Medien bleiben in der Versionsgeschichte und vorerst im Repository, werden vom aktuellen HTML jedoch nicht mehr eingebunden oder geladen.
 
-Die Galerie unterstützt Pfeiltasten und Escape, die Leistungsauswahl ebenfalls Pfeiltasten. Animationen berücksichtigen `prefers-reduced-motion`. Das Formular ist ohne JavaScript über einen direkten WhatsApp-Link erreichbar.
+## Weitere Inhalte und Anfrage
 
-GitHub Pages: Branch `main`, Ordner `/`.
+Echtes Mercedes-Benz-190-E-Projekt mit Galerie und Vorher/Nachher-Regler, Leistungen, Originalporträt und geführte Anfrage. `app.js` steuert diese Bereiche. Die Anfrage öffnet WhatsApp mit vorbereitetem Text an die vom Auftraggeber angegebene Nummer +49 176 30595942. Es werden keine Nachrichten automatisch gesendet oder Formulardaten auf einem Server gespeichert. Tim besichtigt das Fahrzeug persönlich, bevor er einen individuellen Preis nennt.
 
+Garage und Filme sind KI-Visualisierungen, Projektfotos und Porträt Originalaufnahmen. Geschäftliche Anschrift und E-Mail für die vollständigen Firmenangaben fehlen noch.
 
-## Medien und Qualität
+Manrope und Barlow Condensed werden als lokale WOFF2-Dateien geladen, ihre Lizenzen liegen in assets/fonts. Farbwelt: Schwarz, Champagnergold und Silber. Pfeile sind SVG.
 
-Auf schmalen Displays bis 600 px zeichnet `hero.js` dieselbe Fahrt aus 211 WebP-Einzelbildern auf eine Canvas. Die Portraitsequenz benötigt insgesamt 3,79 MB statt 14,99 MB Video. Angefragte Bilder haben Vorrang; höchstens zwölf Bilder bleiben dekodiert im Cache. Die Poliermaschine bleibt im mobilen Ausschnitt sichtbar. Auf größeren Displays wird das H.264-Video (High, yuv420p, faststart) verwendet; bei Decoderfehlern oder ausbleibenden Seek-Antworten bleiben die Standbilder als Rückfallebene erhalten. Die kurze Scrollstrecke und der abschließende Halt bleiben unverändert.
-
-Bei reduzierter Bewegung wird kein Film/keine Bildfolge geladen. Ein Wechsel der Systemeinstellung lädt die Seite nicht neu und erhält Formulareingaben. Schriftdateien werden lokal als WOFF2 geladen. Bildabmessungen sind im HTML angegeben; Inhalte unterhalb des Einstiegs laden ihre Bilder verzögert.
-
-Geprüft: schmale Ansichten ab 320 px, mobile Fahrt vorwärts/rückwärts und Schlussbild, Desktop-Video, Menüfokus, Galerie per Tastatur, Vergleichsregler, Leistungs-Tabs und Formular einschließlich WhatsApp-URL ohne Versand. Die Browserprüfung ersetzt keinen Test auf einem physischen iPhone. Geschäftsanschrift und E-Mail für die vollständigen Firmen-/Rechtstexte wurden noch nicht geliefert; es werden keine Daten erfunden.
-`node tests/hero.test.cjs` prüft reduzierte Bewegung, Offline-Rückfall, blockierte Video-Seeks, Medienwechsel und das Endbild bei schnellem Scrollen.
+Aktuelle Integrationsprüfungen: `node tests/garage.test.cjs`. Vor Veröffentlichung zusätzlich Desktop-/Handy-Vorschau, Videowiedergabe, Schließen und Übernahme der Leistung ins Formular prüfen.
