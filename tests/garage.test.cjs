@@ -37,5 +37,9 @@ test('the entry uses the approved Tim image and cannot load the old scroll movie
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
   assert.match(player, /playsinline/);
   assert.match(player, /preload="none"/);
-  assert.doesNotMatch(player, /\bsrc=|\bautoplay\b/);
+  assert.doesNotMatch(player, /\bsrc=/);
+  assert.match(player, /\bloop\b/);
+  assert.match(player, /\bmuted\b/);
+  assert.doesNotMatch(player, /\bcontrols\b/);
+  assert.doesNotMatch(html, /id="film-play"/);
 });

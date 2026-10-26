@@ -26,11 +26,11 @@
   <link rel="preload" href="assets/garage/tim-silberne-felgen.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/fonts/manrope-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-condensed.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=garage-17">
-  <link rel="stylesheet" href="editorial.css?v=garage-17">
-  <link rel="stylesheet" href="quality.css?v=garage-17">
-  <link rel="stylesheet" href="garage.css?v=garage-17">
-  <script src="garage-media.js?v=garage-17" defer></script><script src="garage.js?v=garage-17" defer></script><script src="app.js?v=garage-17" defer></script>
+  <link rel="stylesheet" href="styles.css?v=garage-18">
+  <link rel="stylesheet" href="editorial.css?v=garage-18">
+  <link rel="stylesheet" href="quality.css?v=garage-18">
+  <link rel="stylesheet" href="garage.css?v=garage-18">
+  <script src="garage-media.js?v=garage-18" defer></script><script src="garage.js?v=garage-18" defer></script><script src="app.js?v=garage-18" defer></script>
 </head>
 <body>
 <a class="skip" href="#projekte">Zum Inhalt</a>
@@ -67,7 +67,7 @@
     <div class="cinema-body">
       <div class="cinema-info"><p class="eyebrow" id="film-eyebrow">LACKAUFBEREITUNG</p><h2 id="film-service-title">Polieren</h2><p id="film-service-copy"></p><div class="film-steps" id="film-steps" role="group" aria-label="Einblicke wählen"></div></div>
       <div class="cinema-content"><div class="film-screen">
-        <video id="service-film" controls playsinline webkit-playsinline muted preload="none" aria-label="Film zur Aufbereitung"></video>
+        <video id="service-film" autoplay loop playsinline webkit-playsinline muted preload="none" disablepictureinpicture disableremoteplayback tabindex="-1" aria-label="Animation zur Aufbereitung"></video>
         <img id="film-still" src="assets/hood.jpg" alt="" width="1600" height="900" hidden>
         <div id="film-compare" class="paint-comparison" hidden>
           <img id="paint-after" alt="KI-Visualisierung: glattes Lackbild nach der Politur" width="1600" height="900">
@@ -76,7 +76,6 @@
           <div class="paint-divider" aria-hidden="true"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12h18M8 7l-5 5 5 5m8-10 5 5-5 5"/></svg></span></div>
           <input id="paint-range" type="range" min="0" max="100" value="50" aria-label="Lackbild vor und nach der Politur vergleichen" aria-valuetext="50 Prozent Vorher, 50 Prozent Nachher">
         </div>
-        <button id="film-play" class="film-play" type="button" aria-label="Film abspielen" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4v16l12-8Z"/></svg></button>
         <div class="film-pending" id="film-pending" hidden><span class="micro">KI-VISUALISIERUNG</span><p id="film-pending-text"></p></div>
         <div class="film-error" id="film-error" role="status" hidden><p>Der Film konnte nicht geladen werden.</p><button type="button" id="film-retry">Erneut versuchen</button></div>
       </div><div class="film-caption"><div><h3 id="film-title" aria-live="polite">Die Politur</h3><p id="film-description"></p></div><span class="film-caption-label">BLACK MAGIC DETAILER</span></div></div>
