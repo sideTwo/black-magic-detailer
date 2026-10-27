@@ -17,8 +17,9 @@ window.BMD_GARAGE = {
   },
   leather: {
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
+    approach: 'assets/garage/leder-kamerafahrt-v2.mp4',
     description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
-    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-nah-film.mp4', poster: 'assets/garage/leder-nah.webp', description: 'Sorgfältige Reinigung und Pflege, passend zum Leder deines Fahrzeugs.' }]
+    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-pflege-v1.mp4', poster: 'assets/garage/leder-pflege-v1.webp', description: 'Sorgfältige Reinigung und Pflege, passend zum Leder deines Fahrzeugs.' }]
   },
   wash: {
     title: 'Außenwäsche', eyebrow: 'SNOW FOAM', service: 'Außenwäsche',

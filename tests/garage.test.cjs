@@ -33,7 +33,7 @@ test('available films and posters exist; pending treatments never claim a missin
 });
 
 test('the entry uses the approved Tim image and cannot load the old scroll movie', () => {
-  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-tuch-v7.webp"/);
+  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-foto-v11.webp"/);
   assert.doesNotMatch(html, /src="(?:hero|media-config)\.js|class="story"|mobile-sequence/);
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
   assert.match(player, /playsinline/);

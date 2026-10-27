@@ -100,14 +100,14 @@
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
     const target = document.querySelector('.film-screen').getBoundingClientRect();
     const positions = {
-      wheels: [.485, .68, 4.4], polish: [.64, .485, 2.8],
-      leather: [.57, .375, 4.4], wash: [.67, .49, 2.4], ceramic: [.79, .51, 4.8]
+      wheels: [.51, .72, 4.4], polish: [.64, .485, 2.8],
+      leather: [.46, .39, 4.4], wash: [.67, .49, 2.4], ceramic: [.79, .51, 4.8]
     };
     const [x, y, magnification] = positions[key];
     const sw = Number(car.getAttribute('width')), sh = Number(car.getAttribute('height'));
     const cover = Math.max(origin.width / sw, origin.height / sh);
     const width = sw * cover, height = sh * cover;
-    const left = origin.left + (origin.width - width) * (origin.width <= 600 ? .54 : .5);
+    const left = origin.left + (origin.width - width) * (origin.width <= 600 ? .35 : .5);
     const top = origin.top + (origin.height - height) * .2;
     const finalWidth = target.width * magnification, scale = finalWidth / width;
     const dx = target.left + target.width / 2 - x * finalWidth - left;
@@ -135,7 +135,7 @@
     const sourceWidth = Number(car.getAttribute('width')), sourceHeight = Number(car.getAttribute('height'));
     const scale = Math.max(width / sourceWidth, height / sourceHeight);
     const renderedWidth = sourceWidth * scale, renderedHeight = sourceHeight * scale;
-    const focusX = width <= 600 ? .54 : .5;
+    const focusX = width <= 600 ? .35 : .5;
     const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * .2;
     car.style.objectPosition = `${focusX * 100}% 20%`;
     pins.forEach(pin => {
