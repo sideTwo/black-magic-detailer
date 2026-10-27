@@ -20,6 +20,7 @@ test('every garage entry resolves to a configured service and an inquiry option'
 
 test('available films and posters exist; pending treatments never claim a missing movie', () => {
   for (const service of Object.values(services)) {
+    if (service.approach) assert.ok(existsSync(path.join(root, service.approach)), service.approach);
     for (const step of service.steps) {
       assert.ok(existsSync(path.join(root, step.poster)), step.poster);
       if (step.video) assert.ok(existsSync(path.join(root, step.video)), step.video);
@@ -32,7 +33,7 @@ test('available films and posters exist; pending treatments never claim a missin
 });
 
 test('the entry uses the approved Tim image and cannot load the old scroll movie', () => {
-  assert.match(html, /class="garage-image" src="assets\/garage\/tim-silberne-felgen.webp"/);
+  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-tuch-v7.webp"/);
   assert.doesNotMatch(html, /src="(?:hero|media-config)\.js|class="story"|mobile-sequence/);
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
   assert.match(player, /playsinline/);

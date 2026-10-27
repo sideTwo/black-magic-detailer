@@ -22,15 +22,82 @@
   function stopApproach() {
     if (approach) {
       approach.animations.forEach(animation => animation.cancel());
+      approach.timers?.forEach(clearTimeout);
+      if (approach.film) {
+        approach.film.pause(); approach.film.removeAttribute('src'); approach.film.load();
+      }
       approach.layer.remove(); approach = null;
     }
-    dialog.classList.remove('camera-arriving');
+    dialog.classList.remove('camera-arriving', 'camera-filming');
+    dialog.querySelector('.cinema-body').inert = false;
+    dialog.querySelector('.cinema-bottom').inert = false;
+  }
+  function canUseFilmedApproach(service, origin) {
+    return Boolean(service.approach && innerWidth > 760 && !reduced.matches &&
+      origin.bottom > 80 && origin.top < innerHeight - 80);
+  }
+  function filmedApproach(service, origin) {
+    const screen = document.querySelector('.film-screen').getBoundingClientRect();
+    const fittedWidth = Math.min(screen.width, screen.height * 16 / 9);
+    const target = {
+      left: screen.left + (screen.width - fittedWidth) / 2,
+      top: screen.top + (screen.height - fittedWidth * 9 / 16) / 2,
+      width: fittedWidth, height: fittedWidth * 9 / 16
+    };
+    const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
+    layer.setAttribute('aria-hidden', 'true');
+    const film = document.createElement('video');
+    film.muted = true; film.defaultMuted = true; film.playsInline = true;
+    film.controls = false; film.preload = 'auto'; film.disablePictureInPicture = true;
+    film.setAttribute('muted', ''); film.setAttribute('playsinline', '');
+    film.setAttribute('disablepictureinpicture', ''); film.setAttribute('disableremoteplayback', '');
+    film.tabIndex = -1; film.poster = car.currentSrc || car.src;
+    Object.assign(film.style, {left:`${origin.left}px`, top:`${origin.top}px`, width:`${origin.width}px`, height:`${origin.height}px`});
+    layer.append(film); dialog.append(layer); dialog.classList.add('camera-filming');
+    dialog.querySelector('.cinema-body').inert = true;
+    dialog.querySelector('.cinema-bottom').inert = true;
+    const current = {layer, film, animations:[], timers:[], revision}; approach = current;
+    const active = () => approach === current && revision === current.revision && dialog.open;
+    const fallback = () => { if (active()) { stopApproach(); playFilm(); } };
+    const reveal = () => {
+      if (!active()) return;
+      dialog.classList.remove('camera-filming');
+      dialog.querySelector('.cinema-body').inert = false;
+      dialog.querySelector('.cinema-bottom').inert = false;
+      const fade = layer.animate([{opacity:1},{opacity:0}], {duration:220,fill:'both'});
+      current.animations.push(fade);
+      fade.finished.then(() => { if (active()) stopApproach(); }).catch(() => {});
+    };
+    film.addEventListener('playing', () => {
+      if (!active()) return;
+      current.timers.forEach(clearTimeout); current.timers = [];
+      const duration = Number.isFinite(film.duration) ? film.duration : 4;
+      const move = film.animate([
+        {left:`${origin.left}px`,top:`${origin.top}px`,width:`${origin.width}px`,height:`${origin.height}px`,offset:0},
+        {left:`${target.left}px`,top:`${target.top}px`,width:`${target.width}px`,height:`${target.height}px`,offset:1}
+      ], {duration:200,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'});
+      current.animations.push(move);
+      current.animations.push(layer.animate([
+        {backgroundColor:'#080a0b22'}, {backgroundColor:'#080a0b'}
+      ], {duration:200,fill:'both'}));
+      current.timers.push(setTimeout(fallback, (duration + 12) * 1000));
+    }, {once:true});
+    film.addEventListener('ended', () => {
+      if (!active()) return;
+      current.timers.forEach(clearTimeout); current.timers = [];
+      playFilm()?.then(reveal).catch(() => { if (active()) stopApproach(); });
+    }, {once:true});
+    film.addEventListener('error', fallback, {once:true});
+    current.timers.push(setTimeout(fallback, 10000));
+    film.src = service.approach;
+    film.play()?.catch(fallback);
   }
   // Carry the current garage photograph toward the selected part before
   // blending to the film. Coordinates are in the original, uncropped photo.
   function approachService(key, origin) {
     stopApproach();
     if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
+    if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
     const target = document.querySelector('.film-screen').getBoundingClientRect();
     const positions = {
       wheels: [.485, .68, 4.4], polish: [.64, .485, 2.8],
@@ -86,18 +153,22 @@
   }
   function playFilm() {
     if (!video.getAttribute('src')) return;
+    if (document.hidden) return Promise.resolve();
     const attemptRevision = revision;
     video.muted = true;
-    video.play()?.catch(reason => {
+    const playback = video.play();
+    playback?.catch(reason => {
       if (attemptRevision !== revision || !dialog.open || reason.name === 'AbortError') return;
       error.querySelector('p').textContent = 'Tippe einmal, um die Animation zu starten.';
       retry.textContent = 'Animation starten';
       error.hidden = false;
     });
+    return playback;
   }
   function setStep(index, autoplay = true) {
     const service = media[selected];
     if (!service?.steps[index]) return;
+    stopApproach();
     currentStep = index;
     const step = service.steps[index];
     releaseFilm();
@@ -120,6 +191,7 @@
     video.setAttribute('aria-label', `${service.title}: ${step.title}`);
     [...steps.children].forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
     if (step.video) {
+      video.autoplay = autoplay;
       video.src = step.video; video.load();
       if (autoplay) playFilm();
     }
@@ -129,6 +201,7 @@
     if (!service) return;
     const origin = scene.getBoundingClientRect();
     selected = key; opener = source;
+    dialog.classList.toggle('cinema-immersive', Boolean(service.approach && innerWidth > 760));
     launchers.forEach(button => button.classList.toggle('selected', button.dataset.garageService === key));
     document.querySelector('#film-eyebrow').textContent = service.eyebrow;
     document.querySelector('#film-service-title').textContent = service.title.replace('Außenwäsche', 'Außen\u200bwäsche');
@@ -144,7 +217,7 @@
     });
     steps.hidden = service.steps.length < 2;
     if (!dialog.open) dialog.showModal();
-    document.body.classList.add('modal-open'); setStep(0);
+    document.body.classList.add('modal-open'); setStep(0, !canUseFilmedApproach(service, origin));
     approachService(key, origin);
   }
   launchers.forEach(button => {
@@ -160,6 +233,7 @@
   });
   dialog.addEventListener('close', () => {
     stopApproach();
+    dialog.classList.remove('cinema-immersive');
     releaseFilm(); document.body.classList.remove('modal-open');
     if (!dialog.dataset.contactExit) opener?.focus({ preventScroll: true });
     delete dialog.dataset.contactExit;
@@ -203,11 +277,25 @@
     if (paintRange.hasPointerCapture(event.pointerId)) { movePaint(event); paintRange.releasePointerCapture(event.pointerId); }
   });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) video.pause();
-    else if (dialog.open && video.getAttribute('src')) playFilm();
+    if (document.hidden) {
+      video.pause(); approach?.film?.pause();
+      approach?.animations.forEach(animation => animation.pause());
+    }
+    else if (dialog.open) {
+      approach?.animations.forEach(animation => animation.play());
+      if (approach?.film && !approach.film.ended) {
+        const current = approach;
+        current.film.play()?.catch(() => { if (approach === current) { stopApproach(); playFilm(); } });
+      }
+      else if (video.getAttribute('src')) playFilm();
+    }
   });
-  reduced.addEventListener('change', () => { stopApproach(); camera?.cancel(); camera = null; });
-  addEventListener('resize', stopApproach, { passive: true });
+  function cancelApproach() {
+    const wasFilming = Boolean(approach?.film); stopApproach();
+    if (wasFilming && dialog.open) playFilm();
+  }
+  reduced.addEventListener('change', () => { cancelApproach(); camera?.cancel(); camera = null; });
+  addEventListener('resize', cancelApproach, { passive: true });
   if ('ResizeObserver' in window) new ResizeObserver(queueLayout).observe(scene);
   addEventListener('resize', queueLayout, { passive: true });
   const header = document.querySelector('.header');

@@ -60,6 +60,35 @@
 .film-screen>img{opacity:1}
 .camera-flight{position:fixed;inset:0;z-index:10;overflow:hidden;pointer-events:none;background:#080a0b;will-change:clip-path,opacity}
 .camera-flight img{position:absolute;max-width:none;object-fit:fill;transform-origin:0 0;will-change:transform}
+.camera-film{background:#080a0b22}
+.camera-film video{position:absolute;display:block;max-width:none;object-fit:cover;object-position:center 20%;pointer-events:none;user-select:none}
+.camera-film video::-webkit-media-controls{display:none!important}
+.service-cinema.camera-filming{overflow:visible;transform:none;border-color:transparent;background:transparent}
+.camera-filming::backdrop{background:transparent;backdrop-filter:none}
+.camera-filming>.cinema-body,.camera-filming>.cinema-bottom{opacity:0;pointer-events:none}
+.camera-filming>.cinema-top{position:fixed;top:18px;right:20px;z-index:20;background:transparent;border:0;padding:0}
+.camera-filming>.cinema-top .micro{display:none}
+.camera-filming>.cinema-top button{padding:0 16px;background:#080a0be8;border:1px solid #ffffff30}
+@media(min-width:761px){
+  .service-cinema.cinema-immersive{position:fixed;inset:0;width:100vw;max-width:none;height:100svh;max-height:none;margin:0;border:0;overflow:hidden;background:#080a0b}
+  .cinema-immersive>.cinema-top{position:absolute;inset:0 0 auto;z-index:20;padding:16px 24px;border:0;background:linear-gradient(#080a0bc9,transparent);pointer-events:none}
+  .cinema-immersive>.cinema-top button{pointer-events:auto;padding:0 14px;border:1px solid #ffffff30;background:#080a0be8}
+  .cinema-immersive>.cinema-body{display:block;height:100%}
+  .cinema-immersive .cinema-content,.cinema-immersive .film-screen{width:100%;height:100%;aspect-ratio:auto}
+  .cinema-immersive .cinema-content:after{content:'';position:absolute;z-index:2;inset:55% 0 0;background:linear-gradient(transparent,#0009);pointer-events:none}
+  .cinema-immersive .cinema-info{position:absolute;z-index:3;top:90px;left:24px;max-width:250px;padding:0;border:0;pointer-events:none;text-shadow:0 2px 16px #000}
+  .cinema-immersive .cinema-info h2{font-size:38px;margin-bottom:10px}
+  .cinema-immersive .cinema-info>p:last-of-type{display:none}
+  .cinema-immersive .film-caption{position:absolute;z-index:3;left:24px;bottom:82px;max-width:460px;padding:18px 0;text-shadow:0 2px 12px #000}
+  .cinema-immersive .film-caption h3{font-size:19px}
+  .cinema-immersive .film-caption p{color:#ddd}
+  .cinema-immersive .film-caption-label{display:none}
+  .cinema-immersive>.cinema-bottom{position:absolute;z-index:3;bottom:20px;left:24px;right:24px;justify-content:flex-end;padding:0;border:0}
+  .cinema-immersive>.cinema-bottom p{display:none}
+  .cinema-immersive>.cinema-bottom button{padding:12px 16px;background:#080a0be8;border:1px solid #ffffff30}
+  .cinema-immersive.camera-filming{background:transparent}
+  .cinema-immersive.camera-filming>.cinema-top{position:fixed;top:16px;right:24px;bottom:auto;left:auto;padding:0;background:none}
+}
 .service-cinema.camera-arriving{overflow:visible;transform:none;border-color:transparent;background:transparent}
 .camera-arriving::backdrop{animation:garage-darken 1350ms both;backdrop-filter:none}
 .camera-arriving>.cinema-top,.camera-arriving>.cinema-body,.camera-arriving>.cinema-bottom{animation:garage-reveal 1350ms both}

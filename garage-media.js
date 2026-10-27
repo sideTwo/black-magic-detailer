@@ -11,8 +11,9 @@ window.BMD_GARAGE = {
   },
   wheels: {
     title: 'Felgen', eyebrow: 'FELGENREINIGUNG', service: 'Felgenreinigung',
-    description: 'Sorgfalt bis zwischen die Speichen. Felgenreinigung mit Schaum, passender Bürste und dem Blick fürs Detail.',
-    steps: [{ title: 'Bis zwischen die Speichen.', label: 'Felgen', video: 'assets/garage/felgen-nah-film.mp4', poster: 'assets/garage/felgen-nah.webp', description: 'Felgenschaum und eine weiche Bürste lösen Schmutz auch an schwer erreichbaren Stellen.' }]
+    description: 'Sorgfalt bis ins Detail. Vom Felgenreiniger über die Arbeit mit der Bürste bis zum sauberen Ergebnis.',
+    approach: 'assets/garage/felgen-kamerafahrt-v8.mp4',
+    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-ablauf-v4.mp4', poster: 'assets/garage/felgen-ablauf-v4.webp', description: 'Felgenreiniger auftragen, mit einer weichen Bürste einarbeiten und gründlich abspülen. Die Einwirkzeit ist im Film verkürzt dargestellt.' }]
   },
   leather: {
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
