@@ -2,6 +2,7 @@
 window.BMD_GARAGE = {
   polish: {
     title: 'Polieren', eyebrow: 'LACKAUFBEREITUNG', service: 'Lackaufbereitung',
+    approach: 'assets/garage/politur-kamerafahrt-v1.mp4',
     description: 'Vom ersten Polierzug bis zur klaren Reflexion. Entdecke die Arbeit am Lack und das Finish danach.',
     steps: [
       { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-pflege-v1.mp4', poster: 'assets/garage/politur-tattoo.webp', description: 'Eine auf den Lack abgestimmte Politur bringt Klarheit und Farbtiefe zurück.' },
@@ -17,7 +18,7 @@ window.BMD_GARAGE = {
   },
   leather: {
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
-    approach: 'assets/garage/leder-kamerafahrt-v2.mp4',
+    approach: 'assets/garage/leder-kamerafahrt-v3.mp4',
     description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
     steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-pflege-v1.mp4', poster: 'assets/garage/leder-pflege-v1.webp', description: 'Sorgfältige Reinigung und Pflege, passend zum Leder deines Fahrzeugs.' }]
   },
