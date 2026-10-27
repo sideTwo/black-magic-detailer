@@ -78,6 +78,7 @@
   .cinema-immersive .cinema-content:after{content:'';position:absolute;z-index:2;inset:55% 0 0;background:linear-gradient(transparent,#0009);pointer-events:none}
   .cinema-immersive .cinema-info{position:absolute;z-index:3;top:90px;left:24px;max-width:250px;padding:0;border:0;pointer-events:none;text-shadow:0 2px 16px #000}
   .cinema-immersive .cinema-info h2{font-size:38px;margin-bottom:10px}
+  .cinema-immersive .film-steps{pointer-events:auto;margin-top:18px;padding:0 14px;background:#080a0bd9;border:1px solid #ffffff30;text-shadow:none;backdrop-filter:blur(12px)}
   .cinema-immersive .cinema-info>p:last-of-type{display:none}
   .cinema-immersive .film-caption{position:absolute;z-index:3;left:24px;bottom:82px;max-width:460px;padding:18px 0;text-shadow:0 2px 12px #000}
   .cinema-immersive .film-caption h3{font-size:19px}

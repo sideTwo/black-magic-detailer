@@ -4,7 +4,7 @@ window.BMD_GARAGE = {
     title: 'Polieren', eyebrow: 'LACKAUFBEREITUNG', service: 'Lackaufbereitung',
     description: 'Vom ersten Polierzug bis zur klaren Reflexion. Entdecke die Arbeit am Lack und das Finish danach.',
     steps: [
-      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-tattoo-film.mp4', poster: 'assets/garage/politur-tattoo.webp', description: 'Eine auf den Lack abgestimmte Politur bringt Klarheit und Farbtiefe zurück.' },
+      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-pflege-v1.mp4', poster: 'assets/garage/politur-tattoo.webp', description: 'Eine auf den Lack abgestimmte Politur bringt Klarheit und Farbtiefe zurück.' },
       { title: 'Das Lackbild im Vergleich.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher.webp', before: 'assets/garage/lack-vorher.webp', after: 'assets/garage/lack-nachher.webp', description: 'KI-Visualisierung: feine Waschspuren und ein klares Finish im Streiflicht. Ziehe den Regler, um beide Ansichten zu vergleichen.' },
       { title: 'Glanz bleibt. Wasser perlt.', label: 'Keramik', video: 'assets/ceramic-film.mp4', poster: 'assets/ceramic.jpg', description: 'Zum Abschluss: Wasserperlen auf einer hydrophoben Oberfläche.' }
     ]
