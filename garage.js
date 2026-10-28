@@ -108,7 +108,7 @@
     const cover = Math.max(origin.width / sw, origin.height / sh);
     const width = sw * cover, height = sh * cover;
     const left = origin.left + (origin.width - width) * (origin.width <= 600 ? .35 : .5);
-    const top = origin.top + (origin.height - height) * .2;
+    const top = origin.top + (origin.height - height) * (innerWidth > 760 ? .6 : .2);
     const finalWidth = target.width * magnification, scale = finalWidth / width;
     const dx = target.left + target.width / 2 - x * finalWidth - left;
     const dy = target.top + target.height / 2 - y * height * scale - top;
@@ -136,8 +136,9 @@
     const scale = Math.max(width / sourceWidth, height / sourceHeight);
     const renderedWidth = sourceWidth * scale, renderedHeight = sourceHeight * scale;
     const focusX = width <= 600 ? .35 : .5;
-    const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * .2;
-    car.style.objectPosition = `${focusX * 100}% 20%`;
+    const focusY = innerWidth > 760 ? .6 : .2;
+    const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * focusY;
+    car.style.objectPosition = `${focusX * 100}% ${focusY * 100}%`;
     pins.forEach(pin => {
       const x = left + Number(pin.dataset.x) * renderedWidth;
       const y = top + Number(pin.dataset.y) * renderedHeight;
