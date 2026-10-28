@@ -18,6 +18,8 @@ Die alte Scroll-Implementierung und ihre Medien bleiben in der Versionsgeschicht
 
 Echtes Mercedes-Benz-190-E-Projekt mit Galerie und Vorher/Nachher-Regler, Leistungen, Originalporträt und geführte Anfrage. `app.js` steuert diese Bereiche. Die Anfrage öffnet WhatsApp mit vorbereitetem Text an die vom Auftraggeber angegebene Nummer +49 176 30595942. Es werden keine Nachrichten automatisch gesendet oder Formulardaten auf einem Server gespeichert. Tim besichtigt das Fahrzeug persönlich, bevor er einen individuellen Preis nennt.
 
+Der Inhaltsbereich folgt den für Websites passenden Grundlagen der vom Auftraggeber gewählten [Apple Design Skill](https://github.com/dickwu/apple-design-skill): klare Hierarchie, lesbare Texte, vertraute Bedienelemente und zurückhaltende Bewegung. `studio.css` gestaltet die Bereiche nach der Garage mit größeren Originalfotos, zwei direkt erreichbaren Galerieansichten, 17px Fließtext, klarer Leistungswahl und einem dunklen Anfrageformular. Native iOS-Navigation wird nicht imitiert. Der übergroße dekorative Footer-Schriftzug und nicht benötigte Abschnittsnummern sind entfernt. Vergleich, Galerie, Formularvorauswahl und Garage bleiben erhalten. Layout wurde bis 320px sowie mit 200 Prozent Grundschriftgröße geprüft.
+
 Garage und Filme sind KI-Visualisierungen, Projektfotos und Porträt Originalaufnahmen. Geschäftliche Anschrift und E-Mail für die vollständigen Firmenangaben fehlen noch.
 
 Manrope und Barlow Condensed werden als lokale WOFF2-Dateien geladen, ihre Lizenzen liegen in assets/fonts. Farbwelt: Schwarz, Champagnergold und Silber. Pfeile sind SVG.
