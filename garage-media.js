@@ -7,7 +7,7 @@ window.BMD_GARAGE = {
     steps: [
       { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-pflege-v1.mp4', poster: 'assets/garage/politur-tattoo.webp', description: 'Eine auf den Lack abgestimmte Politur bringt Klarheit und Farbtiefe zurück.' },
       { title: 'Das Lackbild im Vergleich.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher.webp', before: 'assets/garage/lack-vorher.webp', after: 'assets/garage/lack-nachher.webp', description: 'KI-Visualisierung: feine Waschspuren und ein klares Finish im Streiflicht. Ziehe den Regler, um beide Ansichten zu vergleichen.' },
-      { title: 'Glanz bleibt. Wasser perlt.', label: 'Keramik', video: 'assets/ceramic-film.mp4', poster: 'assets/ceramic.jpg', description: 'Zum Abschluss: Wasserperlen auf einer hydrophoben Oberfläche.' }
+      { title: 'Wasser perlt. Und läuft ab.', label: 'Keramik', video: 'assets/garage/keramik-abperlen-v2.mp4', poster: 'assets/garage/keramik-abperlen-v2.webp', description: 'Wasser bildet Perlen, die sich verbinden und die geneigte Lackfläche hinunterlaufen.' }
     ]
   },
   wheels: {
@@ -31,6 +31,6 @@ window.BMD_GARAGE = {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
     approach: 'assets/garage/keramik-kamerafahrt-v1.mp4',
     description: 'Ein Finish, das die Pflege leichter macht. Erlebe den Abperleffekt im Detail.',
-    steps: [{ title: 'Glanz bleibt. Wasser perlt.', label: 'Wasserperlen', video: 'assets/ceramic-film.mp4', poster: 'assets/ceramic.jpg', description: 'Die passende Versiegelung bespricht Tim nach der persönlichen Besichtigung deines Autos mit dir.' }]
+    steps: [{ title: 'Wasser perlt. Und läuft ab.', label: 'Wasserperlen', video: 'assets/garage/keramik-abperlen-v2.mp4', poster: 'assets/garage/keramik-abperlen-v2.webp', description: 'Wasserperlen laufen die geneigte Lackfläche hinunter. Die passende Versiegelung bespricht Tim nach der persönlichen Besichtigung mit dir.' }]
   }
 };
