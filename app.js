@@ -1,6 +1,13 @@
 (() => {
   'use strict';
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  function revealKnowledge(){
+    const entry=document.getElementById(location.hash.slice(1));
+    if(entry?.matches('.knowledge-list details')){
+      entry.open=true;entry.querySelector('summary').focus({preventScroll:true});
+    }
+  }
+  addEventListener('hashchange',revealKnowledge);revealKnowledge();
   // Reveal each section once; the page remains fully visible without JavaScript.
   if(!reduced.matches&&'IntersectionObserver' in window){
     document.documentElement.classList.add('js');

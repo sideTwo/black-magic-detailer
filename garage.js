@@ -14,11 +14,12 @@
   const retry = document.querySelector('#film-retry');
   const steps = document.querySelector('#film-steps');
   const contact = document.querySelector('#film-contact');
+  const learn = document.querySelector('#film-learn');
   const comparison = document.querySelector('#film-compare');
   const paintRange = document.querySelector('#paint-range');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let selected = 'polish', currentStep = 0, opener, revision = 0, layoutQueued = false, camera;
-  let approach;
+  let approach, knowledgeTarget;
   function stopApproach() {
     if (approach) {
       approach.animations.forEach(animation => animation.cancel());
@@ -173,6 +174,7 @@
     stopApproach();
     currentStep = index;
     const step = service.steps[index];
+    learn.setAttribute('href', `#${step.knowledge || service.knowledge}`);
     releaseFilm();
     const hasComparison = Boolean(step.before && step.after);
     error.hidden = true; pending.hidden = Boolean(step.video) || hasComparison;
@@ -238,10 +240,22 @@
     stopApproach();
     dialog.classList.remove('cinema-immersive');
     releaseFilm(); document.body.classList.remove('modal-open');
-    if (!dialog.dataset.contactExit) opener?.focus({ preventScroll: true });
+    if (knowledgeTarget) {
+      const entry = knowledgeTarget; knowledgeTarget = null;
+      entry.open = true;
+      if (location.hash !== `#${entry.id}`) history.pushState(null, '', `#${entry.id}`);
+      entry.scrollIntoView({ block: 'start', behavior: reduced.matches ? 'instant' : 'smooth' });
+      entry.querySelector('summary').focus({ preventScroll: true });
+    } else if (!dialog.dataset.contactExit) opener?.focus({ preventScroll: true });
     delete dialog.dataset.contactExit;
   });
   contact.addEventListener('click', () => { dialog.dataset.contactExit = 'true'; dialog.close(); });
+  learn.addEventListener('click', event => {
+    const entry = document.getElementById(learn.hash.slice(1));
+    if (!entry?.matches('.knowledge-list details')) return;
+    event.preventDefault(); knowledgeTarget = entry;
+    dialog.dataset.contactExit = 'true'; dialog.close();
+  });
   video.addEventListener('playing', () => {
     error.hidden = true;
     const zoom = media[selected]?.steps[currentStep]?.zoom || 1;

@@ -127,6 +127,8 @@
 .film-caption{padding:23px 28px;display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
 .film-caption h3{font-family:Manrope,Arial,sans-serif;text-transform:none;letter-spacing:-.6px;font-size:21px;font-weight:400;margin:0 0 9px}
 .film-caption p{margin:0;color:#a9a9a9;max-width:550px;font-size:12px;line-height:1.8}
+.film-learn{display:inline-flex;align-items:center;gap:10px;min-height:44px;margin-top:6px;color:var(--gold);font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.film-learn .ui-icon{width:14px;height:14px}
 .film-caption-label{font-size:7px;letter-spacing:1.5px;color:#7e7e7e;white-space:nowrap;margin-top:7px}
 .cinema-bottom{display:flex;justify-content:space-between;align-items:center;gap:25px;padding:17px 26px;border-top:1px solid #353535}
 .cinema-bottom p{font-size:11px;color:#a1a1a1;margin:0;line-height:1.7}

@@ -94,6 +94,27 @@
 .process-line ol { gap: 32px; }
 .process-line li { font-size: .875rem; line-height: 1.6; color: var(--studio-paper); max-width: 170px; }
 .process-line li b { display: block; font-size: .75rem; color: var(--gold); margin: 0 0 8px; }
+.detail-knowledge { display: grid; grid-template-columns: .8fr 1.2fr; gap: 8%; margin-top: clamp(64px, 7vw, 104px); padding-top: 40px; border-top: 1px solid #3e4043; }
+.knowledge-intro h3 { font-family: Manrope, Arial, sans-serif; font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; letter-spacing: -.04em; line-height: 1.2; margin: 0 0 24px; }
+.knowledge-intro > p:not(.micro) { font-size: 1rem; line-height: 1.75; color: var(--studio-secondary); max-width: 36ch; }
+.knowledge-intro .knowledge-note { font-size: .8125rem; margin-top: 20px; }
+.knowledge-list { min-width: 0; }
+.knowledge-list details { border-bottom: 1px solid #3e4043; scroll-margin-top: calc(var(--hero-header-height) + 24px); }
+.knowledge-list summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 0; min-height: 64px; list-style: none; cursor: pointer; color: var(--studio-paper); font-size: 1.0625rem; line-height: 1.5; }
+.knowledge-list summary::-webkit-details-marker { display: none; }
+.knowledge-list summary small { display: block; color: var(--gold); font-size: .6875rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+.knowledge-list summary > svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--studio-secondary); }
+.knowledge-list details[open] summary > svg { transform: rotate(45deg); }
+.knowledge-list summary:hover { color: var(--gold); }
+.knowledge-list summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; border-radius: 3px; }
+.knowledge-body { padding: 0 36px 24px 0; }
+.knowledge-body p { font-size: 1rem; line-height: 1.8; color: var(--studio-secondary); margin: 0 0 18px; }
+.knowledge-body strong { color: var(--studio-paper); font-weight: 600; }
+.knowledge-body .knowledge-source { font-size: .75rem; line-height: 1.8; margin-bottom: 0; }
+.knowledge-source a { text-decoration: underline; text-underline-offset: 3px; }
+.knowledge-source a:hover { color: var(--gold); }
+@media(max-width:1000px) { .detail-knowledge { grid-template-columns: 1fr; gap: 20px; } .knowledge-intro > p:not(.micro) { max-width: 65ch; } }
+@media(max-width:760px) { .detail-knowledge { margin-top: 48px; padding-top: 32px; } .knowledge-list summary { font-size: 1rem; gap: 16px; padding: 20px 0; } .knowledge-body { padding-right: 0; } }
 .about { grid-template-columns: .85fr 1.15fr; gap: 10%; }
 .about-portrait { border-radius: 24px; max-width: 460px; }
 .about-portrait > img { height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: center; }
