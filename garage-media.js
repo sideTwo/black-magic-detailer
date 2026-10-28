@@ -24,8 +24,9 @@ window.BMD_GARAGE = {
   },
   wash: {
     title: 'Außenwäsche', eyebrow: 'SNOW FOAM', service: 'Außenwäsche',
+    approach: 'assets/garage/waesche-kamerafahrt-v1.mp4',
     description: 'Der Anfang eines guten Finishs. Gründliche Vorreinigung und eine schonende Wäsche des Fahrzeugs.',
-    steps: [{ title: 'Ein guter Anfang. Schicht für Schicht.', label: 'Snow Foam', video: 'assets/garage/waesche-nah-film.mp4', poster: 'assets/garage/waesche-nah.webp', description: 'Eine Schicht Snow Foam als Teil der sorgfältigen Vorbereitung auf die Fahrzeugwäsche.' }]
+    steps: [{ title: 'Schaum auftragen. Gründlich abspülen.', label: 'Snow Foam', video: 'assets/garage/waesche-behandlung-v2.mp4', poster: 'assets/garage/waesche-behandlung-v2.webp', description: 'Vorreinigung mit Snow Foam und anschließendem Abspülen. Die Einwirkzeit ist verkürzt dargestellt; danach folgt die Handwäsche.' }]
   },
   ceramic: {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
