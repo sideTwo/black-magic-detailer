@@ -1,7 +1,9 @@
 .garage{position:relative;background:#080a0b;padding-top:var(--hero-header-height)}
 .garage-scene{position:relative;height:calc(100svh - var(--hero-header-height));overflow:hidden;isolation:isolate}
+.garage-scene:before{content:'';position:absolute;inset:-32px;background:url('assets/garage/tim-garage-foto-v11.webp') center 60%/cover no-repeat;filter:blur(24px) brightness(.32);pointer-events:none;z-index:-1}
 .garage-photo{position:absolute;inset:0 auto 0 50%;width:min(100%,calc((100svh - var(--hero-header-height)) * 2.04));transform:translateX(-50%)}
 .garage-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.garage-image,.garage-shade{mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .garage-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#07090ba0,transparent 40%),linear-gradient(0deg,#080a0be8,transparent 24%)}
 .garage-intro{position:absolute;right:6%;top:34px;pointer-events:none;z-index:1}
 .garage-intro .eyebrow{font-size:9px;letter-spacing:2px;margin-bottom:15px}
@@ -61,7 +63,9 @@
 .camera-flight{position:fixed;inset:0;z-index:10;overflow:hidden;pointer-events:none;background:#080a0b;will-change:clip-path,opacity}
 .camera-flight img{position:absolute;max-width:none;object-fit:fill;transform-origin:0 0;will-change:transform}
 .camera-film{background:#080a0b22}
+.camera-film:before{content:'';position:absolute;inset:-60px;background:var(--film-ambient) center/cover no-repeat;filter:blur(48px) brightness(.48) saturate(.65);pointer-events:none}
 .camera-film video{position:absolute;display:block;max-width:none;object-fit:cover;object-position:center 60%;pointer-events:none;user-select:none}
+.camera-film video{mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
 .camera-film video::-webkit-media-controls{display:none!important}
 .service-cinema.camera-filming{overflow:visible;transform:none;border-color:transparent;background:transparent}
 .camera-filming::backdrop{background:transparent;backdrop-filter:none}
@@ -75,6 +79,8 @@
   .cinema-immersive>.cinema-top button{pointer-events:auto;padding:0 14px;border:1px solid #ffffff30;background:#080a0be8}
   .cinema-immersive>.cinema-body{display:block;height:100%}
   .cinema-immersive .cinema-content,.cinema-immersive .film-screen{width:100%;height:100%;aspect-ratio:auto}
+  .cinema-immersive .film-screen:before{content:'';position:absolute;inset:-60px;background:var(--film-ambient) center/cover no-repeat;filter:blur(48px) brightness(.48) saturate(.65);pointer-events:none}
+  .cinema-immersive .film-screen>video,.cinema-immersive .film-screen>img,.cinema-immersive .paint-comparison{position:absolute;inset:0;margin:auto;width:min(100%,calc(100svh * 16 / 9));height:min(100%,calc(100vw * 9 / 16));mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
   .cinema-immersive .cinema-content:after{content:'';position:absolute;z-index:2;inset:55% 0 0;background:linear-gradient(transparent,#0009);pointer-events:none}
   .cinema-immersive .cinema-info{position:absolute;z-index:3;top:90px;left:24px;max-width:250px;padding:0;border:0;pointer-events:none;text-shadow:0 2px 16px #000}
   .cinema-immersive .cinema-info:before{content:'';position:absolute;inset:-70px -100px;z-index:-1;background:radial-gradient(ellipse closest-side,#000a,transparent);pointer-events:none}
@@ -121,6 +127,7 @@
 .cinema-bottom .film-contact-label{font-size:13px}
 @media(max-width:1100px){.garage-menu button{padding:16px 12px;gap:9px}.garage-menu button>span:nth-child(2){font-size:15px}.garage-menu small{font-size:6px;letter-spacing:.5px}.garage-menu-number{display:none}.cinema-body{grid-template-columns:210px minmax(0,1fr)}.cinema-info{padding:25px 22px}.film-caption-label{display:none}}
 @media(max-width:760px){
+  .garage-scene:before{display:none}.garage-image,.garage-shade{mask-image:none}
   .garage-scene{height:auto;aspect-ratio:auto}.garage-photo{position:relative;inset:auto;width:100%;transform:none;height:max(360px,calc(100svh - var(--hero-header-height) - 117px - 210px))}
   .garage-intro{position:relative;top:auto;left:auto;right:auto;padding:18px 6%;background:#080a0b}.garage-intro h1{font-size:34px;margin:0}.garage-intro .eyebrow{font-size:7px;letter-spacing:1.3px;margin-bottom:8px}.garage-intro>p:last-child,.garage-vehicle{display:none}
   .garage-pin{gap:7px}.pin-label{font-size:11px}.garage-hint{bottom:19px;font-size:9px}

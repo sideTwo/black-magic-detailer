@@ -45,6 +45,7 @@
       width: fittedWidth, height: fittedWidth * 9 / 16
     };
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
+    layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
     layer.setAttribute('aria-hidden', 'true');
     const film = document.createElement('video');
     film.muted = true; film.defaultMuted = true; film.playsInline = true;
@@ -178,6 +179,7 @@
     video.hidden = !step.video;
     document.querySelector('#film-still').hidden = Boolean(step.video) || hasComparison;
     document.querySelector('#film-still').src = step.poster;
+    document.querySelector('.film-screen').style.setProperty('--film-ambient', `url("${step.poster}")`);
     comparison.hidden = !hasComparison;
     if (hasComparison) {
       document.querySelector('#paint-before').src = step.before;
