@@ -12,7 +12,15 @@
 .garage-vehicle{position:absolute;top:40px;left:6%;font-size:11px;letter-spacing:2px;color:#e1e1e1;z-index:1}
 .garage-vehicle span{display:block;font-size:8px;color:#a7a7a7;letter-spacing:2.7px;margin-top:8px}
 .garage-pin{position:absolute;display:flex;align-items:center;gap:8px;border:1px solid #c9ab77ad;border-radius:999px;padding:9px;background:#101214f5;color:#f4f1eb;box-shadow:0 4px 18px #0005;transform:translate(-22px,-50%);z-index:2;min-height:44px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.pin-dot{width:24px;height:24px;border:1px solid currentColor;color:var(--gold);display:grid;place-items:center;border-radius:50%;flex-shrink:0}
+.pin-dot{position:relative;width:24px;height:24px;border:1px solid var(--gold);background:var(--gold);color:#101214;display:grid;place-items:center;border-radius:50%;flex-shrink:0}
+.pin-dot:before{content:'';position:absolute;inset:-1px;border:1px solid var(--gold);border-radius:50%;opacity:0;pointer-events:none;animation:garage-beacon 3.8s ease-out 4}
+.garage-pin:nth-child(2) .pin-dot:before{animation-delay:.22s}
+.garage-pin:nth-child(3) .pin-dot:before{animation-delay:.44s}
+.garage-pin:nth-child(4) .pin-dot:before{animation-delay:.66s}
+.garage-pin:nth-child(5) .pin-dot:before{animation-delay:.88s}
+@keyframes garage-beacon{0%{transform:scale(1);opacity:0}12%{opacity:.75}55%,100%{transform:scale(2);opacity:0}}
+.garage-pin:hover .pin-dot:before,.garage-pin.hovered .pin-dot:before,.garage-pin:focus-visible .pin-dot:before{animation:none}
+@media(prefers-reduced-motion:reduce){.pin-dot:before{animation:none}}
 .pin-dot svg{width:13px;height:13px;margin-left:2px;fill:currentColor}
 .pin-label{padding-right:7px;font-size:12px;letter-spacing:.2px;white-space:nowrap}
 .pin-flip{flex-direction:row-reverse;transform:translate(calc(-100% + 22px),-50%)}
