@@ -29,6 +29,7 @@ window.BMD_GARAGE = {
   },
   ceramic: {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
+    approach: 'assets/garage/keramik-kamerafahrt-v1.mp4',
     description: 'Ein Finish, das die Pflege leichter macht. Erlebe den Abperleffekt im Detail.',
     steps: [{ title: 'Glanz bleibt. Wasser perlt.', label: 'Wasserperlen', video: 'assets/ceramic-film.mp4', poster: 'assets/ceramic.jpg', description: 'Die passende Versiegelung bespricht Tim nach der persönlichen Besichtigung deines Autos mit dir.' }]
   }
