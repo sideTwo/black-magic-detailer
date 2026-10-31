@@ -1,6 +1,6 @@
 .fullscreen-access{position:fixed;left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom));width:56px;height:56px;display:grid;place-items:center;z-index:100}
 .site-fullscreen{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #ffffff26;border-radius:5px;background:#0a0d10d9;color:#d1d1ce;cursor:pointer;opacity:0;transition:opacity .18s ease,background .18s ease}
-.fullscreen-access:hover .site-fullscreen,.fullscreen-access:focus-within .site-fullscreen{opacity:1}
+.fullscreen-access.is-revealed .site-fullscreen,.fullscreen-access:hover .site-fullscreen,.fullscreen-access:focus-within .site-fullscreen{opacity:1}
 .site-fullscreen:hover{color:#fff;background:#16191bee}
 .site-fullscreen:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .site-fullscreen:disabled{cursor:wait}

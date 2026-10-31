@@ -7,7 +7,15 @@
   const status = access.querySelector('[role="status"]');
   const enterIcon = access.querySelector('.fullscreen-enter');
   const exitIcon = access.querySelector('.fullscreen-exit');
-  let messageTimer;
+  let messageTimer, revealTimer;
+
+  function revealControl() {
+    access.classList.add('is-revealed');
+    clearTimeout(revealTimer);
+    revealTimer = setTimeout(() => { access.classList.remove('is-revealed'); }, 3500);
+  }
+  document.addEventListener('pointermove', revealControl, { passive: true });
+  document.addEventListener('pointerdown', revealControl, { passive: true });
 
   function showError() {
     clearTimeout(messageTimer);
@@ -50,10 +58,11 @@
     }
   });
   document.addEventListener('keydown', event => {
+    if (event.key === 'Tab') revealControl();
     if (event.key !== 'Escape' || !document.fullscreenElement) return;
     event.preventDefault(); event.stopPropagation();
     document.exitFullscreen().catch(showError);
   }, true);
   document.addEventListener('fullscreenchange', syncState);
-  syncState(); placeControl(); access.hidden = false;
+  syncState(); placeControl(); access.hidden = false; revealControl();
 })();
