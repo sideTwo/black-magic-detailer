@@ -24,6 +24,7 @@
     if (approach) {
       approach.animations.forEach(animation => animation.cancel());
       approach.timers?.forEach(clearTimeout);
+      if (approach.frameCallback !== undefined) video.cancelVideoFrameCallback?.(approach.frameCallback);
       if (approach.film) {
         approach.film.pause(); approach.film.removeAttribute('src'); approach.film.load();
       }
@@ -87,7 +88,18 @@
     film.addEventListener('ended', () => {
       if (!active()) return;
       current.timers.forEach(clearTimeout); current.timers = [];
-      playFilm()?.then(reveal).catch(() => { if (active()) stopApproach(); });
+      // Keep the last camera frame visible until the treatment has actually
+      // presented a frame. play() resolving alone can expose the poster/black.
+      if (video.requestVideoFrameCallback) {
+        current.frameCallback = video.requestVideoFrameCallback(() => {
+          current.frameCallback = undefined; reveal();
+        });
+      }
+      playFilm()?.then(() => {
+        if (!active()) return;
+        if (!video.requestVideoFrameCallback) reveal();
+        else current.timers.push(setTimeout(reveal, 1500));
+      }).catch(() => { if (active()) stopApproach(); });
     }, {once:true});
     film.addEventListener('error', fallback, {once:true});
     current.timers.push(setTimeout(fallback, 10000));

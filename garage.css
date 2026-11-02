@@ -1,6 +1,6 @@
 .garage{position:relative;background:#080a0b;padding-top:var(--hero-header-height)}
 .garage-scene{position:relative;height:calc(100svh - var(--hero-header-height));overflow:hidden;isolation:isolate}
-.garage-scene:before{content:'';position:absolute;inset:-64px;background:url('assets/garage/tim-garage-foto-v11.webp') center 60%/cover no-repeat;filter:blur(48px) brightness(.32);pointer-events:none;z-index:-1}
+.garage-scene:before{content:'';position:absolute;inset:-64px;background:url('assets/garage/tim-garage-logo-v12.webp') center 60%/cover no-repeat;filter:blur(48px) brightness(.32);pointer-events:none;z-index:-1}
 .garage-photo{position:absolute;inset:0 auto 0 50%;width:min(100%,calc((100svh - var(--hero-header-height)) * 2.04));transform:translateX(-50%)}
 .garage-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .garage-picture{position:absolute;inset:0;mask-image:linear-gradient(90deg,transparent,#0000000a 1%,#00000029 2%,#00000080 4%,#000000d6 6%,#000000f5 7%,#000 8%,#000 92%,#000000f5 93%,#000000d6 94%,#00000080 96%,#00000029 98%,#0000000a 99%,transparent)}
@@ -89,6 +89,8 @@
   .cinema-immersive .film-screen:before{content:'';position:absolute;inset:-60px;background:var(--film-ambient) center/cover no-repeat;filter:blur(48px) brightness(.48) saturate(.65);pointer-events:none}
   .cinema-immersive .film-screen>video,.cinema-immersive .film-screen>img,.cinema-immersive .paint-comparison{position:absolute;inset:0;margin:auto;width:min(100%,calc(100svh * 16 / 9));height:min(100%,calc(100vw * 9 / 16));mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
   .cinema-immersive .cinema-content:after{content:'';position:absolute;z-index:2;inset:55% 0 0;background:linear-gradient(transparent,#0009);pointer-events:none}
+  .cinema-immersive .paint-before-label{top:76px;left:28%}
+  .cinema-immersive .paint-after-label{top:76px;right:28%}
   .cinema-immersive .cinema-info{position:absolute;z-index:3;top:90px;left:24px;max-width:250px;padding:0;border:0;pointer-events:none;text-shadow:0 2px 16px #000}
   .cinema-immersive .cinema-info:before{content:'';position:absolute;inset:-70px -100px;z-index:-1;background:radial-gradient(ellipse closest-side,#000a,transparent);pointer-events:none}
   .cinema-immersive .cinema-info h2{font-size:38px;margin-bottom:10px}

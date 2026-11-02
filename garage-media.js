@@ -6,8 +6,8 @@ window.BMD_GARAGE = {
     approach: 'assets/garage/politur-kamerafahrt-v1.mp4',
     description: 'Vom ersten Polierzug bis zur klaren Reflexion. Entdecke die Arbeit am Lack und das Finish danach.',
     steps: [
-      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-pflege-v1.mp4', poster: 'assets/garage/politur-tattoo.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
-      { title: 'Das Lackbild im Vergleich.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher.webp', before: 'assets/garage/lack-vorher.webp', after: 'assets/garage/lack-nachher.webp', description: 'KI-Visualisierung: feine Waschspuren und ein klares Finish im Streiflicht. Ziehe den Regler, um beide Ansichten zu vergleichen.' },
+      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-loop-v2.mp4', poster: 'assets/garage/politur-loop-v2.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
+      { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher-v2.webp', before: 'assets/garage/lack-vorher-v2.webp', after: 'assets/garage/lack-nachher-v2.webp', description: 'KI-Visualisierung unter gleicher Prüfleuchte: Vorher streuen feine Waschkratzer das Licht als Spinnennetz um den Lichtpunkt. Nach der Korrektur bleibt die Reflexion klarer. Ziehe den Regler für den Vergleich. Kein dokumentiertes Kundenergebnis.' },
       { knowledge: 'wissen-keramik', title: 'Wasser perlt. Und läuft ab.', label: 'Keramik', video: 'assets/garage/keramik-abperlen-v2.mp4', poster: 'assets/garage/keramik-abperlen-v2.webp', description: 'Die wasserabweisende Oberfläche lässt Tropfen zu Perlen werden. Bei ausreichender Neigung und Tropfengröße laufen sie ab. Die regelmäßige Wäsche bleibt Teil der Pflege.' }
     ]
   },

@@ -1,0 +1,25 @@
+/* Tim's supplied Black Magic Detailer identity, on a quiet black canvas. */
+.header .brand { flex: 0 0 auto; }
+.brand-logo { display: block; width: 148px; height: 68px; object-fit: contain; }
+.footer-logo { width: 200px; height: auto; display: block; }
+.footer-wordmark { color: #c9ab7759; }
+.studio-section { border-top: 1px solid #c9ab771c; }
+.studio-section .section-label > span:first-child,
+.studio-section .micro { color: var(--gold); }
+.process-line, .detail-knowledge, .knowledge-list details,
+.contact-person, .form-progress, .footer, .footer-bottom { border-color: #c9ab7733; }
+.studio-section .project-moments span { color: #ded6c7; }
+.studio-section .about-social { color: var(--gold); }
+.studio-section .round-link { background: #11110fe6; border: 1px solid #c9ab7766; color: #eeeae2; }
+.studio-section .form-step :is(input, select, textarea),
+.studio-section .wish-options label > span { border-color: #7d715d; }
+.studio-section .message-preview { background: #100f0d; }
+.garage-intro h1 { color: #eeeae2; }
+@media(max-width:760px) {
+  .brand-logo { width: 122px; height: 56px; }
+}
+@media(max-width:380px) {
+  .brand-logo { width: 96px; height: 50px; }
+  .header .header-cta { font-size: 10px; padding-inline: 10px; gap: 7px; }
+  .header .header-cta .ui-icon { width: 14px; height: 14px; min-width: 14px; }
+}

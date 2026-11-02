@@ -1,5 +1,7 @@
 # Black Magic Detailer
 
+Tims Feedback vom 2. November: Die Inhaltsbereiche verwenden jetzt Schwarz-Gold statt heller Flächen. Das gelieferte Logo steht im Kopf-/Fußbereich und klein auf Tims Shirt im Startbild. Der Lackvergleich zeigt eine neue, ausdrücklich als KI-Illustration gekennzeichnete Prüfleuchten-Aufnahme. Der Politur-Loop hat einen kurzen zyklischen Übergang bei unveränderten 24 fps. Die fehlerhafte Politur-Kamerafahrt, zusätzliche Pedale im Beifahrerfußraum und eine neue Heck-/Innenraumsequenz bleiben separate Video-Korrekturen; das aktuelle Design-Update enthält dafür noch keine Neugenerierung.
+
 Website-Entwurf für Tim Rupprecht, Mannheim / Rhein-Neckar. Statische Website ohne Build-Schritt, veröffentlicht über GitHub Pages (main, Stammverzeichnis).
 
 ## Interaktive Garage
