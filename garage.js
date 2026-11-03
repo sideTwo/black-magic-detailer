@@ -40,11 +40,9 @@
   }
   function filmedApproach(service, origin) {
     const screen = document.querySelector('.film-screen').getBoundingClientRect();
-    const fittedWidth = Math.min(screen.width, screen.height * 16 / 9);
     const target = {
-      left: screen.left + (screen.width - fittedWidth) / 2,
-      top: screen.top + (screen.height - fittedWidth * 9 / 16) / 2,
-      width: fittedWidth, height: fittedWidth * 9 / 16
+      left: screen.left, top: screen.top,
+      width: screen.width, height: screen.height
     };
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
     layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
@@ -77,7 +75,7 @@
       const duration = Number.isFinite(film.duration) ? film.duration : 4;
       const move = film.animate([
         {left:`${origin.left}px`,top:`${origin.top}px`,width:`${origin.width}px`,height:`${origin.height}px`,offset:0},
-        {left:`${target.left}px`,top:`${target.top}px`,width:`${target.width}px`,height:`${target.height}px`,offset:1}
+        {left:`${target.left}px`,top:`${target.top}px`,width:`${target.width}px`,height:`${target.height}px`,objectPosition:'50% 50%',offset:1}
       ], {duration:200,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'});
       current.animations.push(move);
       current.animations.push(layer.animate([

@@ -73,7 +73,7 @@
 .camera-film{background:#080a0b22}
 .camera-film:before{content:'';position:absolute;inset:-60px;background:var(--film-ambient) center/cover no-repeat;filter:blur(48px) brightness(.48) saturate(.65);pointer-events:none}
 .camera-film video{position:absolute;display:block;max-width:none;object-fit:cover;object-position:center 60%;pointer-events:none;user-select:none}
-.camera-film video{mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
+.camera-film video{mask-image:none}
 .camera-film video::-webkit-media-controls{display:none!important}
 .service-cinema.camera-filming{overflow:visible;transform:none;border-color:transparent;background:transparent}
 .camera-filming::backdrop{background:transparent;backdrop-filter:none}
@@ -87,8 +87,10 @@
   .cinema-immersive>.cinema-top button{pointer-events:auto;padding:0 14px;border:1px solid #ffffff30;background:#080a0be8}
   .cinema-immersive>.cinema-body{display:block;height:100%}
   .cinema-immersive .cinema-content,.cinema-immersive .film-screen{width:100%;height:100%;aspect-ratio:auto}
-  .cinema-immersive .film-screen:before{content:'';position:absolute;inset:-60px;background:var(--film-ambient) center/cover no-repeat;filter:blur(48px) brightness(.48) saturate(.65);pointer-events:none}
-  .cinema-immersive .film-screen>video,.cinema-immersive .film-screen>img,.cinema-immersive .paint-comparison{position:absolute;inset:0;margin:auto;width:min(100%,calc(100svh * 16 / 9));height:min(100%,calc(100vw * 9 / 16));mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
+  .cinema-immersive .film-screen:before{display:none}
+  .cinema-immersive .film-screen>video,.cinema-immersive .film-screen>img,.cinema-immersive .paint-comparison{position:absolute;inset:0;margin:0;width:100%;height:100%;mask-image:none}
+  /* Fill the actual cinema, keeping aspect ratio. Wide windows crop vertically. */
+  .cinema-immersive .film-screen>video,.cinema-immersive .film-screen>img{object-fit:cover;object-position:center}
   .cinema-immersive .cinema-content:after{content:'';position:absolute;z-index:2;inset:55% 0 0;background:linear-gradient(transparent,#0009);pointer-events:none}
   .cinema-immersive .paint-before-label{top:76px;left:28%}
   .cinema-immersive .paint-after-label{top:76px;right:28%}
