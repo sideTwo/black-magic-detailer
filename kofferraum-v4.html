@@ -13,11 +13,13 @@
     main{width:min(1280px,92%);margin:0 auto;padding:28px 0 36px}header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px}
     h1{margin:0;font-size:clamp(20px,3vw,32px);font-weight:500;letter-spacing:-.035em}a{color:#c9ab77;text-underline-offset:5px}
     .label{margin:0 0 4px;color:#c9ab77;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
-    video{display:block;width:100%;max-height:calc(100svh - 220px);aspect-ratio:16/9;object-fit:contain;background:#050605;pointer-events:none}
+    video{display:block;width:min(100%,calc((100svh - 290px)*1.7777778));height:auto;margin-inline:auto;aspect-ratio:16/9;object-fit:contain;background:#050605;pointer-events:none}
+    .clip-picker{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}.clip-picker button{min-height:44px;padding:8px 18px;font-size:14px}
+    .clip-picker button[aria-pressed="true"]{border-color:#c9ab77;background:#c9ab7718;color:#eeeae2}
     footer{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:20px}p{margin:0;color:#bfbab1;font-size:14px;max-width:70ch}
     button{flex-shrink:0;min-height:48px;border:1px solid #7e6d4e;background:transparent;color:#c9ab77;padding:10px 22px;font:inherit;cursor:pointer}
     button:hover{background:#c9ab7712}button:focus-visible,a:focus-visible{outline:2px solid #c9ab77;outline-offset:5px}
-    @media(max-width:600px){header,footer{align-items:flex-start;flex-direction:column;gap:14px}main{padding-top:20px}video{max-height:none}button{width:100%}}
+    @media(max-width:600px){header,footer{align-items:flex-start;flex-direction:column;gap:14px}main{padding-top:20px}video{width:100%}button{width:100%}.clip-picker button{width:auto;flex:1}}
   </style>
 </head>
 <body>
@@ -26,11 +28,14 @@
       <div><p class="label">Black Magic Detailer · Sichtprüfung</p><h1>Kofferraum. Aus nächster Nähe.</h1></div>
       <a href="./">Zur Garage</a>
     </header>
+    <div class="clip-picker" role="group" aria-label="Aufnahme auswählen">
+      <button type="button" data-clip="saugen" aria-pressed="true">Reinigung</button>
+      <button type="button" data-clip="muster" aria-pressed="false">Teppichmuster</button>
+    </div>
     <video id="review" autoplay muted playsinline preload="auto" disablepictureinpicture disableremoteplayback aria-label="Stummer KI-Entwurf: Ein Saugzug hinterlässt eine saubere Bahn im Kofferraumteppich.">
-      <source src="assets/garage/kofferraum-makro-saugen-v4.mp4" type="video/mp4">
     </video>
     <footer>
-      <p id="status" aria-live="polite">Makro-Entwurf V4 · Ein einzelner Saugzug. Pflege und Teppichmuster folgen als eigene Schritte. KI-Visualisierung.</p>
+      <p id="status" aria-live="polite">Makro-Entwurf V4 · Ein einzelner Saugzug. KI-Visualisierung.</p>
       <button id="replay" type="button">Erneut ansehen</button>
     </footer>
   </main>
@@ -38,15 +43,37 @@
     const video=document.querySelector('#review');
     const replay=document.querySelector('#replay');
     const status=document.querySelector('#status');
-    const caption=status.textContent;
+    const choices=[...document.querySelectorAll('[data-clip]')];
+    const clips={
+      saugen:{src:'assets/garage/kofferraum-makro-saugen-v4.mp4',caption:'Akzeptierter Makro-Entwurf V4 · Ein einzelner Saugzug. KI-Visualisierung.',label:'Stummer KI-Entwurf: Ein Saugzug hinterlässt eine saubere Bahn im Kofferraumteppich.'},
+      muster:{src:'assets/garage/kofferraum-muster-v1.mp4',caption:'Muster-Entwurf V1 · Faserrichtung im sauberen Teppich. KI-Visualisierung.',label:'Stummer KI-Entwurf: Eine Düse legt die Teppichfasern in einer helleren Bahn zwischen zwei dunkleren Bereichen.'}
+    };
+    let caption=status.textContent;
+    let active='';
+    let playRequest=0;
     async function playReview(){
+      const request=++playRequest;
       video.muted=true;
-      try{await video.play();status.textContent=caption;replay.textContent='Erneut ansehen';}
-      catch{status.textContent='Zum Abspielen bitte auf „Video starten“ tippen.';replay.textContent='Video starten';}
+      try{await video.play();if(request!==playRequest)return;status.textContent=caption;replay.textContent='Erneut ansehen';}
+      catch{if(request!==playRequest)return;status.textContent='Zum Abspielen bitte auf „Video starten“ tippen.';replay.textContent='Video starten';}
     }
+    function selectClip(){
+      const key=location.hash==='#muster'?'muster':'saugen';
+      if(key===active)return;
+      active=key;
+      caption=clips[key].caption;
+      status.textContent=caption;
+      choices.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.clip===key)));
+      video.setAttribute('aria-label',clips[key].label);
+      video.src=clips[key].src;
+      video.load();
+      playReview();
+    }
+    choices.forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.clip;}));
+    addEventListener('hashchange',selectClip);
     replay.addEventListener('click',()=>{video.currentTime=0;playReview();});
     video.addEventListener('error',()=>{status.textContent='Das Video konnte nicht geladen werden. Bitte die Seite neu laden.';});
-    playReview();
+    selectClip();
   </script>
 </body>
 </html>
