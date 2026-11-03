@@ -30,7 +30,7 @@ window.BMD_GARAGE = {
     title: 'Kofferraum', eyebrow: 'INNENREINIGUNG', service: 'Innenraumaufbereitung',
     approach: 'assets/garage/heck-kamerafahrt-v2.mp4',
     description: 'Vom offenen Heck bis in die Teppichfasern. Sorgfältige Innenreinigung, passend zu Material und Zustand.',
-    steps: [{ title: 'Schmutz raus. Wieder gern einladen.', label: 'Reinigung', video: 'assets/garage/kofferraum-makro-saugen-v4.mp4', poster: 'assets/garage/kofferraum-reinigung-v4.webp', description: 'Die flach geführte Saugdüse nimmt lose Partikel direkt an der bearbeiteten Stelle auf. Kanten und Vertiefungen werden gezielt gereinigt. Welche weiteren Schritte nötig sind, entscheidet Tim nach dem Zustand der Materialien.' }]
+    steps: [{ title: 'Sauber bis ins Muster.', label: 'Reinigung & Muster', video: 'assets/garage/kofferraum-reinigung-muster-v1.mp4', poster: 'assets/garage/kofferraum-reinigung-v4.webp', description: 'Zuerst werden lose Partikel abgesaugt. Anschließend wird der saubere Teppichflor ausgerichtet: Unterschiedliche Faserrichtungen lassen die Bahnen heller oder dunkler wirken. Welche weiteren Reinigungsschritte nötig sind, entscheidet Tim nach dem Zustand der Materialien.' }]
   },
   wash: {
     knowledge: 'wissen-waesche',
