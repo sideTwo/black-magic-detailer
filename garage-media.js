@@ -25,6 +25,13 @@ window.BMD_GARAGE = {
     description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
     steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-pflege-v1.mp4', poster: 'assets/garage/leder-pflege-v1.webp', description: 'Reiniger und eine weiche Bürste lösen Schmutz in der Narbung. Ein Tuch nimmt die Rückstände auf. Erst danach folgt eine zum Leder passende Pflege.' }]
   },
+  cargo: {
+    knowledge: 'wissen-innenraum',
+    title: 'Kofferraum', eyebrow: 'INNENREINIGUNG', service: 'Innenraumaufbereitung',
+    approach: 'assets/garage/heck-kamerafahrt-v2.mp4',
+    description: 'Vom offenen Heck bis in die Teppichfasern. Sorgfältige Innenreinigung, passend zu Material und Zustand.',
+    steps: [{ title: 'Schmutz raus. Wieder gern einladen.', label: 'Reinigung', video: 'assets/garage/kofferraum-makro-saugen-v4.mp4', poster: 'assets/garage/kofferraum-reinigung-v4.webp', description: 'Die flach geführte Saugdüse nimmt lose Partikel direkt an der bearbeiteten Stelle auf. Kanten und Vertiefungen werden gezielt gereinigt. Welche weiteren Schritte nötig sind, entscheidet Tim nach dem Zustand der Materialien.' }]
+  },
   wash: {
     knowledge: 'wissen-waesche',
     title: 'Außenwäsche', eyebrow: 'SNOW FOAM', service: 'Außenwäsche',

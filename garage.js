@@ -115,7 +115,8 @@
     const target = document.querySelector('.film-screen').getBoundingClientRect();
     const positions = {
       wheels: [.51, .72, 4.4], polish: [.64, .485, 2.8],
-      leather: [.46, .39, 4.4], wash: [.67, .49, 2.4], ceramic: [.79, .51, 4.8]
+      leather: [.46, .39, 4.4], cargo: [.12, .45, 3.6],
+      wash: [.67, .49, 2.4], ceramic: [.79, .51, 4.8]
     };
     const [x, y, magnification] = positions[key];
     const sw = Number(car.getAttribute('width')), sh = Number(car.getAttribute('height'));

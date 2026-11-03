@@ -11,7 +11,7 @@ const services = context.window.BMD_GARAGE;
 
 test('every garage entry resolves to a configured service and an inquiry option', () => {
   const launchers = [...html.matchAll(/data-garage-service="([^"]+)"/g)].map(m => m[1]);
-  assert.equal(new Set(launchers).size, 5);
+  assert.equal(new Set(launchers).size, 6);
   for (const key of launchers) {
     assert.ok(services[key], `Unconfigured garage service: ${key}`);
     assert.ok(html.includes(`name="services" value="${services[key].service}"`), `Missing inquiry option: ${key}`);
