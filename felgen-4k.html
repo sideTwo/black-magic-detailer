@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#090a09">
+  <title>Felgenfahrt · 4K-Prüfung — Black Magic Detailer</title>
+  <link rel="icon" href="assets/brand-icon-v2.svg" type="image/svg+xml"><link rel="alternate icon" href="assets/brand-icon-v2.png" type="image/png">
+  <style>
+    @font-face{font-family:Manrope;src:url('assets/fonts/manrope-regular.woff2') format('woff2');font-display:swap}
+    *{box-sizing:border-box}body{margin:0;background:#090a09;color:#eeeae2;font:16px/1.6 Manrope,Arial,sans-serif}
+    main{width:100%;padding-bottom:24px}.review-stage{position:relative}header,footer{position:absolute;left:0;right:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 3%}
+    header{top:0;background:linear-gradient(#090a09d9,transparent)}.eyebrow{color:#c9ab77;font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 5px}
+    h1{font-size:clamp(21px,3vw,32px);font-weight:500;letter-spacing:-.035em;margin:0}a{color:#c9ab77;text-underline-offset:5px}
+    video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;pointer-events:none}
+    video::-webkit-media-controls{display:none!important}footer{bottom:0;background:linear-gradient(transparent,#090a09d9)}footer p{margin:0;color:#ded9d0;font-size:13px;max-width:72ch}
+    button{min-height:46px;padding:10px 20px;border:1px solid #7e6d4e;background:transparent;color:#c9ab77;font:inherit;cursor:pointer;flex-shrink:0}
+    button:hover{background:#c9ab7712}button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #c9ab77;outline-offset:4px}
+    details{margin:20px 3% 0;border-top:1px solid #c9ab7733;padding-top:12px}summary{cursor:pointer;color:#c9ab77;min-height:44px;align-content:center}details img{display:block;width:100%;height:auto;margin-top:14px}details p{font-size:13px;color:#bfbab1}
+    @media(max-width:600px){header,footer{position:static;align-items:flex-start;flex-direction:column;gap:14px;padding:18px 5%;background:none}button{width:100%}}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="review-stage" aria-label="Felgen-Kamerafahrt in 4K">
+    <header>
+      <div><p class="eyebrow">Finale Produktion · PC · Sichtprüfung 02</p><h1>Felgenfahrt – erster 4K-Entwurf.</h1></div>
+      <a href="./">Zur Garage</a>
+    </header>
+    <video id="review" autoplay muted playsinline preload="metadata" disablepictureinpicture disableremoteplayback aria-label="Stumme KI-Visualisierung: Kamerafahrt von Tim und seinem weißen BMW zur vorderen Felge." src="assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4"></video>
+    <footer>
+      <p id="status" aria-live="polite">4K · 24 FPS · Ohne Ton und Wasserzeichen. Noch nicht final: Speichen verändern sich während der Fahrt, der Radmittelpunkt bleibt beim Schwenk nicht konstant zentriert. Die Hauptgarage behält vorerst ihre bisherige Felgenfahrt.</p>
+      <button id="replay" type="button">Erneut ansehen</button>
+    </footer>
+    </section>
+    <details id="startbild"><summary>Startbild mit M-Emblem und neuem Logo ansehen</summary><img src="assets/garage/tim-garage-vector-v15-4k.webp" width="3840" height="2160" loading="lazy" alt="Tim mit kleinem Black-Magic-Shirtprint neben seinem weißen BMW mit M-Emblem am vorderen Kotflügel."><p>Das M-Emblem sitzt hinter dem vorderen Rad. Tim und die bestehende Komposition sind erhalten.</p></details>
+  </main>
+  <script>
+    const video=document.querySelector('#review');
+    const replay=document.querySelector('#replay');
+    const status=document.querySelector('#status');
+    const caption=status.textContent;
+    async function play(){
+      video.muted=true;
+      try{await video.play();status.textContent=caption;replay.textContent='Erneut ansehen';}
+      catch{status.textContent='Zum Abspielen bitte auf „Video starten“ tippen.';replay.textContent='Video starten';}
+    }
+    replay.addEventListener('click',()=>{video.currentTime=0;play();});
+    video.addEventListener('error',()=>{status.textContent='Die Aufnahme konnte nicht geladen werden. Bitte erneut versuchen.';});
+    play();
+  </script>
+</body>
+</html>
+
