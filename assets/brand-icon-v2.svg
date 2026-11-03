@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="290 125 500 250" role="img" aria-labelledby="title"><title id="title">Black Magic Detailer</title><defs><linearGradient id="gold" x1="0" y1="0" x2="0.72" y2="1"><stop stop-color="#fff0be"/><stop offset=".26" stop-color="#c69a49"/><stop offset=".47" stop-color="#fff0c4"/><stop offset=".68" stop-color="#d3aa62"/><stop offset="1" stop-color="#a47831"/></linearGradient><linearGradient id="silver" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#eef0ee"/><stop offset=".24" stop-color="#fff"/><stop offset=".5" stop-color="#a3a9aa"/><stop offset=".73" stop-color="#d9dddb"/><stop offset="1" stop-color="#f4f4ee"/></linearGradient></defs><g fill="url(#gold)">
+<path d="M386 163C368 158 354 164 349 179C342 197 348 207 369 213L446 225C426 215 405 211 382 205C363 201 355 195 360 183C364 172 374 168 390 172L487 195L478 252L491 199L533 210L526 273L541 213L627 237C666 249 700 268 719 284C734 295 751 300 769 303C748 297 735 290 724 278C699 251 667 238 632 227Z"/>
+<path d="M377 221C383 225 384 233 380 244L418 253L384 249L372 279L361 274L374 240C377 231 378 225 377 221Z"/>
+<path d="M544 242L590 252L621 258L607 266L599 285L539 273L534 279L604 294L618 265L631 255L590 247Z"/>
+<path d="M349 283C365 293 384 300 408 305L475 317C452 320 417 314 392 308L356 300L353 310L344 307Z"/>
+<path d="M341 298C329 299 322 305 323 311C326 321 359 331 408 339C446 345 477 346 496 343L493 350C464 354 429 350 393 344C348 336 319 326 318 316C318 307 326 301 341 298Z"/>
+<path d="M318 315C309 328 313 338 334 345C364 355 413 359 462 357L494 354L490 359C449 364 405 363 369 356C334 350 309 340 313 327Z"/>
+<path d="M617 297C627 277 642 275 659 281C676 287 691 296 701 307C685 296 674 290 660 288C642 285 628 286 617 297Z"/>
+</g></svg>

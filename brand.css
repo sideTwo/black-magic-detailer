@@ -1,7 +1,7 @@
 /* Tim's supplied Black Magic Detailer identity, on a quiet black canvas. */
 .header .brand { flex: 0 0 auto; }
-.brand-logo { display: block; width: 148px; height: 68px; object-fit: contain; }
-.footer-logo { width: 200px; height: auto; display: block; }
+.brand-logo { display: block; width: 164px; height: 72px; object-fit: contain; }
+.footer-logo { width: 220px; height: auto; display: block; }
 .footer-wordmark { color: #c9ab7759; }
 .studio-section { border-top: 1px solid #c9ab771c; }
 .studio-section .section-label > span:first-child,
