@@ -1,4 +1,15 @@
 // All treatment films are silent web exports; the paint view is a comparison.
+(() => {
+const ceramicComparison = {
+  knowledge: 'wissen-keramik', title: 'Wasserfilm oder feine Perlen.', label: 'Ohne / Mit',
+  video: null, poster: 'assets/garage/keramik-vergleich-mit-v2.webp',
+  before: 'assets/garage/keramik-vergleich-ohne-v1.webp', after: 'assets/garage/keramik-vergleich-mit-v2.webp',
+  beforeLabel: 'OHNE VERSIEGELUNG', afterLabel: 'MIT VERSIEGELUNG', zoom: 1.8,
+  beforeAlt: 'KI-Visualisierung: Nahaufnahme der glatten weißen Motorhaube mit flächig benetzendem Wasser ohne Versiegelung',
+  afterAlt: 'KI-Visualisierung: dieselbe Motorhaube mit feinen Wasserperlen auf versiegeltem Lack',
+  comparisonLabel: 'Wasser auf Lack ohne und mit Versiegelung vergleichen',
+  description: 'Ziehe die Trennlinie: Links verteilt sich Wasser flächiger, rechts bildet es feine Perlen. Der Lack bleibt auf beiden Seiten glatt und glänzend. KI-Visualisierung des Benetzungsverhaltens, kein dokumentierter Kundentest.'
+};
 window.BMD_GARAGE = {
   polish: {
     knowledge: 'wissen-politur',
@@ -8,7 +19,8 @@ window.BMD_GARAGE = {
     steps: [
       { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-behandlung-final-v3-4k.mp4', poster: 'assets/garage/politur-behandlung-final-v3-4k.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
       { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher-v3.webp', before: 'assets/garage/lack-vorher-v3.webp', after: 'assets/garage/lack-nachher-v3.webp', description: 'KI-Visualisierung unter gleicher Prüfleuchte: Feine Waschkratzer streuen das Licht um den Lichtpunkt. Nach der Korrektur zeigt der glatte Klarlack ruhigere, klarere Reflexionen. Ziehe den Regler für den Vergleich. Kein dokumentiertes Kundenergebnis.' },
-      { knowledge: 'wissen-keramik', title: 'Wasser perlt. Und läuft ab.', label: 'Keramik', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Die wasserabweisende Oberfläche lässt Tropfen zu Perlen werden. Bei ausreichender Neigung und Tropfengröße laufen sie ab. Die regelmäßige Wäsche bleibt Teil der Pflege.' }
+      { ...ceramicComparison, label: 'Keramik' },
+      { knowledge: 'wissen-keramik', title: 'Wasser perlt. Und läuft ab.', label: 'Abperlen', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Die wasserabweisende Oberfläche lässt Tropfen zu Perlen werden. Bei ausreichender Neigung und Tropfengröße laufen sie ab. Die regelmäßige Wäsche bleibt Teil der Pflege.' }
     ]
   },
   wheels: {
@@ -44,6 +56,7 @@ window.BMD_GARAGE = {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
     approach: 'assets/garage/keramik-kamerafahrt-final-v3-4k.mp4',
     description: 'Ein Finish, das die Pflege leichter macht. Erlebe den Abperleffekt im Detail.',
-    steps: [{ title: 'Wasser perlt. Und läuft ab.', label: 'Wasserperlen', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Wasser benetzt die beschichtete Fläche schlechter und bildet Perlen. Ob sie ablaufen, hängt unter anderem von Neigung und Tropfengröße ab. Die passende Versiegelung bespricht Tim bei der Besichtigung.' }]
+    steps: [ceramicComparison, { title: 'Wasser perlt. Und läuft ab.', label: 'Abperlen', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Wasser benetzt die beschichtete Fläche schlechter und bildet Perlen. Ob sie ablaufen, hängt unter anderem von Neigung und Tropfengröße ab. Die passende Versiegelung bespricht Tim bei der Besichtigung.' }]
   }
 };
+})();

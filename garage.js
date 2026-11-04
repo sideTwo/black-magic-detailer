@@ -113,6 +113,7 @@
     film.addEventListener('ended', () => {
       if (!active()) return;
       current.timers.forEach(clearTimeout); current.timers = [];
+      if (!video.getAttribute('src')) { reveal(); return; }
       // Keep the last camera frame visible until the treatment has actually
       // presented a frame. play() resolving alone can expose the poster/black.
       if (video.requestVideoFrameCallback) {
@@ -224,6 +225,12 @@
     if (hasComparison) {
       document.querySelector('#paint-before').src = step.before;
       document.querySelector('#paint-after').src = step.after;
+      document.querySelector('#paint-before').alt = step.beforeAlt || 'KI-Visualisierung: feine Waschspuren vor der Politur';
+      document.querySelector('#paint-after').alt = step.afterAlt || 'KI-Visualisierung: glattes Lackbild nach der Politur';
+      comparison.querySelector('.paint-before-label').textContent = step.beforeLabel || 'VORHER';
+      comparison.querySelector('.paint-after-label').textContent = step.afterLabel || 'NACHHER';
+      comparison.style.setProperty('--compare-zoom', step.zoom || 1);
+      paintRange.setAttribute('aria-label', step.comparisonLabel || 'Lackbild vor und nach der Politur vergleichen');
       paintRange.value = 50; updatePaint();
     }
     document.querySelector('#film-title').textContent = step.title;
@@ -316,7 +323,9 @@
   function updatePaint() {
     const value = Number(paintRange.value);
     comparison.style.setProperty('--split', `${value}%`);
-    paintRange.setAttribute('aria-valuetext', `${value} Prozent Vorher, ${100 - value} Prozent Nachher`);
+    const beforeLabel = comparison.querySelector('.paint-before-label').textContent;
+    const afterLabel = comparison.querySelector('.paint-after-label').textContent;
+    paintRange.setAttribute('aria-valuetext', `${value} Prozent ${beforeLabel}, ${100 - value} Prozent ${afterLabel}`);
     comparison.querySelector('.paint-before-label').hidden = value < 8;
     comparison.querySelector('.paint-after-label').hidden = value > 92;
   }
