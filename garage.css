@@ -1,5 +1,5 @@
 .garage{position:relative;background:#080a0b;padding-top:var(--hero-header-height)}
-.garage-scene{position:relative;height:calc(100svh - var(--hero-header-height));overflow:hidden;isolation:isolate}
+.garage-scene{position:relative;width:100%;height:auto;aspect-ratio:16/9;max-height:calc(100svh - var(--hero-header-height));overflow:hidden;isolation:isolate}
 .garage-scene:before{content:'';position:absolute;inset:-64px;background:url('assets/garage/tim-garage-vector-v15-4k.webp') center 60%/cover no-repeat;filter:blur(48px) brightness(.32);pointer-events:none;z-index:-1}
 .garage-photo{position:absolute;inset:0 auto 0 50%;width:min(100%,calc((100svh - var(--hero-header-height)) * 2.04));transform:translateX(-50%)}
 .garage-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
@@ -143,9 +143,12 @@
 @media(max-width:1100px){.cinema-body{grid-template-columns:210px minmax(0,1fr)}.cinema-info{padding:25px 22px}.film-caption-label{display:none}}
 @media(max-width:760px){
   .garage-scene:before{display:none}.garage-picture{mask-image:none}
-  .garage-scene{height:auto;aspect-ratio:auto}.garage-photo{position:relative;inset:auto;width:100%;transform:none;height:max(360px,calc(100svh - var(--hero-header-height) - 117px - 210px))}
+  .garage-scene{height:auto;aspect-ratio:auto;max-height:none}.garage-photo{position:relative;inset:auto;width:100%;transform:none;height:auto;aspect-ratio:16/9}
   .garage-intro{position:relative;top:auto;left:auto;right:auto;padding:18px 6%;background:#080a0b}.garage-intro h1{font-size:34px;margin:0}.garage-intro .eyebrow{font-size:7px;letter-spacing:1.3px;margin-bottom:8px}.garage-intro>p:last-child,.garage-vehicle{display:none}
-  .garage-pin{gap:7px}.pin-label{font-size:11px}.garage-hint{bottom:19px;font-size:9px}
+  .garage-pin{padding:0;gap:0;width:44px;height:44px;min-width:44px;border:0;border-radius:50%;display:grid;place-items:center;transform:translate(-50%,-50%)}
+  .garage-pin.pin-flip{transform:translate(-50%,-50%)}
+  .garage-pin .pin-label{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .garage-pin .pin-dot{width:24px;height:24px}.garage-hint{display:none}
   .garage-controls{padding:15px 5% 19px}.garage-control-heading{padding-bottom:12px}.garage-control-heading>span{font-size:7px;letter-spacing:1px}.garage-control-heading a{font-size:9px;gap:6px}
   .garage-menu{grid-template-columns:repeat(2,minmax(0,1fr))}.garage-menu button{min-height:64px;padding:12px 10px}.garage-menu button:nth-child(3){border-right:1px solid #3b3b3b}.garage-menu button:nth-child(2n){border-right:0}.garage-menu button:nth-child(-n+4){border-bottom:1px solid #3b3b3b}.garage-menu button>span:nth-child(2){font-size:14px}.garage-menu small{font-size:6px;line-height:1.5}.garage-menu .ui-icon{width:12px;min-width:12px}
   .service-cinema{width:calc(100vw - 16px);max-height:calc(100svh - 16px)}.cinema-top{padding:8px 16px;gap:10px}.cinema-top .micro{font-size:6px;letter-spacing:.8px}.cinema-top button{font-size:11px;gap:8px}.cinema-body{display:flex;flex-direction:column}.cinema-info{padding:22px 18px 0;border:0}.cinema-info .eyebrow{font-size:8px;margin-bottom:10px}.service-cinema h2{font-size:40px;margin-bottom:12px}.cinema-info>p:last-of-type{display:none}

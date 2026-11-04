@@ -19,7 +19,33 @@
   const paintRange = document.querySelector('#paint-range');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let selected = 'polish', currentStep = 0, opener, revision = 0, layoutQueued = false, camera;
-  let approach, knowledgeTarget;
+  let approach, knowledgeTarget, warmedApproach;
+  function createApproachFilm() {
+    const film = document.createElement('video');
+    film.muted = true; film.defaultMuted = true; film.playsInline = true;
+    film.controls = false; film.disablePictureInPicture = true;
+    film.setAttribute('muted', ''); film.setAttribute('playsinline', '');
+    film.setAttribute('disablepictureinpicture', ''); film.setAttribute('disableremoteplayback', '');
+    film.tabIndex = -1; film.poster = car.currentSrc || car.src;
+    return film;
+  }
+  function discardWarmApproach() {
+    if (!warmedApproach) return;
+    const film = warmedApproach.film; warmedApproach = null;
+    film.pause(); film.removeAttribute('src'); film.load();
+  }
+  function warmApproach(key, preload = 'auto') {
+    const source = media[key]?.approach;
+    if (!source || innerWidth <= 760 || reduced.matches || dialog.open || document.hidden || navigator.connection?.saveData) return;
+    if (warmedApproach?.source === source) {
+      if (preload === 'auto') warmedApproach.film.preload = 'auto';
+      return;
+    }
+    discardWarmApproach();
+    const film = createApproachFilm();
+    film.preload = preload; film.src = source;
+    warmedApproach = { source, film }; film.load();
+  }
   function stopApproach() {
     if (approach) {
       approach.animations.forEach(animation => animation.cancel());
@@ -47,12 +73,10 @@
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
     layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
     layer.setAttribute('aria-hidden', 'true');
-    const film = document.createElement('video');
-    film.muted = true; film.defaultMuted = true; film.playsInline = true;
-    film.controls = false; film.preload = 'auto'; film.disablePictureInPicture = true;
-    film.setAttribute('muted', ''); film.setAttribute('playsinline', '');
-    film.setAttribute('disablepictureinpicture', ''); film.setAttribute('disableremoteplayback', '');
-    film.tabIndex = -1; film.poster = car.currentSrc || car.src;
+    const film = warmedApproach?.source === service.approach ? warmedApproach.film : createApproachFilm();
+    if (warmedApproach?.film === film) warmedApproach = null;
+    else discardWarmApproach();
+    film.preload = 'auto';
     Object.assign(film.style, {left:`${origin.left}px`, top:`${origin.top}px`, width:`${origin.width}px`, height:`${origin.height}px`});
     layer.append(film); dialog.append(layer); dialog.classList.add('camera-filming');
     dialog.querySelector('.cinema-body').inert = true;
@@ -72,6 +96,9 @@
     film.addEventListener('playing', () => {
       if (!active()) return;
       current.timers.forEach(clearTimeout); current.timers = [];
+      // Prepare the treatment while the camera travels, after the approach's
+      // first frame is playing so two cold movies do not compete at the click.
+      if (video.getAttribute('src')) { video.preload = 'auto'; video.load(); }
       const duration = Number.isFinite(film.duration) ? film.duration : 4;
       const move = film.animate([
         {left:`${origin.left}px`,top:`${origin.top}px`,width:`${origin.width}px`,height:`${origin.height}px`,offset:0},
@@ -101,7 +128,7 @@
     }, {once:true});
     film.addEventListener('error', fallback, {once:true});
     current.timers.push(setTimeout(fallback, 10000));
-    film.src = service.approach;
+    if (film.getAttribute('src') !== service.approach) film.src = service.approach;
     film.play()?.catch(fallback);
   }
   // Carry the current garage photograph toward the selected part before
@@ -153,8 +180,8 @@
     const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * focusY;
     car.style.objectPosition = `${focusX * 100}% ${focusY * 100}%`;
     pins.forEach(pin => {
-      const x = left + Number(pin.dataset.x) * renderedWidth;
-      const y = top + Number(pin.dataset.y) * renderedHeight;
+      const x = left + Number(innerWidth <= 760 ? pin.dataset.mobileX || pin.dataset.x : pin.dataset.x) * renderedWidth;
+      const y = top + Number(innerWidth <= 760 ? pin.dataset.mobileY || pin.dataset.y : pin.dataset.y) * renderedHeight;
       pin.style.left = `${x}px`; pin.style.top = `${y}px`;
       pin.classList.toggle('pin-flip', x + pin.offsetWidth > width - 18);
       pin.classList.toggle('out-of-view', x < 25 || x > width - 25 || y < 25 || y > height - 25);
@@ -163,7 +190,7 @@
   function queueLayout() { if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(layout); } }
   function releaseFilm() {
     camera?.cancel(); camera = null;
-    revision++; video.pause(); video.removeAttribute('src'); video.load();
+    revision++; video.pause(); video.removeAttribute('src'); video.preload = 'none'; video.load();
   }
   function playFilm() {
     if (!video.getAttribute('src')) return;
@@ -208,6 +235,7 @@
     [...steps.children].forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
     if (step.video) {
       video.autoplay = autoplay;
+      video.preload = autoplay ? 'auto' : 'metadata';
       video.src = step.video; video.load();
       if (autoplay) playFilm();
     }
@@ -237,6 +265,9 @@
     approachService(key, origin);
   }
   launchers.forEach(button => {
+    for (const event of ['pointerenter', 'focusin', 'pointerdown']) {
+      button.addEventListener(event, () => warmApproach(button.dataset.garageService), { passive: true });
+    }
     button.addEventListener('click', () => openService(button.dataset.garageService, button));
     button.addEventListener('mouseenter', () => launchers.forEach(el => el.classList.toggle('hovered', el.dataset.garageService === button.dataset.garageService)));
     button.addEventListener('mouseleave', () => launchers.forEach(el => el.classList.remove('hovered')));
@@ -306,6 +337,7 @@
   });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
+      discardWarmApproach();
       video.pause(); approach?.film?.pause();
       approach?.animations.forEach(animation => animation.pause());
     }
@@ -322,7 +354,7 @@
     const wasFilming = Boolean(approach?.film); stopApproach();
     if (wasFilming && dialog.open) playFilm();
   }
-  reduced.addEventListener('change', () => { cancelApproach(); camera?.cancel(); camera = null; });
+  reduced.addEventListener('change', () => { discardWarmApproach(); cancelApproach(); camera?.cancel(); camera = null; });
   addEventListener('resize', cancelApproach, { passive: true });
   if ('ResizeObserver' in window) new ResizeObserver(queueLayout).observe(scene);
   addEventListener('resize', queueLayout, { passive: true });
@@ -330,4 +362,16 @@
   function updateHeader() { header.classList.toggle('scrolled', scrollY > 40); }
   addEventListener('scroll', updateHeader, { passive: true });
   updateHeader(); queueLayout();
+  // Fetch only the wheel movie's metadata after the page is ready. Intent
+  // upgrades this one reusable element to auto preload; other films stay cold.
+  function primeWheelApproach() {
+    const prime = () => {
+      const bounds = scene.getBoundingClientRect();
+      if (bounds.bottom > 0 && bounds.top < innerHeight && !warmedApproach) warmApproach('wheels', 'metadata');
+    };
+    if ('requestIdleCallback' in window) requestIdleCallback(prime, { timeout: 1500 });
+    else setTimeout(prime, 800);
+  }
+  if (document.readyState === 'complete') primeWheelApproach();
+  else addEventListener('load', primeWheelApproach, { once: true });
 })();
