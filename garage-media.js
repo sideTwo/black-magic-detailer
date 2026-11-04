@@ -16,33 +16,33 @@ window.BMD_GARAGE = {
     title: 'Felgen', eyebrow: 'FELGENREINIGUNG', service: 'Felgenreinigung',
     description: 'Sorgfalt bis ins Detail. Vom Felgenreiniger über die Arbeit mit der Bürste bis zum sauberen Ergebnis.',
     approach: 'assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4',
-    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-ablauf-v4.mp4', poster: 'assets/garage/felgen-ablauf-v4.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt.' }]
+    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-ablauf-final-v5-4k.mp4', poster: 'assets/garage/felgen-ablauf-final-v5-4k.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt.' }]
   },
   leather: {
     knowledge: 'wissen-leder',
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
-    approach: 'assets/garage/leder-kamerafahrt-v3.mp4',
+    approach: 'assets/garage/leder-kamerafahrt-final-v4-4k.mp4',
     description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
-    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-pflege-v1.mp4', poster: 'assets/garage/leder-pflege-v1.webp', description: 'Reiniger und eine weiche Bürste lösen Schmutz in der Narbung. Ein Tuch nimmt die Rückstände auf. Erst danach folgt eine zum Leder passende Pflege.' }]
+    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-pflege-final-v3-4k.mp4', poster: 'assets/garage/leder-pflege-final-v3-4k.webp', description: 'Reiniger und eine weiche Bürste lösen Schmutz in der Narbung. Ein Tuch nimmt die Rückstände auf. Erst danach folgt eine zum Leder passende Pflege.' }]
   },
   cargo: {
     knowledge: 'wissen-innenraum',
     title: 'Kofferraum', eyebrow: 'INNENREINIGUNG', service: 'Innenraumaufbereitung',
-    approach: 'assets/garage/heck-kamerafahrt-v2.mp4',
+    approach: 'assets/garage/heck-kamerafahrt-final-v4-4k.mp4',
     description: 'Vom offenen Heck bis in die Teppichfasern. Sorgfältige Innenreinigung, passend zu Material und Zustand.',
-    steps: [{ title: 'Sauber bis ins Muster.', label: 'Reinigung & Bürstenmuster', video: 'assets/garage/kofferraum-reinigung-buerste-v2-4k.mp4', poster: 'assets/garage/kofferraum-reinigung-v4.webp', description: 'Zuerst werden lose Partikel abgesaugt. Anschließend legt eine Teppichbürste den sauberen Flor in unterschiedliche Richtungen. So wirken benachbarte Bahnen heller oder dunkler. Welche weiteren Reinigungsschritte nötig sind, entscheidet Tim nach dem Zustand der Materialien.' }]
+    steps: [{ title: 'Sauber bis ins Muster.', label: 'Reinigung & Bürstenmuster', video: 'assets/garage/kofferraum-reinigung-buerste-final-v3-4k.mp4', poster: 'assets/garage/kofferraum-reinigung-buerste-final-v3-4k.webp', description: 'Zuerst werden lose Partikel abgesaugt. Anschließend legt eine Teppichbürste den sauberen Flor in unterschiedliche Richtungen. So wirken benachbarte Bahnen heller oder dunkler. Welche weiteren Reinigungsschritte nötig sind, entscheidet Tim nach dem Zustand der Materialien.' }]
   },
   wash: {
     knowledge: 'wissen-waesche',
     title: 'Außenwäsche', eyebrow: 'SNOW FOAM', service: 'Außenwäsche',
-    approach: 'assets/garage/waesche-kamerafahrt-v1.mp4',
+    approach: 'assets/garage/waesche-kamerafahrt-final-v2-4k.mp4',
     description: 'Der Anfang eines guten Finishs. Gründliche Vorreinigung und eine schonende Wäsche des Fahrzeugs.',
-    steps: [{ title: 'Schaum auftragen. Gründlich abspülen.', label: 'Snow Foam', video: 'assets/garage/waesche-behandlung-v2.mp4', poster: 'assets/garage/waesche-behandlung-v2.webp', description: 'Tenside helfen, fettigen Straßenfilm anzulösen. Der Schaum hält den Reiniger auf der Fläche; abgespült werden Reiniger und gelöster Schmutz. Die Einwirkzeit ist verkürzt dargestellt; danach folgt die Handwäsche.' }]
+    steps: [{ title: 'Schaum auftragen. Gründlich abspülen.', label: 'Snow Foam', video: 'assets/garage/waesche-behandlung-final-v3-4k.mp4', poster: 'assets/garage/waesche-behandlung-final-v3-4k.webp', description: 'Tenside helfen, fettigen Straßenfilm anzulösen. Der Schaum hält den Reiniger auf der Fläche; abgespült werden Reiniger und gelöster Schmutz. Die Einwirkzeit ist verkürzt dargestellt; danach folgt die Handwäsche.' }]
   },
   ceramic: {
     knowledge: 'wissen-keramik',
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
-    approach: 'assets/garage/keramik-kamerafahrt-v1.mp4',
+    approach: 'assets/garage/keramik-kamerafahrt-final-v2-4k.mp4',
     description: 'Ein Finish, das die Pflege leichter macht. Erlebe den Abperleffekt im Detail.',
     steps: [{ title: 'Wasser perlt. Und läuft ab.', label: 'Wasserperlen', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Wasser benetzt die beschichtete Fläche schlechter und bildet Perlen. Ob sie ablaufen, hängt unter anderem von Neigung und Tropfengröße ab. Die passende Versiegelung bespricht Tim bei der Besichtigung.' }]
   }
