@@ -6,7 +6,7 @@ window.BMD_GARAGE = {
     approach: 'assets/garage/politur-anfahrt-final-kandidat-v2-4k.mp4',
     description: 'Vom ersten Polierzug bis zur klaren Reflexion. Entdecke die Arbeit am Lack und das Finish danach.',
     steps: [
-      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-loop-v2.mp4', poster: 'assets/garage/politur-loop-v2.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
+      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-behandlung-final-v3-4k.mp4', poster: 'assets/garage/politur-behandlung-final-v3-4k.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
       { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher-v2.webp', before: 'assets/garage/lack-vorher-v2.webp', after: 'assets/garage/lack-nachher-v2.webp', description: 'KI-Visualisierung unter gleicher Prüfleuchte: Vorher streuen feine Waschkratzer das Licht als Spinnennetz um den Lichtpunkt. Nach der Korrektur bleibt die Reflexion klarer. Ziehe den Regler für den Vergleich. Kein dokumentiertes Kundenergebnis.' },
       { knowledge: 'wissen-keramik', title: 'Wasser perlt. Und läuft ab.', label: 'Keramik', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Die wasserabweisende Oberfläche lässt Tropfen zu Perlen werden. Bei ausreichender Neigung und Tropfengröße laufen sie ab. Die regelmäßige Wäsche bleibt Teil der Pflege.' }
     ]
@@ -15,7 +15,7 @@ window.BMD_GARAGE = {
     knowledge: 'wissen-felgen',
     title: 'Felgen', eyebrow: 'FELGENREINIGUNG', service: 'Felgenreinigung',
     description: 'Sorgfalt bis ins Detail. Vom Felgenreiniger über die Arbeit mit der Bürste bis zum sauberen Ergebnis.',
-    approach: 'assets/garage/felgen-kamerafahrt-v8.mp4',
+    approach: 'assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4',
     steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-ablauf-v4.mp4', poster: 'assets/garage/felgen-ablauf-v4.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt.' }]
   },
   leather: {
