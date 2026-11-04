@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#090a09">
+  <title>Neue Lederfahrt · Black Magic Detailer</title>
+  <link rel="icon" href="assets/brand-icon-v2.svg" type="image/svg+xml">
+  <style>
+    @font-face{font-family:Manrope;src:url('assets/fonts/manrope-regular.woff2') format('woff2');font-display:swap}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#090a09;color:#eeeae2;font:14px/1.6 Manrope,Arial,sans-serif}
+    main{position:relative;height:100svh;min-height:420px;isolation:isolate;overflow:hidden}
+    video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:-1}
+    video::-webkit-media-controls{display:none!important}
+    header{position:absolute;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 3%;background:linear-gradient(#090a09d9,transparent)}
+    header img{display:block;width:170px;height:auto}a{color:#d6ba84;text-underline-offset:5px}
+    .caption{position:absolute;bottom:0;left:0;right:0;padding:100px 3% 28px;background:linear-gradient(transparent,#090a09e8);pointer-events:none;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+    .caption p{margin:6px 0 0;max-width:65ch;color:#cec9c0}.caption .meta{color:#d6ba84;font-size:11px;letter-spacing:.11em;text-transform:uppercase}
+    h1{margin:0;font-size:clamp(23px,3vw,42px);font-weight:500;letter-spacing:-.04em}
+    button{pointer-events:auto;min-height:46px;padding:12px 20px;border:1px solid #b5996599;background:#090a09a6;color:#d6ba84;font:inherit;cursor:pointer;flex-shrink:0}
+    button:hover{background:#30291d}button:focus-visible,a:focus-visible{outline:2px solid #d6ba84;outline-offset:5px}
+    @media(max-width:600px){header{padding:18px 5%}header img{width:135px}.caption{padding:80px 5% 22px;display:block}.caption p{font-size:12px}button{margin-top:16px}}
+  </style>
+</head>
+<body>
+  <main aria-label="Neue Kamerafahrt zur Fahrertür, Bewegungsprüfung">
+    <video id="film" autoplay muted playsinline preload="metadata" disablepictureinpicture disableremoteplayback poster="assets/garage/tim-garage-vector-v15-4k.webp" src="assets/garage/leder-anfahrt-pruefung-v2-1080p.mp4" aria-label="Stummer Entwurf der Kamerafahrt um die Front zur linken Fahrertür."></video>
+    <header><img src="assets/brand-logo-v2.svg" alt="Black Magic Detailer"><a href="./">Zur Garage</a></header>
+    <div class="caption">
+      <div><p class="meta">Bewegungsprüfung · 1080p · 24 FPS · ohne Ton</p><h1>Zur Fahrertür.</h1><p id="status" aria-live="polite">Neue Kamerafahrt und getrennte Türbewegung. Fahrzeugdetails sind noch nicht final freigegeben.</p></div>
+      <button id="replay" type="button">Erneut ansehen</button>
+    </div>
+  </main>
+  <script>
+    const film=document.querySelector('#film');
+    const replay=document.querySelector('#replay');
+    const status=document.querySelector('#status');
+    const caption=status.textContent;
+    async function play(){film.muted=true;try{await film.play();status.textContent=caption;replay.textContent='Erneut ansehen';}catch{status.textContent='Zum Abspielen bitte auf „Video starten“ tippen.';replay.textContent='Video starten';}}
+    replay.addEventListener('click',()=>{film.currentTime=0;play();});
+    film.addEventListener('error',()=>{status.textContent='Der Clip konnte nicht geladen werden. Bitte erneut versuchen.';});
+    play();
+  </script>
+</body>
+</html>
