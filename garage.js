@@ -136,20 +136,21 @@
   // blending to the film. Coordinates are in the original, uncropped photo.
   function approachService(key, origin) {
     stopApproach();
+    if (media[key]?.steps[0]?.pending) return;
     if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
     const target = document.querySelector('.film-screen').getBoundingClientRect();
     const positions = {
-      wheels: [.51, .72, 4.4], polish: [.64, .485, 2.8],
-      leather: [.46, .39, 4.4], cargo: [.12, .45, 3.6],
-      wash: [.67, .49, 2.4], ceramic: [.79, .51, 4.8]
+      wheels: [.52, .69, 4.4], polish: [.595, .485, 2.8],
+      leather: [.475, .39, 4.4], cargo: [.25, .46, 3.6],
+      wash: [.615, .48, 2.4], ceramic: [.695, .50, 4.8]
     };
     const [x, y, magnification] = positions[key];
     const sw = Number(car.getAttribute('width')), sh = Number(car.getAttribute('height'));
     const cover = Math.max(origin.width / sw, origin.height / sh);
     const width = sw * cover, height = sh * cover;
-    const left = origin.left + (origin.width - width) * (origin.width <= 600 ? .35 : .5);
-    const top = origin.top + (origin.height - height) * (innerWidth > 760 ? .6 : .2);
+    const left = origin.left + (origin.width - width) * .5;
+    const top = origin.top + (origin.height - height) * .5;
     const finalWidth = target.width * magnification, scale = finalWidth / width;
     const dx = target.left + target.width / 2 - x * finalWidth - left;
     const dy = target.top + target.height / 2 - y * height * scale - top;
@@ -176,8 +177,8 @@
     const sourceWidth = Number(car.getAttribute('width')), sourceHeight = Number(car.getAttribute('height'));
     const scale = Math.max(width / sourceWidth, height / sourceHeight);
     const renderedWidth = sourceWidth * scale, renderedHeight = sourceHeight * scale;
-    const focusX = width <= 600 ? .35 : .5;
-    const focusY = innerWidth > 760 ? .6 : .2;
+    const focusX = .5;
+    const focusY = .5;
     const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * focusY;
     car.style.objectPosition = `${focusX * 100}% ${focusY * 100}%`;
     pins.forEach(pin => {

@@ -32,8 +32,8 @@ test('available films and posters exist; pending treatments never claim a missin
   }
 });
 
-test('the entry uses the approved Tim composition with his supplied shirt logo and cannot load the old scroll movie', () => {
-  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-vector-v15-4k.webp"/);
+test('the entry uses the complete wide Tim composition with his supplied shirt logo and cannot load the old scroll movie', () => {
+  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-v16-wide.webp"/);
   assert.doesNotMatch(html, /src="(?:hero|media-config)\.js|class="story"|mobile-sequence/);
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
   assert.match(player, /playsinline/);

@@ -1,10 +1,9 @@
 .garage{position:relative;background:#080a0b;padding-top:var(--hero-header-height)}
-.garage-scene{position:relative;width:100%;height:auto;aspect-ratio:16/9;max-height:calc(100svh - var(--hero-header-height));overflow:hidden;isolation:isolate}
-.garage-scene:before{content:'';position:absolute;inset:-64px;background:url('assets/garage/tim-garage-vector-v15-4k.webp') center 60%/cover no-repeat;filter:blur(48px) brightness(.32);pointer-events:none;z-index:-1}
-.garage-photo{position:absolute;inset:0 auto 0 50%;width:min(100%,calc((100svh - var(--hero-header-height)) * 2.04));transform:translateX(-50%)}
+.garage-scene{position:relative;width:100%;height:auto;aspect-ratio:1915/821;overflow:hidden;isolation:isolate}
+.garage-photo{position:absolute;inset:0;width:100%}
 .garage-image{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
-.garage-picture{position:absolute;inset:0;mask-image:linear-gradient(90deg,transparent,#0000000a 1%,#00000029 2%,#00000080 4%,#000000d6 6%,#000000f5 7%,#000 8%,#000 92%,#000000f5 93%,#000000d6 94%,#00000080 96%,#00000029 98%,#0000000a 99%,transparent)}
-.garage-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#07090ba0,transparent 40%),linear-gradient(0deg,#080a0be8,transparent 24%)}
+.garage-picture{position:absolute;inset:0}
+.garage-shade{display:none}
 .garage-intro{position:absolute;right:6%;top:34px;pointer-events:none;z-index:1}
 .garage-intro .eyebrow{font-size:9px;letter-spacing:2px;margin-bottom:15px}
 .garage-intro h1{font-size:clamp(42px,4.5vw,72px);line-height:.95;letter-spacing:-.9px;margin-bottom:15px}
@@ -71,7 +70,7 @@
 .camera-flight{position:fixed;inset:0;z-index:10;overflow:hidden;pointer-events:none;background:#080a0b;will-change:clip-path,opacity}
 .camera-flight img{position:absolute;max-width:none;object-fit:fill;transform-origin:0 0;will-change:transform}
 .camera-film{background:#080a0b22}
-.camera-film:before{content:'';position:absolute;inset:-60px;background:var(--film-ambient) center/cover no-repeat;filter:blur(48px) brightness(.48) saturate(.65);pointer-events:none}
+.camera-film:before{display:none}
 .camera-film video{position:absolute;display:block;max-width:none;object-fit:cover;object-position:center 60%;pointer-events:none;user-select:none}
 .camera-film video{mask-image:none}
 .camera-film video::-webkit-media-controls{display:none!important}
