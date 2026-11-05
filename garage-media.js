@@ -33,9 +33,9 @@ window.BMD_GARAGE = {
   leather: {
     knowledge: 'wissen-leder',
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
-    approach: 'assets/garage/leder-kamerafahrt-final-v4-4k.mp4',
+    approach: 'assets/garage/leder-kamerafahrt-v5-1080p.mp4',
     description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
-    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-pflege-final-v3-4k.mp4', poster: 'assets/garage/leder-pflege-final-v3-4k.webp', description: 'Reiniger und eine weiche Bürste lösen Schmutz in der Narbung. Ein Tuch nimmt die Rückstände auf. Erst danach folgt eine zum Leder passende Pflege.' }]
+    steps: [{ title: 'Pflege, die sich gut anfühlt.', label: 'Leder', video: 'assets/garage/leder-kreise-v4-1080p.mp4', poster: 'assets/garage/leder-kreise-v4.webp', description: 'Reiniger und eine weiche Bürste lösen Schmutz in der Narbung. Ein Tuch nimmt die Rückstände auf. Erst danach folgt eine zum Leder passende Pflege.' }]
   },
   cargo: {
     knowledge: 'wissen-innenraum',

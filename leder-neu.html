@@ -13,6 +13,7 @@
     main{position:relative;height:100svh;min-height:420px;isolation:isolate;overflow:hidden}
     video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:-1}
     video::-webkit-media-controls{display:none!important}
+    #arrival{z-index:0}#arrival[hidden]{display:none}
     header{position:absolute;inset:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 3%;background:linear-gradient(#090a09d9,transparent)}
     header img{display:block;width:170px;height:auto}a{color:#d6ba84;text-underline-offset:5px}
     nav{display:flex;gap:8px}nav button{padding:10px 16px}nav button[aria-pressed=true]{border-color:#d6ba84;background:#30291dcc;color:#f1dfbb}
@@ -26,10 +27,11 @@
 </head>
 <body>
   <main aria-label="Aktuelle Vorschau der Lederanimation">
-    <video id="film" autoplay loop muted playsinline preload="metadata" disablepictureinpicture disableremoteplayback poster="assets/garage/leder-kreisreinigung-pruefung-v3.webp" src="assets/garage/leder-kreisreinigung-pruefung-v3-1080p.mp4" aria-label="Stummer Bewegungstest der Lederreinigung mit Bürste und mittlerer Schaummenge."></video>
-    <header><img src="assets/brand-logo-v2.svg" alt="Black Magic Detailer"><nav aria-label="Leder-Vorschau wählen"><button type="button" data-view="camera" aria-pressed="false">01 Kamerafahrt</button><button type="button" data-view="brush" aria-pressed="true">02 Reinigung</button></nav><a href="./">Zur Garage</a></header>
+    <video id="film" loop muted playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="assets/garage/leder-kreise-v4.webp" src="assets/garage/leder-kreise-v4-1080p.mp4" aria-label="Stumme Lederreinigung mit Bürste und mittlerer Schaummenge."></video>
+    <video id="arrival" autoplay muted playsinline preload="auto" disablepictureinpicture disableremoteplayback poster="assets/garage/tim-garage-vector-v15-4k.webp" src="assets/garage/leder-kamerafahrt-v5-1080p.mp4" aria-label="Kamerabogen zur Fahrertür, Türöffnung, Nahzoom und Bürstenkontakt."></video>
+    <header><img src="assets/brand-logo-v2.svg" alt="Black Magic Detailer"><nav aria-label="Leder-Vorschau wählen"><button type="button" data-view="camera" aria-pressed="true">01 Gesamte Fahrt</button><button type="button" data-view="brush" aria-pressed="false">02 Reinigung</button></nav><a href="./">Zur Garage</a></header>
     <div class="caption">
-      <div><p class="meta">Aktuelle Bewegungsprüfung · 1080p · 24 FPS · ohne Ton</p><h1 id="view-title">Lederreinigung im Detail.</h1><p id="status" aria-live="polite">Die bestätigte Sitzaufteilung mit ungelochten Seitenwangen, Bürste und mittlerer Schaummenge. Der durchgehende Anschluss an die Kamerafahrt ist noch offen.</p></div>
+      <div><p class="meta">Bewegungsvorschau V5 · 1080p · 24 FPS · ohne Ton</p><h1 id="view-title">Von der Garage bis ins Leder.</h1><p id="status" aria-live="polite">Die Kamera fährt zur Fahrertür und während des Öffnens hinein. Der Nahzoom nutzt ein festes Sitzbild; danach beginnt die Reinigung. Bitte den vollständigen Anschluss prüfen.</p></div>
       <button id="replay" type="button">Erneut ansehen</button>
     </div>
   </main>
@@ -37,18 +39,18 @@
     const film=document.querySelector('#film');
     const replay=document.querySelector('#replay');
     const status=document.querySelector('#status');
-    const views={
-      brush:{src:'assets/garage/leder-kreisreinigung-pruefung-v3-1080p.mp4',poster:'assets/garage/leder-kreisreinigung-pruefung-v3.webp',title:'Lederreinigung im Detail.',caption:status.textContent,loop:true},
-      camera:{src:'assets/garage/leder-anfahrt-pruefung-v3-1080p.mp4',poster:'assets/garage/tim-garage-vector-v15-4k.webp',title:'Zum Fahrersitz.',caption:'Bisheriger Entwurf: Die Kamera fährt bereits hinein, während die Tür öffnet. Der Anschluss zur neuen Reinigungsaufnahme fehlt noch.',loop:false}
-    };
-    let selected='brush',revision=0;
-    async function play(){const current=revision;film.muted=true;try{await film.play();if(current!==revision)return;status.textContent=views[selected].caption;replay.textContent='Erneut ansehen';}catch(reason){if(current!==revision||reason.name==='AbortError')return;status.textContent='Zum Abspielen bitte auf „Video starten“ tippen.';replay.textContent='Video starten';}}
-    function selectView(key){const view=views[key];if(!view)return;revision++;film.pause();selected=key;film.loop=view.loop;film.poster=view.poster;film.src=view.src;film.setAttribute('aria-label',view.title+' Ohne Ton.');document.querySelector('#view-title').textContent=view.title;status.textContent=view.caption;document.querySelectorAll('[data-view]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.view===key)));history.replaceState(null,'',key==='camera'?'#anfahrt':'#reinigung');film.load();play();}
+    const arrival=document.querySelector('#arrival');
+    const views={camera:{title:'Von der Garage bis ins Leder.',caption:status.textContent},brush:{title:'Lederreinigung im Detail.',caption:'Die Nahaufnahme läuft ohne Ton in einer Schleife. Die Kamerafahrt und die Türöffnung werden nicht wiederholt.'}};
+    let selected='camera',revision=0;
+    function activeFilm(){return !arrival.hidden&&!arrival.ended?arrival:film;}
+    async function play(target=activeFilm()){const current=revision;target.muted=true;try{await target.play();if(current!==revision)return;status.textContent=views[selected].caption;replay.textContent='Erneut ansehen';}catch(reason){if(current!==revision||reason.name==='AbortError')return;status.textContent='Zum Abspielen bitte auf „Video starten“ tippen.';replay.textContent='Video starten';}}
+    function selectView(key){if(!views[key])return;revision++;arrival.pause();film.pause();selected=key;film.currentTime=0;arrival.hidden=key!=='camera';if(key==='camera')arrival.currentTime=0;document.querySelector('#view-title').textContent=views[key].title;status.textContent=views[key].caption;document.querySelectorAll('[data-view]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.view===key)));history.replaceState(null,'',key==='camera'?'#anfahrt':'#reinigung');play();}
+    arrival.addEventListener('ended',()=>{if(selected!=='camera')return;const current=revision;film.currentTime=0;film.addEventListener('playing',()=>{if(current===revision)arrival.hidden=true;},{once:true});play(film);});
     document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>selectView(button.dataset.view)));
-    replay.addEventListener('click',()=>{film.currentTime=0;play();});
-    film.addEventListener('error',()=>{status.textContent='Der Clip konnte nicht geladen werden. Bitte erneut versuchen.';});
-    document.addEventListener('visibilitychange',()=>{if(document.hidden)film.pause();else play();});
-    if(location.hash==='#anfahrt')selectView('camera');else play();
+    replay.addEventListener('click',()=>selectView(selected));
+    [film,arrival].forEach(clip=>clip.addEventListener('error',()=>{status.textContent='Der Clip konnte nicht geladen werden. Bitte erneut versuchen.';}));
+    document.addEventListener('visibilitychange',()=>{if(document.hidden){film.pause();arrival.pause();}else play();});
+    if(location.hash==='#reinigung')selectView('brush');else play();
   </script>
 </body>
 </html>
