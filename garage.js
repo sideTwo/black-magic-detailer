@@ -5,6 +5,7 @@
   const media = window.BMD_GARAGE || {};
   const scene = document.querySelector('.garage-photo');
   const car = document.querySelector('.garage-image');
+  const backdrop = document.querySelector('.garage-backdrop');
   const pins = [...document.querySelectorAll('.garage-pin')];
   const launchers = [...document.querySelectorAll('[data-garage-service]')];
   const dialog = document.querySelector('#service-cinema');
@@ -77,8 +78,27 @@
     if (warmedApproach?.film === film) warmedApproach = null;
     else discardWarmApproach();
     film.preload = 'auto';
-    Object.assign(film.style, {left:`${origin.left}px`, top:`${origin.top}px`, width:`${origin.width}px`, height:`${origin.height}px`});
-    layer.append(film); dialog.append(layer); dialog.classList.add('camera-filming');
+    // The hero and each camera film share the original 16:9 photograph.
+    // Outpaint fills only the surroundings; a single fixed-aspect frame moves
+    // both layers together, so switching to the video never changes car size.
+    const sourceRatio = Number(car.getAttribute('width')) / Number(car.getAttribute('height'));
+    const backdropRatio = Number(backdrop.getAttribute('width')) / Number(backdrop.getAttribute('height'));
+    const initialHeight = Math.min(origin.height, origin.width / sourceRatio);
+    const finalHeight = Math.max(target.height, target.width / sourceRatio);
+    const rectFor = (bounds, height) => ({
+      left: `${bounds.left + (bounds.width - height * backdropRatio) / 2}px`,
+      top: `${bounds.top + (bounds.height - height) / 2}px`,
+      width: `${height * backdropRatio}px`, height: `${height}px`
+    });
+    const initialRect = rectFor(origin, initialHeight), finalRect = rectFor(target, finalHeight);
+    const frame = document.createElement('div'); frame.className = 'camera-frame';
+    const ambient = document.createElement('img'); ambient.src = backdrop.currentSrc || backdrop.src; ambient.alt = '';
+    Object.assign(frame.style, initialRect);
+    Object.assign(film.style, {left:`${(1 - sourceRatio / backdropRatio) * 50}%`, width:`${sourceRatio / backdropRatio * 100}%`});
+    frame.append(ambient, film); layer.append(frame);
+    const clip = rect => `inset(${Math.max(0, rect.top)}px ${Math.max(0, innerWidth - rect.right)}px ${Math.max(0, innerHeight - rect.bottom)}px ${Math.max(0, rect.left)}px)`;
+    layer.style.clipPath = clip(origin);
+    dialog.append(layer); dialog.classList.add('camera-filming');
     dialog.querySelector('.cinema-body').inert = true;
     dialog.querySelector('.cinema-bottom').inert = true;
     const current = {layer, film, animations:[], timers:[], revision}; approach = current;
@@ -100,14 +120,12 @@
       // first frame is playing so two cold movies do not compete at the click.
       if (video.getAttribute('src')) { video.preload = 'auto'; video.load(); }
       const duration = Number.isFinite(film.duration) ? film.duration : 4;
-      const move = film.animate([
-        {left:`${origin.left}px`,top:`${origin.top}px`,width:`${origin.width}px`,height:`${origin.height}px`,offset:0},
-        {left:`${target.left}px`,top:`${target.top}px`,width:`${target.width}px`,height:`${target.height}px`,objectPosition:'50% 50%',offset:1}
-      ], {duration:200,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'});
+      const move = frame.animate([initialRect, finalRect],
+        {duration:650,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'});
       current.animations.push(move);
       current.animations.push(layer.animate([
-        {backgroundColor:'#080a0b22'}, {backgroundColor:'#080a0b'}
-      ], {duration:200,fill:'both'}));
+        {clipPath:clip(origin)}, {clipPath:clip(screen)}
+      ], {duration:650,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'}));
       current.timers.push(setTimeout(fallback, (duration + 12) * 1000));
     }, {once:true});
     film.addEventListener('ended', () => {
@@ -141,13 +159,13 @@
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
     const target = document.querySelector('.film-screen').getBoundingClientRect();
     const positions = {
-      wheels: [.52, .69, 4.4], polish: [.595, .485, 2.8],
-      leather: [.475, .39, 4.4], cargo: [.25, .46, 3.6],
-      wash: [.615, .48, 2.4], ceramic: [.695, .50, 4.8]
+      wheels: [.51, .72, 4.4], polish: [.64, .485, 2.8],
+      leather: [.46, .39, 4.4], cargo: [.12, .45, 3.6],
+      wash: [.615, .48, 2.4], ceramic: [.79, .51, 4.8]
     };
     const [x, y, magnification] = positions[key];
     const sw = Number(car.getAttribute('width')), sh = Number(car.getAttribute('height'));
-    const cover = Math.max(origin.width / sw, origin.height / sh);
+    const cover = Math.min(origin.width / sw, origin.height / sh);
     const width = sw * cover, height = sh * cover;
     const left = origin.left + (origin.width - width) * .5;
     const top = origin.top + (origin.height - height) * .5;
@@ -175,7 +193,7 @@
     layoutQueued = false;
     const width = scene.clientWidth, height = scene.clientHeight;
     const sourceWidth = Number(car.getAttribute('width')), sourceHeight = Number(car.getAttribute('height'));
-    const scale = Math.max(width / sourceWidth, height / sourceHeight);
+    const scale = Math.min(width / sourceWidth, height / sourceHeight);
     const renderedWidth = sourceWidth * scale, renderedHeight = sourceHeight * scale;
     const focusX = .5;
     const focusY = .5;

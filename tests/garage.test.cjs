@@ -32,8 +32,10 @@ test('available films and posters exist; pending treatments never claim a missin
   }
 });
 
-test('the entry uses the complete wide Tim composition with his supplied shirt logo and cannot load the old scroll movie', () => {
-  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-v16-wide.webp"/);
+test('the entry preserves the original camera-start composition and fills its surroundings without the old scroll movie', () => {
+  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-vector-v15-4k.webp"/);
+  assert.match(html, /class="garage-backdrop" src="assets\/garage\/tim-garage-background-v17.webp"/);
+  assert.ok(existsSync(path.join(root, 'assets/garage/tim-garage-background-v17.webp')));
   assert.doesNotMatch(html, /src="(?:hero|media-config)\.js|class="story"|mobile-sequence/);
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
   assert.match(player, /playsinline/);
