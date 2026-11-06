@@ -66,11 +66,6 @@
       origin.bottom > 80 && origin.top < innerHeight - 80);
   }
   function filmedApproach(service, origin) {
-    const screen = document.querySelector('.film-screen').getBoundingClientRect();
-    const target = {
-      left: screen.left, top: screen.top,
-      width: screen.width, height: screen.height
-    };
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
     layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
     layer.setAttribute('aria-hidden', 'true');
@@ -79,18 +74,18 @@
     else discardWarmApproach();
     film.preload = 'auto';
     // The hero and each camera film share the original 16:9 photograph.
-    // Outpaint fills only the surroundings; a single fixed-aspect frame moves
-    // both layers together, so switching to the video never changes car size.
+    // Keep the player in the hero's exact rectangle for the whole sequence.
+    // The generated camera movement is the only zoom; the page must not add
+    // a second enlargement while that movement is already playing.
     const sourceRatio = Number(car.getAttribute('width')) / Number(car.getAttribute('height'));
     const backdropRatio = Number(backdrop.getAttribute('width')) / Number(backdrop.getAttribute('height'));
     const initialHeight = Math.min(origin.height, origin.width / sourceRatio);
-    const finalHeight = Math.max(target.height, target.width / sourceRatio);
     const rectFor = (bounds, height) => ({
       left: `${bounds.left + (bounds.width - height * backdropRatio) / 2}px`,
       top: `${bounds.top + (bounds.height - height) / 2}px`,
       width: `${height * backdropRatio}px`, height: `${height}px`
     });
-    const initialRect = rectFor(origin, initialHeight), finalRect = rectFor(target, finalHeight);
+    const initialRect = rectFor(origin, initialHeight);
     const frame = document.createElement('div'); frame.className = 'camera-frame';
     const ambient = document.createElement('img'); ambient.src = backdrop.currentSrc || backdrop.src; ambient.alt = '';
     Object.assign(frame.style, initialRect);
@@ -120,12 +115,6 @@
       // first frame is playing so two cold movies do not compete at the click.
       if (video.getAttribute('src')) { video.preload = 'auto'; video.load(); }
       const duration = Number.isFinite(film.duration) ? film.duration : 4;
-      const move = frame.animate([initialRect, finalRect],
-        {duration:650,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'});
-      current.animations.push(move);
-      current.animations.push(layer.animate([
-        {clipPath:clip(origin)}, {clipPath:clip(screen)}
-      ], {duration:650,easing:'cubic-bezier(.22,.61,.36,1)',fill:'both'}));
       current.timers.push(setTimeout(fallback, (duration + 12) * 1000));
     }, {once:true});
     film.addEventListener('ended', () => {
@@ -271,7 +260,22 @@
     if (!service) return;
     const origin = scene.getBoundingClientRect();
     selected = key; opener = source;
-    dialog.classList.toggle('cinema-immersive', Boolean(service.approach && innerWidth > 760));
+    const immersive = Boolean(service.approach && innerWidth > 760);
+    dialog.classList.toggle('cinema-immersive', immersive);
+    // Anchor the cinema to the garage instead of opening a different crop
+    // across the viewport. These bounds remain fixed during the sequence.
+    const onScreen = origin.bottom > 80 && origin.top < innerHeight - 80;
+    const frame = onScreen ? origin : {
+      left: 0, top: 0, width: document.documentElement.clientWidth, height: innerHeight
+    };
+    const top = Math.max(0, frame.top);
+    const bottom = Math.min(innerHeight, frame.top + frame.height);
+    dialog.style.setProperty('--cinema-left', `${frame.left}px`);
+    dialog.style.setProperty('--cinema-top', `${top}px`);
+    dialog.style.setProperty('--cinema-width', `${frame.width}px`);
+    dialog.style.setProperty('--cinema-height', `${bottom - top}px`);
+    dialog.style.setProperty('--cinema-frame-top', `${frame.top - top}px`);
+    dialog.style.setProperty('--cinema-frame-height', `${frame.height}px`);
     launchers.forEach(button => button.classList.toggle('selected', button.dataset.garageService === key));
     document.querySelector('#film-eyebrow').textContent = service.eyebrow;
     document.querySelector('#film-service-title').textContent = service.title.replace('Außenwäsche', 'Außen\u200bwäsche');
@@ -286,6 +290,7 @@
       button.append(number, name); button.addEventListener('click', () => setStep(index)); steps.append(button);
     });
     steps.hidden = service.steps.length < 2;
+    document.body.style.setProperty('--modal-page-width', `${header.getBoundingClientRect().width}px`);
     if (!dialog.open) dialog.showModal();
     document.body.classList.add('modal-open'); setStep(0, !canUseFilmedApproach(service, origin));
     approachService(key, origin);
@@ -308,6 +313,7 @@
     stopApproach();
     dialog.classList.remove('cinema-immersive');
     releaseFilm(); document.body.classList.remove('modal-open');
+    document.body.style.removeProperty('--modal-page-width');
     if (knowledgeTarget) {
       const entry = knowledgeTarget; knowledgeTarget = null;
       entry.open = true;
