@@ -255,13 +255,8 @@
       if (autoplay) playFilm();
     }
   }
-  function openService(key, source) {
-    const service = media[key];
-    if (!service) return;
-    const origin = scene.getBoundingClientRect();
-    selected = key; opener = source;
-    const immersive = Boolean(service.approach && innerWidth > 760);
-    dialog.classList.toggle('cinema-immersive', immersive);
+  function positionCinema(origin) {
+    dialog.classList.toggle('cinema-immersive', Boolean(media[selected].approach && innerWidth > 760));
     // Anchor the cinema to the garage instead of opening a different crop
     // across the viewport. These bounds remain fixed during the sequence.
     const onScreen = origin.bottom > 80 && origin.top < innerHeight - 80;
@@ -276,6 +271,13 @@
     dialog.style.setProperty('--cinema-height', `${bottom - top}px`);
     dialog.style.setProperty('--cinema-frame-top', `${frame.top - top}px`);
     dialog.style.setProperty('--cinema-frame-height', `${frame.height}px`);
+  }
+  function openService(key, source) {
+    const service = media[key];
+    if (!service) return;
+    const origin = scene.getBoundingClientRect();
+    selected = key; opener = source;
+    positionCinema(origin);
     launchers.forEach(button => button.classList.toggle('selected', button.dataset.garageService === key));
     document.querySelector('#film-eyebrow').textContent = service.eyebrow;
     document.querySelector('#film-service-title').textContent = service.title.replace('Außenwäsche', 'Außen\u200bwäsche');
@@ -389,7 +391,13 @@
     if (wasFilming && dialog.open) playFilm();
   }
   reduced.addEventListener('change', () => { discardWarmApproach(); cancelApproach(); camera?.cancel(); camera = null; });
-  addEventListener('resize', cancelApproach, { passive: true });
+  addEventListener('resize', () => {
+    cancelApproach();
+    if (!dialog.open) return;
+    positionCinema(scene.getBoundingClientRect());
+    document.body.style.removeProperty('--modal-page-width');
+    document.body.style.setProperty('--modal-page-width', `${header.getBoundingClientRect().width}px`);
+  }, { passive: true });
   if ('ResizeObserver' in window) new ResizeObserver(queueLayout).observe(scene);
   addEventListener('resize', queueLayout, { passive: true });
   const header = document.querySelector('.header');
