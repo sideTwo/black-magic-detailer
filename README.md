@@ -1,51 +1,43 @@
-Aktueller Stand 05.11.2026: Neues breites Garagenbild `assets/garage/tim-garage-v16-wide.webp` (1915x821), ohne Blur-Hintergrund und Randmasken. Hotspots auf das neue Motiv angepasst. Die verworfene Lederfahrt V5 und ihr alter Links-Einstiegsloop sind nicht mehr aktiv: Leder zeigt voruebergehend die neue Rechts-Einstiegs-Bildvorlage mit einem ausdruecklichen Hinweis auf den ausstehenden Film. Neue Bildpruefung: `leder-v6.html`; `leder-neu.html` ist als verworfene alte Vorschau beschriftet. Kein neuer Kling-Render: Browser-Freigabepruefung durch fehlende Workspace-Credits blockiert. Ziel fuer den neuen Film:1080p, ohne Audio; kein 4K- oder60fps-Fertigstellungsanspruch. Aktuelle Validierung: bestehende drei Garage-Integrationspruefungen und JavaScript-Syntaxpruefung erfolgreich; neue Browser-Sichtpruefung blockiert.
-
 # Black Magic Detailer
 
-Für die anschließende Kofferraum-Nahaufnahme liegen zwei KI-Storyboardbilder vor: [gebrauchter, verschmutzter Ausgangszustand](assets/garage/kofferraum-nah-vorher-v2.webp) und [sauberes Finish mit Teppichbahnen](assets/garage/kofferraum-nah-finish-v2.webp). Rückwand und Seiten sind im Ausgangsbild ebenfalls verschmutzt; die Kratzer der Alu-Ladekante bleiben im Finish sichtbar. Die gewünschte Videoabfolge mit Druckluft-Reinigungspistole, Staubsauger und Pflege ist damit vorbereitet, noch nicht als Film umgesetzt.
+Neuer Website-Aufbau vom 6. November 2026 für Tim Rupprecht. Statische HTML/CSS/JavaScript-Seite ohne Build-Schritt. GitHub Pages veröffentlicht `main` aus dem Stammverzeichnis.
 
-Tims zweite Rückmeldung: Das Shirt-Logo ist im Startbild V13 und in der [Heckfahrt-Vorschau](assets/garage/heck-kamerafahrt-v2.mp4) deutlich kleiner. Die Kameradrehung wurde lokal verlangsamt; die gesamte Fahrt dauert jetzt 6,4 Sekunden und wird mit interpolierten 30 fps exportiert. Das Öffnen der Heckklappe behält das bisherige Tempo. Die Vorschau ist noch kein zusätzlicher Garage-Menüpunkt; der zugehörige Reinigungsfilm muss separat abgerufen und geprüft werden.
+## Aktive Startseite
 
-Tims Feedback vom 2. November: Die Inhaltsbereiche verwenden jetzt Schwarz-Gold statt heller Flächen. Das gelieferte Logo steht im Kopf-/Fußbereich und klein auf Tims Shirt im Startbild. Der Lackvergleich zeigt eine neue, ausdrücklich als KI-Illustration gekennzeichnete Prüfleuchten-Aufnahme. Der Politur-Loop hat einen kurzen zyklischen Übergang bei unveränderten 24 fps. Die fehlerhafte Politur-Kamerafahrt, zusätzliche Pedale im Beifahrerfußraum und eine neue Heck-/Innenraumsequenz bleiben separate Video-Korrekturen; das aktuelle Design-Update enthält dafür noch keine Neugenerierung.
+- `index.html`, `rebuild.css` und `rebuild.js` bilden die neue Garage, die Inhaltsbereiche und die Anfrage.
+- Vollständiges breites Garagenmotiv `tim-garage-v16-wide.webp`, 1915 × 821 Pixel. Keine künstlich verschwommenen Seiten, keine Randmasken. Das Motiv ist kein natives 4K-Bild.
+- Sechs Kategorien sind über Bildmarkierungen und ein separates Menü erreichbar. Auf kleinen Displays ersetzt das Menü die Bildmarkierungen, damit die Ziele gut antippbar bleiben.
+- Die Filmansicht füllt auf Desktop die verfügbare Breite mit proportionalem `cover`; dadurch kann etwas von der Bildhöhe entfallen. Mobile zeigt das vollständige 16:9-Bild. Das beseitigt keine bereits in Quelldateien enthaltenen Fehler.
+- Unter „Polieren“ gibt es zusätzlich den Lackbildvergleich mit Maus-, Touch- und Tastaturbedienung. Keramik öffnet einen Film, keinen Bildslider.
+- `fullscreen.js` und `fullscreen.css` erhalten die dezente Vollbildfunktion für das gesamte Dokument, auch bei geöffnetem Film.
 
-Website-Entwurf für Tim Rupprecht, Mannheim / Rhein-Neckar. Statische Website ohne Build-Schritt, veröffentlicht über GitHub Pages (main, Stammverzeichnis).
+## Filmstand — noch keine abgeschlossene Neuproduktion
 
-## Interaktive Garage
+Die vorhandenen Medien aus `garage-media.js` werden ausdrücklich als Vorschau verwendet. In dieser Überarbeitung wurden **keine neuen Kling-Videos erzeugt und keine Kling-Credits ausgegeben**.
 
-Das frühere Endbild von Tim neben dem BMW ist nun der Einstieg. Bereiche am Fahrzeug und das darunterliegende Menü öffnen einzelne Filme: Polieren, Felgen, Leder, Außenwäsche und Keramik. Die Startseite scrollt normal; Videos laufen nach dem Anklicken in Echtzeit. Es gibt keine Scroll-Steuerung und keinen festgehaltenen Filmabschnitt.
+| Bereich | Aktuell eingebunden | Offene Neuproduktion |
+| --- | --- | --- |
+| Felgen | Vorhandene Reinigung | Stationäre, runde Räder; seitliche Kamera bis parallel zum Rad, dann Nahaufnahme |
+| Außenwäsche | Vorhandene Anfahrt und Behandlung | Neuer durchgehender Haubenablauf nach dem aktuellen Auftrag |
+| Polieren | Vorhandene Nahaufnahme und Lackvergleich | Korrekte Anfahrt und unauffälliger Behandlungsloop |
+| Leder | Nur die aktuelle Bildvorlage mit sichtbarem Hinweis | Vollständige Fahrt um das stehende Auto, linke Fahrertür, gleichzeitiger Eintritt zum festen Sitz, rechter Handeintritt und kreisendes Bürsten |
+| Kofferraum | Vorhandene Heckfahrt, Saugen und echtes Bürstenmuster | Neue konsistente Kamerafahrt und Reinigung nach dem aktuellen Auftrag |
+| Keramik | Vorhandener Abperlfilm | Animierte geteilte Fläche: links unversiegelt, rechts versiegelt, realistisch ablaufende Tropfen |
 
-`garage-media.js` enthält die Filme und Beschreibungen. Unter Polieren lassen sich Politur, Lackbild und Keramik wählen. `garage.js` steuert die Bildmarkierungen und den modalen Player. `garage.css` enthält die Gestaltung.
+Die verworfenen Lederfilme und die fehlerhaften Felgen-/Politur-Anfahrten werden nicht erneut aktiviert. Die Filmhinweise benennen den Vorschaucharakter. Auch die aktuellen Vorlagen ersetzen keine geometrisch stabile Fahrzeugaufnahme.
 
-Die vorhandene Politur und das Wasserperlen-Video werden als H.264 High/yuv420p, avc1, faststart abgespielt. Dateien werden erst bei Auswahl geladen; beim Schließen und Wechseln wird die Quelle freigegeben. Nach der Auswahl laufen die Filme automatisch stumm als Loop, ohne Player-Bedienelemente. Nur bei einer Wiedergabesperre erscheint eine Startmöglichkeit; Ladefehler lassen sich erneut versuchen.
+Filme starten bei Auswahl stumm, ohne native Player-Bedienelemente. Eine verfügbare Anfahrt läuft einmal, danach nur die Behandlung als Loop. Der nachfolgende Film wird vorbereitet, während die Anfahrt läuft; das ausgehende Bild bleibt stehen, bis der nächste Film tatsächlich spielt. Beim Schließen und beim Wechsel werden Quellen und Ereignisse freigegeben. Bei reduzierter Bewegung entfällt die Kamerafahrt. Wiedergabesperren und Ladefehler bieten eine Start-/Retry-Aktion.
 
-Die Artlist-Nahaufnahme für Leder sowie die Kling-Filme für Felgenreinigung, Snow Foam und Wasserperlen sind eingebunden. Alle fünf Behandlungsfilme enthalten technisch keine Audiospur. Die auf Tims Originalfotos abgestimmten Motive zeigen silberne Felgen, blaue Bremssättel und cognacfarbenes Leder. Der Lackbild-Vergleich nutzt zwei abgestimmte KI-Bilder und einen ziehbaren Regler. Die Originale bleiben privat im übergeordneten Arbeitsordner.
+Neue Render sind zurzeit durch die automatische Browser-Freigabeprüfung blockiert: fehlende Workspace-Credits. Das ist keine Prüfung des Kling-Guthabens. Kein alternativer Browserzugriff und keine neuen Käufe. Nächste Render laut aktuellem Auftrag: **1080p, ohne Ton**, Originalfotos als verbindliche Referenzen. Keine Behauptung nativer 4K/60-fps-Neuproduktion.
 
-Die alte Scroll-Implementierung und ihre Medien bleiben in der Versionsgeschichte und vorerst im Repository, werden vom aktuellen HTML jedoch nicht mehr eingebunden oder geladen.
+## Inhalte und Kontakt
 
-## Weitere Inhalte und Anfrage
+Schwarz-Gold, lokale Manrope-Schrift, skalierbares SVG-Logo, Originalporträt und Projektfoto. Sechs aufklappbare Erklärungen erläutern die allgemeinen Wirkprinzipien der Reinigung und verlinken die Quellen. Sie sind keine unbestätigte Liste der von Tim eingesetzten Produkte.
 
-Echtes Mercedes-Benz-190-E-Projekt mit Galerie und Vorher/Nachher-Regler, Leistungen, Originalporträt und geführte Anfrage. `app.js` steuert diese Bereiche. Die Anfrage öffnet WhatsApp mit vorbereitetem Text an die vom Auftraggeber angegebene Nummer +49 176 30595942. Es werden keine Nachrichten automatisch gesendet oder Formulardaten auf einem Server gespeichert. Tim besichtigt das Fahrzeug persönlich, bevor er einen individuellen Preis nennt.
+Das Formular öffnet einen vorbereiteten WhatsApp-Text an `+49 176 30595942`. Es sendet nichts automatisch und speichert keine Formulardaten auf einem Server. Umfang und Preis folgen nach Fahrzeugbesichtigung. Geschäftsanschrift und geschäftliche E-Mail fehlen weiterhin; die Seite ist als Vorschau gekennzeichnet.
 
-Der Inhaltsbereich folgt den für Websites passenden Grundlagen der vom Auftraggeber gewählten [Apple Design Skill](https://github.com/dickwu/apple-design-skill): klare Hierarchie, lesbare Texte, vertraute Bedienelemente und zurückhaltende Bewegung. `studio.css` gestaltet die Bereiche nach der Garage mit größeren Originalfotos, zwei direkt erreichbaren Galerieansichten, 17px Fließtext, klarer Leistungswahl und einem dunklen Anfrageformular. Native iOS-Navigation wird nicht imitiert. Der übergroße dekorative Footer-Schriftzug und nicht benötigte Abschnittsnummern sind entfernt. Vergleich, Galerie, Formularvorauswahl und Garage bleiben erhalten. Layout wurde bis 320px sowie mit 200 Prozent Grundschriftgröße geprüft.
+Originalfotos, Prompts, Generationen und Budgetprotokolle bleiben im übergeordneten privaten Arbeitsordner. Frühere Seiten und Dateien bleiben zur Nachvollziehbarkeit erhalten, werden von der neuen Startseite aber nicht geladen.
 
-Garage und Filme sind KI-Visualisierungen, Projektfotos und Porträt Originalaufnahmen. Geschäftliche Anschrift und E-Mail für die vollständigen Firmenangaben fehlen noch.
+## Prüfung
 
-Manrope und Barlow Condensed werden als lokale WOFF2-Dateien geladen, ihre Lizenzen liegen in assets/fonts. Farbwelt: Schwarz, Champagnergold und Silber. Pfeile sind SVG.
-
-Aktuelle Integrationsprüfungen: `node tests/garage.test.cjs`. Vor Veröffentlichung zusätzlich Desktop-/Handy-Vorschau, Videowiedergabe, Schließen und Übernahme der Leistung ins Formular prüfen.
-
-Die fertigen 1600x900-PNGs, ein ZIP und die Video-Prompts liegen im übergeordneten Ordner `Artlist Startbilder`. Webdateien liegen unter `assets/garage`. Das Garage-Startbild wurde auf die tatsächlichen silbernen Felgen korrigiert; Tims Pose und Gesicht bleiben am freigegebenen Motiv orientiert.
-
-Bei Kategorien ohne eigene Film-Anfahrt fährt die Ansicht aus dem aktuellen Garagenbild zum gewählten Bereich und blendet in den Film über. Dieser Fotoübergang dauert 1,35 Sekunden und entfällt bei reduzierter Bewegung. Felge, Leder, Politur und Wäsche verwenden neue Nahaufnahmen; sichtbare Unterarme wurden anhand von Tims Tattoo-Fotos angepasst. Die privaten Referenzfotos werden nicht veröffentlicht.
-
-Für Felgen läuft auf dem Desktop eine 2,083 Sekunden lange generierte Kamerafahrt einmalig vor der Reinigung: erst die freigegebene Drehung zur Radfläche, dann der kurze gerade Nahzoom. Tim hält dabei durchgehend ein Mikrofasertuch. Der Nahzoom verbindet das tatsächliche letzte Bild der Drehung mit dem ersten Bild der Reinigung. Die Ansicht bleibt groß und mittig im Browser; sie wird nicht in ein seitliches Videofenster verkleinert. Anschließend wiederholt sich nur der stumme Reinigungsablauf: Reiniger auftragen, mit einer Bürste auf den Speichen einarbeiten, abspülen und das saubere Ergebnis zeigen. Die Einwirkzeit wird verkürzt dargestellt. Das gemeinsame Garagenbild ist die von Bilal freigegebene V11 mit natürlichen Ganzkörperproportionen. Die bereits akzeptierte Felgenfahrt bleibt unverändert und beginnt noch mit der vorherigen Pose. Neue Webausgaben bleiben in 1920×1080 ohne Audiospur, das Kling-Wasserzeichen bleibt erhalten. Auf kleinen Bildschirmen und bei reduzierter Bewegung startet direkt der Behandlungsfilm. Auch Außenwäsche nutzt jetzt eine eigene Desktop-Kamerafahrt.
-
-Der private vollständige Felgenfilm liegt als `Kling Kamerafahrten PC/felgen-pc-komplett-v8.mp4` außerhalb des Repositorys. Die Kamerafahrt wurde mit 60 Bildern pro Sekunde exportiert; der native Behandlungsloop bleibt separat, damit sich die Anfahrt nicht ständig wiederholt. Die Bewegung ist eine KI-generierte Filmsequenz, keine deterministisch steuerbare 3D-Szene.
-
-Auch Leder nutzt auf dem Desktop eine eigene kurze Kamerafahrt: Tim tritt mit seinem Tuch aus dem Türbereich, die Fahrertür öffnet sich nach außen und die Kamera fährt durch die freie Öffnung zum cognacfarbenen Fahrersitz. Die Türfahrt und der Sitz-Nahzoom bleiben jetzt in ihrem ursprünglichen Tempo: etwa fünf plus drei Sekunden, danach beginnt die vorhandene Lederpflege. Diese ist jetzt aus ihrem höher aufgelösten Original als stumme 1920×1080-Webdatei exportiert. Die Türfahrt wiederholt sich nur bei erneutem Öffnen der Kategorie; anschließend läuft ausschließlich die Pflege als Loop ohne Player-Bedienelemente. Originalfotos bestimmen die Innenraumfarbe und Sitzform. Die private zusammenhängende Sichtfassung und Prompts liegen unter `Kling Kamerafahrten PC/leder-pc-komplett-v3.mp4` beziehungsweise `LEDER-V2-PROMPT.txt`. Mobile Filme und weitere Kategorien werden erst nach der jeweiligen Desktop-Sichtprüfung fortgesetzt.
-
-Die vorhandene Politur-Nahaufnahme wird aus dem 1080p-Original als stumme 1920×1080-Datei abgespielt. Der neue generierte Anflug zur Motorhaube läuft einmalig für fünf Sekunden vor der Politur. Die eigentliche Kamerabewegung bekommt mehr Zeit, Anfang und Ende bleiben kurz. Anschließend wiederholt sich nur die vorhandene Politur. Lackbild und Wasserperlen bleiben getrennt auswählbar.
-
-Keramik öffnet auf dem Desktop mit der bestehenden fünfsekündigen Kamerafahrt im Originaltempo: vom freigegebenen Garagenbild über die Motorhaube bis zur trockenen Lack-Nahaufnahme. Darauf folgt der neue Wasserfilm `assets/garage/keramik-abperlen-v2.mp4` als Loop: Wasser trifft auf den Lack, bildet Perlen und läuft nach unten aus dem Bild. Anfahrt und Loop sind stumm in 1920×1080. Derselbe Wasserfilm wird unter Polieren im Keramik-Tab verwendet. Die Anfahrt läuft einmalig, nur die Wasseraufnahme wiederholt sich. Handyansichten und reduzierte Bewegung werden weiterhin berücksichtigt. Die Aufnahme zeigt den Abperleffekt, nicht das Auftragen oder Aushärten einer Versiegelung.
-
-Außenwäsche zeigt zunächst eine fünfsekündige Kamerafahrt vom Garagenbild zur schmutzigen Motorhaube (`assets/garage/waesche-kamerafahrt-v1.mp4`). Anschließend läuft `assets/garage/waesche-behandlung-v2.mp4`: Snow Foam auftragen, abspülen und das saubere nasse Ergebnis zeigen. Die Einwirkzeit wird verkürzt dargestellt; die Aufnahme zeigt die Vorreinigung vor der anschließenden Handwäsche. Die neue Abspülaufnahme enthält keine erfundene dunkle Schmutzschicht. Nur der Behandlungsablauf wiederholt sich. Alle neuen Webdateien sind stumm in 1920×1080 bei 24 Bildern pro Sekunde, ohne Beschleunigung. Die bisherigen Fallbacks, Touch-Bedienung und das Laden erst bei Auswahl bleiben erhalten.
+`node tests/garage.test.cjs` prüft die sechs Zugänge, Medienpfade, Wiedergabefolge, Quellenfreigabe, verworfene Kandidaten, Vergleich, Retry und WhatsApp-Entwurf ohne Browser. Zusätzlich `node --check rebuild.js`, `node --check fullscreen.js` und `git diff --check` ausführen. Diese Prüfungen ersetzen keine reale Browser-Sichtprüfung; diese ist aktuell durch die genannte Freigabeprüfung blockiert.
