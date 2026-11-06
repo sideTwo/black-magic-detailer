@@ -5,7 +5,6 @@
   const media = window.BMD_GARAGE || {};
   const scene = document.querySelector('.garage-photo');
   const car = document.querySelector('.garage-image');
-  const backdrop = document.querySelector('.garage-backdrop');
   const pins = [...document.querySelectorAll('.garage-pin')];
   const launchers = [...document.querySelectorAll('[data-garage-service]')];
   const dialog = document.querySelector('#service-cinema');
@@ -73,26 +72,11 @@
     if (warmedApproach?.film === film) warmedApproach = null;
     else discardWarmApproach();
     film.preload = 'auto';
-    // The hero and each camera film share the original 16:9 photograph.
-    // Keep the player in the hero's exact rectangle for the whole sequence.
-    // The generated camera movement is the only zoom; the page must not add
-    // a second enlargement while that movement is already playing.
-    const sourceRatio = Number(car.getAttribute('width')) / Number(car.getAttribute('height'));
-    const backdropRatio = Number(backdrop.getAttribute('width')) / Number(backdrop.getAttribute('height'));
-    const initialHeight = Math.min(origin.height, origin.width / sourceRatio);
-    const rectFor = (bounds, height) => ({
-      left: `${bounds.left + (bounds.width - height * backdropRatio) / 2}px`,
-      top: `${bounds.top + (bounds.height - height) / 2}px`,
-      width: `${height * backdropRatio}px`, height: `${height}px`
-    });
-    const initialRect = rectFor(origin, initialHeight);
-    const frame = document.createElement('div'); frame.className = 'camera-frame';
-    const ambient = document.createElement('img'); ambient.src = backdrop.currentSrc || backdrop.src; ambient.alt = '';
-    Object.assign(frame.style, initialRect);
-    Object.assign(film.style, {left:`${(1 - sourceRatio / backdropRatio) * 50}%`, width:`${sourceRatio / backdropRatio * 100}%`});
-    frame.append(ambient, film); layer.append(frame);
-    const clip = rect => `inset(${Math.max(0, rect.top)}px ${Math.max(0, innerWidth - rect.right)}px ${Math.max(0, innerHeight - rect.bottom)}px ${Math.max(0, rect.left)}px)`;
-    layer.style.clipPath = clip(origin);
+    // One full-width image frame: identical cover fit and position for the
+    // hero and the moving video. No static scenery remains beside the film.
+    for (const dimension of ['left', 'top', 'width', 'height']) layer.style[dimension] = `${origin[dimension]}px`;
+    layer.style.right = 'auto'; layer.style.bottom = 'auto';
+    layer.append(film);
     dialog.append(layer); dialog.classList.add('camera-filming');
     dialog.querySelector('.cinema-body').inert = true;
     dialog.querySelector('.cinema-bottom').inert = true;
@@ -154,10 +138,10 @@
     };
     const [x, y, magnification] = positions[key];
     const sw = Number(car.getAttribute('width')), sh = Number(car.getAttribute('height'));
-    const cover = Math.min(origin.width / sw, origin.height / sh);
+    const cover = Math.max(origin.width / sw, origin.height / sh);
     const width = sw * cover, height = sh * cover;
     const left = origin.left + (origin.width - width) * .5;
-    const top = origin.top + (origin.height - height) * .5;
+    const top = origin.top + (origin.height - height) * .4;
     const finalWidth = target.width * magnification, scale = finalWidth / width;
     const dx = target.left + target.width / 2 - x * finalWidth - left;
     const dy = target.top + target.height / 2 - y * height * scale - top;
@@ -182,10 +166,10 @@
     layoutQueued = false;
     const width = scene.clientWidth, height = scene.clientHeight;
     const sourceWidth = Number(car.getAttribute('width')), sourceHeight = Number(car.getAttribute('height'));
-    const scale = Math.min(width / sourceWidth, height / sourceHeight);
+    const scale = Math.max(width / sourceWidth, height / sourceHeight);
     const renderedWidth = sourceWidth * scale, renderedHeight = sourceHeight * scale;
     const focusX = .5;
-    const focusY = .5;
+    const focusY = .4;
     const left = (width - renderedWidth) * focusX, top = (height - renderedHeight) * focusY;
     car.style.objectPosition = `${focusX * 100}% ${focusY * 100}%`;
     pins.forEach(pin => {
