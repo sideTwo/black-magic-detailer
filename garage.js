@@ -127,8 +127,7 @@
   // blending to the film. Coordinates are in the original, uncropped photo.
   function approachService(key, origin) {
     stopApproach();
-    if (media[key]?.skipApproach) return;
-    if (media[key]?.steps[0]?.pending) return;
+    if (media[key]?.steps[0]?.pending && !media[key]?.approach) return;
     if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
     const target = document.querySelector('.film-screen').getBoundingClientRect();

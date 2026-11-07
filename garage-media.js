@@ -33,9 +33,9 @@ window.BMD_GARAGE = {
   leather: {
     knowledge: 'wissen-leder',
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
-    skipApproach: true,
+    approach: 'assets/garage/leder-originalsitz-zoomtest-v1-1080p.mp4',
     description: 'Aktueller Entwurf der Anfahrt zur Lederaufbereitung.',
-    steps: [{ title: 'Zur offenen Fahrertür.', label: 'Anfahrt', video: 'assets/garage/leder-anfahrt-nutzer-v7-1080p.mp4', loop: false, poster: 'assets/garage/tim-garage-vector-v15-4k.webp', description: 'Aktueller 1080p-Entwurf: die beiden ausgewählten Clips bis zur offenen Tür. Der Anschluss zur Sitzfläche und die Bürstenaufnahme werden überarbeitet. Die Anfahrt läuft einmal und bleibt am Ende stehen.' }]
+    steps: [{ title: 'Am Sitz angekommen.', label: 'Leder', poster: 'assets/garage/leder-originalsitz-nah-v1.webp', pending: 'Die Bürstenaufnahme wird überarbeitet.', description: '1080p-Entwurf: die beiden ausgewählten Clips mit anschließendem Fotozoom auf denselben Sitz. Die Sitzform bleibt dabei erhalten. Eine passende Bürstenanimation folgt noch.' }]
   },
   cargo: {
     knowledge: 'wissen-innenraum',
