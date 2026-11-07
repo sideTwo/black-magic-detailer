@@ -127,6 +127,9 @@
   // blending to the film. Coordinates are in the original, uncropped photo.
   function approachService(key, origin) {
     stopApproach();
+    // A continuous film already includes its camera journey and matched edits.
+    // Play it in one element instead of adding a second photo/video transition.
+    if (media[key]?.continuous) return;
     if (media[key]?.steps[0]?.pending && !media[key]?.approach) return;
     if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
@@ -241,7 +244,7 @@
     }
   }
   function positionCinema(origin) {
-    dialog.classList.toggle('cinema-immersive', Boolean(media[selected].approach && innerWidth > 760));
+    dialog.classList.toggle('cinema-immersive', Boolean((media[selected].approach || media[selected].continuous) && innerWidth > 760));
     // Anchor the cinema to the garage instead of opening a different crop
     // across the viewport. These bounds remain fixed during the sequence.
     const onScreen = origin.bottom > 80 && origin.top < innerHeight - 80;

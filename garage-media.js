@@ -33,9 +33,9 @@ window.BMD_GARAGE = {
   leather: {
     knowledge: 'wissen-leder',
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
-    approach: 'assets/garage/leder-anfahrt-nutzer-v7-1080p.mp4',
-    description: 'Aktueller Entwurf der Anfahrt zur Lederaufbereitung.',
-    steps: [{ title: 'Kreisende Bürstenreinigung · Entwurf.', label: 'Leder', video: 'assets/garage/leder-buerste-kreise-kandidat-v8-1080p.mp4', loop: false, poster: 'assets/garage/leder-buerste-kreise-kandidat-v8.webp', description: 'Neue stumme Kling-Aufnahme zur Sichtprüfung: Eine weiche Bürste bewegt sich in kleinen kreisenden Bahnen über das Leder und verteilt Reinigungsschaum. Die enge Fassung zeigt Handschuh und Bürste; der Unterarm bleibt außerhalb des Bildes. Noch kein freigegebenes Endergebnis.' }]
+    continuous: true,
+    description: 'Vom Fahrzeug bis ins Lederdetail. Eine ruhige Kamerafahrt führt zur schonenden Bürstenreinigung.',
+    steps: [{ title: 'Sanfte Kreise. Sorgfältige Reinigung.', label: 'Leder', video: 'assets/garage/leder-gesamt-v19-4k.mp4', loop: false, poster: 'assets/garage/leder-gesamt-v19-4k.webp', description: 'Eine weiche Bürste arbeitet den Reinigungsschaum mit langsamen kreisenden Bewegungen ein. Material und Zustand bestimmen die passende Reinigung und Pflege. KI-Visualisierung der Lederaufbereitung.' }]
   },
   cargo: {
     knowledge: 'wissen-innenraum',
