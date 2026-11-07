@@ -33,8 +33,9 @@ window.BMD_GARAGE = {
   leather: {
     knowledge: 'wissen-leder',
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
-    description: 'Material fühlen. Pflege sehen. Eine auf den Zustand abgestimmte Reinigung und Pflege des Leders.',
-    steps: [{ title: 'Lederreinigung im Detail.', label: 'Leder', poster: 'assets/garage/leder-rechts-v6-entwurf.webp', pending: 'Die Ledersequenz wird überarbeitet. Hier siehst du die neue Bildvorlage; der neue Film ist noch nicht verfügbar.', description: 'Reiniger und eine weiche Bürste lösen Schmutz in der Narbung. Ein Tuch nimmt die Rückstände auf. Erst danach folgt eine zum Leder passende Pflege.' }]
+    skipApproach: true,
+    description: 'Aktueller Entwurf der Anfahrt zur Lederaufbereitung.',
+    steps: [{ title: 'Zur offenen Fahrertür.', label: 'Anfahrt', video: 'assets/garage/leder-anfahrt-nutzer-v7-1080p.mp4', loop: false, poster: 'assets/garage/tim-garage-vector-v15-4k.webp', description: 'Aktueller 1080p-Entwurf: die beiden ausgewählten Clips bis zur offenen Tür. Der Anschluss zur Sitzfläche und die Bürstenaufnahme werden überarbeitet. Die Anfahrt läuft einmal und bleibt am Ende stehen.' }]
   },
   cargo: {
     knowledge: 'wissen-innenraum',

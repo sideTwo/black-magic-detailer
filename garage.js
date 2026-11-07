@@ -127,6 +127,7 @@
   // blending to the film. Coordinates are in the original, uncropped photo.
   function approachService(key, origin) {
     stopApproach();
+    if (media[key]?.skipApproach) return;
     if (media[key]?.steps[0]?.pending) return;
     if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
@@ -229,6 +230,7 @@
     document.querySelector('#film-description').textContent = step.description;
     document.querySelector('#film-pending-text').textContent = step.pending || '';
     video.poster = step.poster;
+    video.loop = step.loop !== false;
     video.style.transformOrigin = step.focus || '50% 50%';
     video.setAttribute('aria-label', `${service.title}: ${step.title}`);
     [...steps.children].forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090b0e">
+<title>Leder · Aktueller Stand · Black Magic Detailer</title>
+<link rel="icon" href="assets/brand-icon-v2.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:Manrope;src:url('assets/fonts/manrope-regular.woff2') format('woff2');font-display:swap}
+*{box-sizing:border-box}body{margin:0;background:#090b0e;color:#ede9e1;font:16px/1.65 Manrope,Arial,sans-serif}header,main,footer{max-width:1200px;margin:auto;padding:24px clamp(16px,4vw,48px)}header{display:flex;align-items:center;justify-content:space-between;gap:20px}header img{width:160px;max-width:45vw}a{color:#d6ba84;text-underline-offset:5px}h1{font-size:clamp(28px,5vw,46px);line-height:1.2;letter-spacing:-.04em}h2{font-size:23px;font-weight:500}.meta{color:#d6ba84;font-size:12px;letter-spacing:.1em;text-transform:uppercase}.note{color:#bcbab5;border-left:2px solid #c9ab77;padding-left:18px}section{margin:36px 0 56px}video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#000}button{min-height:44px;border:1px solid #c9ab7770;background:#171815;color:#d6ba84;padding:10px 18px;font:inherit;cursor:pointer;margin-top:14px}button:hover{background:#30291d}button:focus-visible,a:focus-visible{outline:2px solid #d6ba84;outline-offset:4px}.status,figcaption{font-size:14px;color:#bcbab5}figure{margin:20px 0}footer{border-top:1px solid #ffffff20;font-size:13px;color:#aaa}
+</style>
+</head>
+<body>
+<header><img src="assets/brand-logo-v2.svg" alt="Black Magic Detailer"><a href="./?v=garage-55#start">Zur Garage</a></header>
+<main>
+<p class="meta">07.11.2026 · Leder · Sichtprüfung</p>
+<h1>Die ausgewählte Anfahrt. Der nächste Anschluss.</h1>
+<p class="note">Die beiden ausgewählten vorhandenen Clips bleiben die Grundlage. Die zusätzliche Sitzfahrt und die neue Bürstenvorlage wurden verworfen. Eine neue Bürstenanimation ist noch nicht freigegeben.</p>
+<section aria-labelledby="basis-title"><h2 id="basis-title">01 · Die beiden ausgewählten Clips</h2>
+<p>Kamerabogen um die Front und anschließend Türöffnung mit Einfahrt. Originaltempo, zusammen rund zehn Sekunden. Auch in der Garage unter Leder sichtbar.</p>
+<video muted playsinline preload="none" poster="assets/garage/tim-garage-vector-v15-4k.webp" aria-label="Ausgewählte stumme Anfahrt zur offenen Fahrertür" id="basis"></video>
+<button type="button" data-film="basis" data-src="assets/garage/leder-anfahrt-nutzer-v7-1080p.mp4">Anfahrt ansehen</button><p class="status" id="basis-status" aria-live="polite">1080p · 24 Bilder/s · ohne Audiospur · KI-Visualisierung</p></section>
+<section aria-labelledby="zoom-title"><h2 id="zoom-title">02 · Testzoom auf denselben Sitz</h2>
+<p>Dieselbe Anfahrt mit einem anschließenden viersekündigen Fotozoom aus ihrem tatsächlichen letzten Bild. Dabei bleibt die Sitzform erhalten. Der Ausschnitt wird vergrößert und deshalb weicher; dies ist keine neue räumliche Kamerafahrt. Noch nicht abgenommen.</p>
+<video muted playsinline preload="none" poster="assets/garage/leder-einstieg-nutzer-v7.webp" aria-label="Anfahrt mit anschließendem Testzoom auf die unveränderte Sitzgeometrie" id="zoom"></video>
+<button type="button" data-film="zoom" data-src="assets/garage/leder-originalsitz-zoomtest-v1-1080p.mp4">Testzoom ansehen</button><p class="status" id="zoom-status" aria-live="polite">14 Sekunden · 1080p-Ausgabe · ohne Audiospur · Test</p></section>
+</main>
+<footer>Aktueller Arbeitsstand. Die Lederreinigung ist noch nicht fertig. Private Originalfotos und Tattoo-Referenzen werden hier nicht veröffentlicht.</footer>
+<script>
+const clips=[...document.querySelectorAll('video')];
+for(const button of document.querySelectorAll('[data-film]')) button.addEventListener('click',async()=>{
+  const clip=document.getElementById(button.dataset.film);const status=document.getElementById(`${clip.id}-status`);
+  for(const other of clips) if(other!==clip){other.pause();other.removeAttribute('src');other.load();}
+  clip.muted=true;clip.loop=false;clip.src=button.dataset.src;clip.currentTime=0;
+  try{await clip.play();button.textContent='Erneut ansehen';}catch{status.textContent='Die Wiedergabe konnte nicht starten. Bitte erneut versuchen.';}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clips.forEach(clip=>clip.pause());});
+window.addEventListener('pagehide',()=>clips.forEach(clip=>{clip.pause();clip.removeAttribute('src');clip.load();}));
+</script>
+</body>
+</html>
