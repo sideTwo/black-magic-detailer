@@ -33,7 +33,7 @@ test('available films and posters exist; pending treatments never claim a missin
 });
 
 test('the entry uses the camera-start image without static scenery beside the film', () => {
-  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-logo-v20-4k.webp"/);
+  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-originaltim-v21-4k.webp"/);
   assert.doesNotMatch(html, /class="garage-backdrop"/);
   assert.doesNotMatch(html, /src="(?:hero|media-config)\.js|class="story"|mobile-sequence/);
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
