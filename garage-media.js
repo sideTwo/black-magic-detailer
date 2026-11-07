@@ -35,7 +35,7 @@ window.BMD_GARAGE = {
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
     approach: 'assets/garage/leder-anfahrt-nutzer-v7-1080p.mp4',
     description: 'Aktueller Entwurf der Anfahrt zur Lederaufbereitung.',
-    steps: [{ title: 'An der offenen Tür.', label: 'Leder', poster: 'assets/garage/leder-einstieg-nutzer-v7.webp', pending: 'Die neue Bürstenanimation wird vorbereitet.', description: 'Die beiden ausgewählten Clips führen zur offenen Tür. Der zusätzliche Fotozoom ist entfernt. Ein neuer Kling-Clip soll direkt mit der Lederreinigung anschließen.' }]
+    steps: [{ title: 'Kreisende Bürstenreinigung · Entwurf.', label: 'Leder', video: 'assets/garage/leder-buerste-kreise-kandidat-v8-1080p.mp4', loop: false, poster: 'assets/garage/leder-buerste-kreise-kandidat-v8.webp', description: 'Neue stumme Kling-Aufnahme zur Sichtprüfung: Eine weiche Bürste bewegt sich in kleinen kreisenden Bahnen über das Leder und verteilt Reinigungsschaum. Die enge Fassung zeigt Handschuh und Bürste; der Unterarm bleibt außerhalb des Bildes. Noch kein freigegebenes Endergebnis.' }]
   },
   cargo: {
     knowledge: 'wissen-innenraum',
