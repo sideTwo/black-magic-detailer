@@ -14,6 +14,12 @@
   dialog.before(cinemaHome);
   let inlineCinema = false;
   const video = document.querySelector('#service-film');
+  const loadingCover = document.createElement('img');
+  loadingCover.className = 'film-loading-cover'; loadingCover.alt = '';
+  loadingCover.setAttribute('aria-hidden', 'true');
+  loadingCover.src = car.currentSrc || car.src;
+  filmScreen.append(loadingCover);
+  let firstFrameCallback;
   const pending = document.querySelector('#film-pending');
   const error = document.querySelector('#film-error');
   const retry = document.querySelector('#film-retry');
@@ -63,6 +69,7 @@
       approach.timers?.forEach(clearTimeout);
       if (approach.frameCallback !== undefined) video.cancelVideoFrameCallback?.(approach.frameCallback);
       if (approach.film) {
+        if (approach.firstFrameCallback !== undefined) approach.film.cancelVideoFrameCallback?.(approach.firstFrameCallback);
         approach.film.pause(); approach.film.removeAttribute('src'); approach.film.load();
       }
       approach.layer.remove(); approach = null;
@@ -84,6 +91,10 @@
     if (warmedApproach?.film === film) warmedApproach = null;
     else discardWarmApproach();
     film.preload = 'auto';
+    // A poster on a video can disappear before its decoder presents a frame.
+    // Keep an independent, already cached garage image underneath instead.
+    layer.style.backgroundImage = `url("${car.currentSrc || car.src}")`;
+    film.style.opacity = '0';
     // One full-width image frame: identical cover fit and position for the
     // hero and the moving video. No static scenery remains beside the film.
     if (!inline) {
@@ -109,10 +120,14 @@
     };
     film.addEventListener('playing', () => {
       if (!active()) return;
+      const showFirstFrame = () => { if (active()) film.style.opacity = '1'; };
+      if (film.requestVideoFrameCallback) {
+        current.firstFrameCallback = film.requestVideoFrameCallback(showFirstFrame);
+      } else requestAnimationFrame(() => requestAnimationFrame(showFirstFrame));
       current.timers.forEach(clearTimeout); current.timers = [];
       // Prepare the treatment while the camera travels, after the approach's
       // first frame is playing so two cold movies do not compete at the click.
-      if (video.getAttribute('src')) { video.preload = 'auto'; video.load(); }
+      if (video.getAttribute('src')) video.preload = 'auto';
       const duration = Number.isFinite(film.duration) ? film.duration : 4;
       current.timers.push(setTimeout(fallback, (duration + 12) * 1000));
     }, {once:true});
@@ -200,6 +215,8 @@
   }
   function queueLayout() { if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(layout); } }
   function releaseFilm() {
+    if (firstFrameCallback !== undefined) video.cancelVideoFrameCallback?.(firstFrameCallback);
+    firstFrameCallback = undefined;
     camera?.cancel(); camera = null;
     revision++; video.pause(); video.removeAttribute('src'); video.preload = 'none'; video.load();
   }
@@ -222,12 +239,14 @@
     fixedLabels.classList.toggle('is-visible', Boolean(step?.fixedComparison && video.currentTime >= (step.compareAt || 0)));
   }
   video.addEventListener('timeupdate', updateFixedLabels);
-  function setStep(index, autoplay = true) {
+  function setStep(index, autoplay = true, entering = false) {
     const service = media[selected];
     if (!service?.steps[index]) return;
     stopApproach();
     currentStep = index;
     const step = service.steps[index];
+    loadingCover.src = entering ? (car.currentSrc || car.src) : step.poster;
+    filmScreen.classList.toggle('film-loading', Boolean(step.video));
     learn.setAttribute('href', `#${step.knowledge || service.knowledge}`);
     releaseFilm();
     fixedLabels.classList.remove('is-visible');
@@ -261,6 +280,14 @@
       video.autoplay = autoplay;
       video.preload = autoplay ? 'auto' : 'metadata';
       video.src = step.video; video.load();
+      const frameRevision = revision;
+      if (video.requestVideoFrameCallback) {
+        firstFrameCallback = video.requestVideoFrameCallback(() => {
+          if (revision !== frameRevision) return;
+          firstFrameCallback = undefined;
+          filmScreen.classList.remove('film-loading');
+        });
+      }
       if (autoplay) playFilm();
     }
   }
@@ -322,7 +349,7 @@
       else dialog.showModal();
     }
     if (!inlineCinema) document.body.classList.add('modal-open');
-    setStep(0, !canUseFilmedApproach(service, origin));
+    setStep(0, !canUseFilmedApproach(service, origin), true);
     approachService(key, origin);
     if (inlineCinema && (origin.top < header.getBoundingClientRect().bottom || origin.bottom > innerHeight)) {
       scene.scrollIntoView({ block: 'start', behavior: reduced.matches ? 'instant' : 'smooth' });
@@ -377,6 +404,12 @@
   });
   video.addEventListener('playing', () => {
     error.hidden = true;
+    if (!video.requestVideoFrameCallback) {
+      const frameRevision = revision;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (revision === frameRevision) filmScreen.classList.remove('film-loading');
+      }));
+    }
     const zoom = media[selected]?.steps[currentStep]?.zoom || 1;
     if (!camera && zoom > 1 && !reduced.matches) {
       camera = video.animate([{ transform: 'scale(1)' }, { transform: `scale(${zoom})` }], {
