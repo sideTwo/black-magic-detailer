@@ -2,8 +2,8 @@
 (() => {
 const ceramicComparison = {
   knowledge: 'wissen-keramik', title: 'Regen zeigt den Unterschied.', label: 'Ohne / Mit',
-  video: 'assets/garage/keramik-regenvergleich-frontal-v1-1080p.mp4',
-  poster: 'assets/garage/keramik-regenvergleich-frontal-v1.webp', loop: false,
+  video: 'assets/garage/keramik-regenvergleich-frontal-v2-1080p.mp4',
+  poster: 'assets/garage/keramik-regenvergleich-frontal-v1.webp', loop: false, fixedComparison: true, compareAt: .18,
   description: 'Links bleibt Wasser als flacher Film auf der unversiegelten Fläche liegen. Rechts bildet es auf der versiegelten Hälfte feine Perlen. Die feste Mittellinie trennt beide Ansichten. KI-Visualisierung mit ergänzter Regensimulation, kein dokumentierter Kundentest.'
 };
 window.BMD_GARAGE = {
@@ -52,7 +52,7 @@ window.BMD_GARAGE = {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
     continuous: true,
     description: 'Von der Garage zur Motorhaube. Erlebe, wie Regen auf unversiegeltem und versiegeltem Lack wirkt.',
-    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-frontal-regen-gesamt-v1-1080p.mp4', poster: 'assets/garage/keramik-frontal-regen-gesamt-v1.webp' }]
+    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-frontal-regen-gesamt-v2-1080p.mp4', poster: 'assets/garage/keramik-frontal-regen-gesamt-v1.webp', compareAt: 6.18 }]
   }
 };
 })();

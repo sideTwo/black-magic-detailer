@@ -158,3 +158,10 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
 }
 @media(max-width:420px){.garage-intro h1{font-size:34px}.garage-intro .eyebrow{font-size:7px}.garage-control-heading>span{max-width:100px;line-height:1.7}.garage-menu button{gap:4px}.garage-menu button>span:nth-child(2){font-size:12px;letter-spacing:-.2px}.garage-menu small{font-size:6px}}
 @media(max-height:650px) and (min-width:761px){.garage-intro{top:18px}.garage-intro h1{font-size:36px;margin-bottom:10px}.garage-intro .eyebrow{font-size:7px;letter-spacing:1px;margin-bottom:10px}.garage-intro>p:last-child{font-size:11px}.garage-vehicle{top:23px}.garage-hint{display:none}.cinema-body{grid-template-columns:185px minmax(0,1fr)}.cinema-info{padding:20px}.cinema-info>p:last-of-type{display:none}.film-steps{margin-top:15px}}
+
+/* Fixed comparison labels follow the visible player, independent of film cropping. */
+.film-fixed-labels{position:absolute;inset:76px 0 auto;z-index:4;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-items:center;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .25s}
+.film-fixed-labels.is-visible{opacity:1;visibility:visible}
+.film-fixed-labels span{max-width:calc(100% - 12px);padding:10px 14px;background:#080a0be0;color:#fff;font-size:11px;line-height:1.2;text-align:center}
+@media(max-width:760px){.film-fixed-labels{top:12px}.film-fixed-labels span{padding:6px;font-size:7px}}
+@media(prefers-reduced-motion:reduce){.film-fixed-labels{transition:none}}

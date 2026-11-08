@@ -18,6 +18,11 @@
   const comparison = document.querySelector('#film-compare');
   const paintRange = document.querySelector('#paint-range');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const fixedLabels = document.createElement('div');
+  fixedLabels.className = 'film-fixed-labels';
+  fixedLabels.setAttribute('aria-hidden', 'true');
+  fixedLabels.innerHTML = '<span>OHNE VERSIEGELUNG</span><span>MIT VERSIEGELUNG</span>';
+  document.querySelector('.film-screen').append(fixedLabels);
   let selected = 'polish', currentStep = 0, opener, revision = 0, layoutQueued = false, camera;
   let approach, knowledgeTarget, warmedApproach;
   function createApproachFilm() {
@@ -202,6 +207,11 @@
     });
     return playback;
   }
+  function updateFixedLabels() {
+    const step = media[selected]?.steps[currentStep];
+    fixedLabels.classList.toggle('is-visible', Boolean(step?.fixedComparison && video.currentTime >= (step.compareAt || 0)));
+  }
+  video.addEventListener('timeupdate', updateFixedLabels);
   function setStep(index, autoplay = true) {
     const service = media[selected];
     if (!service?.steps[index]) return;
@@ -210,6 +220,7 @@
     const step = service.steps[index];
     learn.setAttribute('href', `#${step.knowledge || service.knowledge}`);
     releaseFilm();
+    fixedLabels.classList.remove('is-visible');
     const hasComparison = Boolean(step.before && step.after);
     error.hidden = true; pending.hidden = Boolean(step.video) || hasComparison;
     video.hidden = !step.video;
