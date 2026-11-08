@@ -15,8 +15,7 @@ window.BMD_GARAGE = {
     steps: [
       { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-behandlung-final-v3-4k.mp4', poster: 'assets/garage/politur-behandlung-final-v3-4k.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
       { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher-v3.webp', before: 'assets/garage/lack-vorher-v3.webp', after: 'assets/garage/lack-nachher-v3.webp', description: 'KI-Visualisierung unter gleicher Prüfleuchte: Feine Waschkratzer streuen das Licht um den Lichtpunkt. Nach der Korrektur zeigt der glatte Klarlack ruhigere, klarere Reflexionen. Ziehe den Regler für den Vergleich. Kein dokumentiertes Kundenergebnis.' },
-      { ...ceramicComparison, label: 'Keramik' },
-      { knowledge: 'wissen-keramik', title: 'Wasser perlt. Und läuft ab.', label: 'Abperlen', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Die wasserabweisende Oberfläche lässt Tropfen zu Perlen werden. Bei ausreichender Neigung und Tropfengröße laufen sie ab. Die regelmäßige Wäsche bleibt Teil der Pflege.' }
+      { ...ceramicComparison, label: 'Keramik' }
     ]
   },
   wheels: {
