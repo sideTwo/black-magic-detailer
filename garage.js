@@ -10,6 +10,10 @@
   const dialog = document.querySelector('#service-cinema');
   const filmScreen = document.querySelector('.film-screen');
   const filmHome = filmScreen.parentElement;
+  const readingPanel = document.createElement('div');
+  readingPanel.className = 'film-reading-panel';
+  readingPanel.append(dialog.querySelector('.cinema-info'), dialog.querySelector('.film-caption'));
+  dialog.querySelector('.cinema-body').prepend(readingPanel);
   const cinemaHome = document.createComment('Garage cinema');
   dialog.before(cinemaHome);
   let inlineCinema = false;
@@ -315,6 +319,11 @@
   function openService(key, source) {
     const service = media[key];
     if (!service) return;
+    // Give the film and its reading panel the complete garage frame even if
+    // the launcher was clicked after scrolling the picture partly offscreen.
+    if (!dialog.open && !compactCinema() && scene.getBoundingClientRect().top < 0) {
+      scene.scrollIntoView({ block: 'start', behavior: 'instant' });
+    }
     const origin = scene.getBoundingClientRect();
     selected = key; opener = source;
     if (!dialog.open) {
