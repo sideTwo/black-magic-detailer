@@ -8,6 +8,11 @@
   const pins = [...document.querySelectorAll('.garage-pin')];
   const launchers = [...document.querySelectorAll('[data-garage-service]')];
   const dialog = document.querySelector('#service-cinema');
+  const filmScreen = document.querySelector('.film-screen');
+  const filmHome = filmScreen.parentElement;
+  const cinemaHome = document.createComment('Garage cinema');
+  dialog.before(cinemaHome);
+  let inlineCinema = false;
   const video = document.querySelector('#service-film');
   const pending = document.querySelector('#film-pending');
   const error = document.querySelector('#film-error');
@@ -68,10 +73,10 @@
   }
   function canUseFilmedApproach(service, origin) {
     return Boolean(service.approach && !reduced.matches &&
-      (compactCinema() || (origin.bottom > 80 && origin.top < innerHeight - 80)));
+      (inlineCinema || compactCinema() || (origin.bottom > 80 && origin.top < innerHeight - 80)));
   }
   function filmedApproach(service, origin) {
-    const inline = compactCinema();
+    const inline = inlineCinema;
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
     layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
     layer.setAttribute('aria-hidden', 'true');
@@ -260,6 +265,10 @@
     }
   }
   function positionCinema(origin) {
+    if (inlineCinema) {
+      dialog.classList.remove('cinema-immersive');
+      return;
+    }
     dialog.classList.toggle('cinema-immersive', Boolean((media[selected].approach || media[selected].continuous) && !compactCinema()));
     // Anchor the cinema to the garage instead of opening a different crop
     // across the viewport. These bounds remain fixed during the sequence.
@@ -281,6 +290,17 @@
     if (!service) return;
     const origin = scene.getBoundingClientRect();
     selected = key; opener = source;
+    if (!dialog.open) {
+      inlineCinema = compactCinema();
+      if (inlineCinema) {
+        garage.querySelector('.garage-controls').before(dialog);
+        scene.append(filmScreen);
+        filmScreen.classList.add('garage-inline-screen');
+        dialog.classList.add('cinema-embedded');
+        dialog.setAttribute('role', 'region');
+        garage.classList.add('has-inline-film');
+      }
+    }
     positionCinema(origin);
     launchers.forEach(button => button.classList.toggle('selected', button.dataset.garageService === key));
     document.querySelector('#film-eyebrow').textContent = service.eyebrow;
@@ -297,9 +317,16 @@
     });
     steps.hidden = service.steps.length < 2;
     document.body.style.setProperty('--modal-page-width', `${header.getBoundingClientRect().width}px`);
-    if (!dialog.open) dialog.showModal();
-    document.body.classList.add('modal-open'); setStep(0, !canUseFilmedApproach(service, origin));
+    if (!dialog.open) {
+      if (inlineCinema) dialog.setAttribute('open', '');
+      else dialog.showModal();
+    }
+    if (!inlineCinema) document.body.classList.add('modal-open');
+    setStep(0, !canUseFilmedApproach(service, origin));
     approachService(key, origin);
+    if (inlineCinema && (origin.top < header.getBoundingClientRect().bottom || origin.bottom > innerHeight)) {
+      scene.scrollIntoView({ block: 'start', behavior: reduced.matches ? 'instant' : 'smooth' });
+    }
   }
   launchers.forEach(button => {
     for (const event of ['pointerenter', 'focusin', 'pointerdown']) {
@@ -319,6 +346,15 @@
     stopApproach();
     dialog.classList.remove('cinema-immersive');
     releaseFilm(); document.body.classList.remove('modal-open');
+    if (inlineCinema) {
+      filmHome.prepend(filmScreen);
+      filmScreen.classList.remove('garage-inline-screen');
+      cinemaHome.after(dialog);
+      dialog.classList.remove('cinema-embedded');
+      dialog.removeAttribute('role');
+      garage.classList.remove('has-inline-film');
+      inlineCinema = false;
+    }
     document.body.style.removeProperty('--modal-page-width');
     if (knowledgeTarget) {
       const entry = knowledgeTarget; knowledgeTarget = null;
@@ -328,6 +364,9 @@
       entry.querySelector('summary').focus({ preventScroll: true });
     } else if (!dialog.dataset.contactExit) opener?.focus({ preventScroll: true });
     delete dialog.dataset.contactExit;
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && inlineCinema && dialog.open) dialog.close();
   });
   contact.addEventListener('click', () => { dialog.dataset.contactExit = 'true'; dialog.close(); });
   learn.addEventListener('click', event => {
