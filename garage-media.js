@@ -1,14 +1,10 @@
 // All treatment films are silent web exports; the paint view is a comparison.
 (() => {
 const ceramicComparison = {
-  knowledge: 'wissen-keramik', title: 'Wasserfilm oder feine Perlen.', label: 'Ohne / Mit',
-  video: null, poster: 'assets/garage/keramik-vergleich-mit-v2.webp',
-  before: 'assets/garage/keramik-vergleich-ohne-v1.webp', after: 'assets/garage/keramik-vergleich-mit-v2.webp',
-  beforeLabel: 'OHNE VERSIEGELUNG', afterLabel: 'MIT VERSIEGELUNG', zoom: 1.8,
-  beforeAlt: 'KI-Visualisierung: Nahaufnahme der glatten weißen Motorhaube mit flächig benetzendem Wasser ohne Versiegelung',
-  afterAlt: 'KI-Visualisierung: dieselbe Motorhaube mit feinen Wasserperlen auf versiegeltem Lack',
-  comparisonLabel: 'Wasser auf Lack ohne und mit Versiegelung vergleichen',
-  description: 'Ziehe die Trennlinie: Links verteilt sich Wasser flächiger, rechts bildet es feine Perlen. Der Lack bleibt auf beiden Seiten glatt und glänzend. KI-Visualisierung des Benetzungsverhaltens, kein dokumentierter Kundentest.'
+  knowledge: 'wissen-keramik', title: 'Regen zeigt den Unterschied.', label: 'Ohne / Mit',
+  video: 'assets/garage/keramik-regenvergleich-frontal-v1-1080p.mp4',
+  poster: 'assets/garage/keramik-regenvergleich-frontal-v1.webp', loop: false,
+  description: 'Links bleibt Wasser als flacher Film auf der unversiegelten Fläche liegen. Rechts bildet es auf der versiegelten Hälfte feine Perlen. Die feste Mittellinie trennt beide Ansichten. KI-Visualisierung mit ergänzter Regensimulation, kein dokumentierter Kundentest.'
 };
 window.BMD_GARAGE = {
   polish: {
@@ -54,9 +50,9 @@ window.BMD_GARAGE = {
   ceramic: {
     knowledge: 'wissen-keramik',
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
-    approach: 'assets/garage/keramik-kamerafahrt-final-v3-4k.mp4',
-    description: 'Ein Finish, das die Pflege leichter macht. Erlebe den Abperleffekt im Detail.',
-    steps: [ceramicComparison, { title: 'Wasser perlt. Und läuft ab.', label: 'Abperlen', video: 'assets/garage/keramik-abperlen-final-kandidat-v3-4k.mp4', poster: 'assets/garage/keramik-abperlen-v3-4k.webp', description: 'Wasser benetzt die beschichtete Fläche schlechter und bildet Perlen. Ob sie ablaufen, hängt unter anderem von Neigung und Tropfengröße ab. Die passende Versiegelung bespricht Tim bei der Besichtigung.' }]
+    continuous: true,
+    description: 'Von der Garage zur Motorhaube. Erlebe, wie Regen auf unversiegeltem und versiegeltem Lack wirkt.',
+    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-frontal-regen-gesamt-v1-1080p.mp4', poster: 'assets/garage/keramik-frontal-regen-gesamt-v1.webp' }]
   }
 };
 })();
