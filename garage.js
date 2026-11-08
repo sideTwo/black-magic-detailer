@@ -18,6 +18,7 @@
   const comparison = document.querySelector('#film-compare');
   const paintRange = document.querySelector('#paint-range');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const compactCinema = () => matchMedia('(max-width: 760px), (max-width: 1000px) and (max-height: 500px)').matches;
   const fixedLabels = document.createElement('div');
   fixedLabels.className = 'film-fixed-labels';
   fixedLabels.setAttribute('aria-hidden', 'true');
@@ -41,7 +42,7 @@
   }
   function warmApproach(key, preload = 'auto') {
     const source = media[key]?.approach;
-    if (!source || innerWidth <= 760 || reduced.matches || dialog.open || document.hidden || navigator.connection?.saveData) return;
+    if (!source || reduced.matches || dialog.open || document.hidden || navigator.connection?.saveData) return;
     if (warmedApproach?.source === source) {
       if (preload === 'auto') warmedApproach.film.preload = 'auto';
       return;
@@ -61,15 +62,16 @@
       }
       approach.layer.remove(); approach = null;
     }
-    dialog.classList.remove('camera-arriving', 'camera-filming');
+    dialog.classList.remove('camera-arriving', 'camera-filming', 'camera-inline');
     dialog.querySelector('.cinema-body').inert = false;
     dialog.querySelector('.cinema-bottom').inert = false;
   }
   function canUseFilmedApproach(service, origin) {
-    return Boolean(service.approach && innerWidth > 760 && !reduced.matches &&
-      origin.bottom > 80 && origin.top < innerHeight - 80);
+    return Boolean(service.approach && !reduced.matches &&
+      (compactCinema() || (origin.bottom > 80 && origin.top < innerHeight - 80)));
   }
   function filmedApproach(service, origin) {
+    const inline = compactCinema();
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
     layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
     layer.setAttribute('aria-hidden', 'true');
@@ -79,18 +81,21 @@
     film.preload = 'auto';
     // One full-width image frame: identical cover fit and position for the
     // hero and the moving video. No static scenery remains beside the film.
-    for (const dimension of ['left', 'top', 'width', 'height']) layer.style[dimension] = `${origin[dimension]}px`;
-    layer.style.right = 'auto'; layer.style.bottom = 'auto';
+    if (!inline) {
+      for (const dimension of ['left', 'top', 'width', 'height']) layer.style[dimension] = `${origin[dimension]}px`;
+      layer.style.right = 'auto'; layer.style.bottom = 'auto';
+    } else layer.classList.add('camera-film-inline');
     layer.append(film);
-    dialog.append(layer); dialog.classList.add('camera-filming');
-    dialog.querySelector('.cinema-body').inert = true;
-    dialog.querySelector('.cinema-bottom').inert = true;
+    (inline ? document.querySelector('.film-screen') : dialog).append(layer);
+    dialog.classList.add(inline ? 'camera-inline' : 'camera-filming');
+    dialog.querySelector('.cinema-body').inert = !inline;
+    dialog.querySelector('.cinema-bottom').inert = !inline;
     const current = {layer, film, animations:[], timers:[], revision}; approach = current;
     const active = () => approach === current && revision === current.revision && dialog.open;
     const fallback = () => { if (active()) { stopApproach(); playFilm(); } };
     const reveal = () => {
       if (!active()) return;
-      dialog.classList.remove('camera-filming');
+      dialog.classList.remove('camera-filming', 'camera-inline');
       dialog.querySelector('.cinema-body').inert = false;
       dialog.querySelector('.cinema-bottom').inert = false;
       const fade = layer.animate([{opacity:1},{opacity:0}], {duration:220,fill:'both'});
@@ -136,8 +141,8 @@
     // Play it in one element instead of adding a second photo/video transition.
     if (media[key]?.continuous) return;
     if (media[key]?.steps[0]?.pending && !media[key]?.approach) return;
-    if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
     if (canUseFilmedApproach(media[key], origin)) { filmedApproach(media[key], origin); return; }
+    if (reduced.matches || origin.bottom < 80 || origin.top > innerHeight - 80) return;
     const target = document.querySelector('.film-screen').getBoundingClientRect();
     const positions = {
       wheels: [.51, .72, 4.4], polish: [.64, .485, 2.8],
@@ -255,7 +260,7 @@
     }
   }
   function positionCinema(origin) {
-    dialog.classList.toggle('cinema-immersive', Boolean((media[selected].approach || media[selected].continuous) && innerWidth > 760));
+    dialog.classList.toggle('cinema-immersive', Boolean((media[selected].approach || media[selected].continuous) && !compactCinema()));
     // Anchor the cinema to the garage instead of opening a different crop
     // across the viewport. These bounds remain fixed during the sequence.
     const onScreen = origin.bottom > 80 && origin.top < innerHeight - 80;
@@ -391,7 +396,9 @@
   }
   reduced.addEventListener('change', () => { discardWarmApproach(); cancelApproach(); camera?.cancel(); camera = null; });
   addEventListener('resize', () => {
-    cancelApproach();
+    // Mobile browser chrome changes the viewport height while scrolling.
+    // Keep an inline approach playing, including when the phone is rotated.
+    if (!approach?.layer.classList.contains('camera-film-inline')) cancelApproach();
     if (!dialog.open) return;
     positionCinema(scene.getBoundingClientRect());
     document.body.style.removeProperty('--modal-page-width');
