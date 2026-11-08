@@ -17,6 +17,9 @@
   const cinemaHome = document.createComment('Garage cinema');
   dialog.before(cinemaHome);
   let inlineCinema = false;
+  let mobileMedia = false;
+  const preferMobileMedia = () => matchMedia('(max-width: 1000px), (pointer: coarse)').matches || navigator.connection?.saveData;
+  const filmSource = source => ((dialog.open ? mobileMedia : preferMobileMedia()) && window.BMD_MOBILE?.[source]) || source;
   const video = document.querySelector('#service-film');
   const loadingCover = document.createElement('img');
   loadingCover.className = 'film-loading-cover'; loadingCover.alt = '';
@@ -56,7 +59,7 @@
     film.pause(); film.removeAttribute('src'); film.load();
   }
   function warmApproach(key, preload = 'auto') {
-    const source = media[key]?.approach;
+    const source = filmSource(media[key]?.approach);
     if (!source || reduced.matches || dialog.open || document.hidden || navigator.connection?.saveData) return;
     if (warmedApproach?.source === source) {
       if (preload === 'auto') warmedApproach.film.preload = 'auto';
@@ -88,10 +91,11 @@
   }
   function filmedApproach(service, origin) {
     const inline = inlineCinema;
+    const source = filmSource(service.approach);
     const layer = document.createElement('div'); layer.className = 'camera-flight camera-film';
     layer.style.setProperty('--film-ambient', `url("${car.currentSrc || car.src}")`);
     layer.setAttribute('aria-hidden', 'true');
-    const film = warmedApproach?.source === service.approach ? warmedApproach.film : createApproachFilm();
+    const film = warmedApproach?.source === source ? warmedApproach.film : createApproachFilm();
     if (warmedApproach?.film === film) warmedApproach = null;
     else discardWarmApproach();
     film.preload = 'auto';
@@ -154,7 +158,7 @@
     }, {once:true});
     film.addEventListener('error', fallback, {once:true});
     current.timers.push(setTimeout(fallback, 10000));
-    if (film.getAttribute('src') !== service.approach) film.src = service.approach;
+    if (film.getAttribute('src') !== source) film.src = source;
     film.play()?.catch(fallback);
   }
   // Carry the current garage photograph toward the selected part before
@@ -283,7 +287,7 @@
     if (step.video) {
       video.autoplay = autoplay;
       video.preload = autoplay ? 'auto' : 'metadata';
-      video.src = step.video; video.load();
+      video.src = filmSource(step.video); video.load();
       const frameRevision = revision;
       if (video.requestVideoFrameCallback) {
         firstFrameCallback = video.requestVideoFrameCallback(() => {
@@ -327,7 +331,8 @@
     const origin = scene.getBoundingClientRect();
     selected = key; opener = source;
     if (!dialog.open) {
-      inlineCinema = compactCinema();
+      inlineCinema = true;
+      mobileMedia = Boolean(preferMobileMedia());
       if (inlineCinema) {
         garage.querySelector('.garage-controls').before(dialog);
         scene.append(filmScreen);

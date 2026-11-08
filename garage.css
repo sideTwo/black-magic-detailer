@@ -253,3 +253,17 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
   .cinema-immersive .film-reading-panel .film-caption h3{font-size:22px}
   .cinema-immersive .film-reading-panel .film-caption p{font-size:15px;color:#e4e6e7}
 }
+
+/* Explanations stay below the picture at every size, including desktop. */
+@media(min-width:1001px){
+  .cinema-embedded .cinema-top{padding:8px 6%}
+  .cinema-embedded .film-reading-panel{display:grid;grid-template-columns:minmax(180px,240px) minmax(0,1fr);gap:36px;padding:28px 6%}
+  .cinema-embedded .cinema-info{padding:0}
+  .cinema-embedded .film-caption{padding:0}
+  .cinema-embedded .film-caption p{max-width:68ch}
+  .cinema-embedded .cinema-info h2{font-size:36px}
+  .cinema-embedded .film-steps{display:grid;gap:8px;margin:0;justify-items:stretch}
+  .cinema-embedded .film-steps button{width:100%}
+  .cinema-embedded .cinema-bottom{display:flex;justify-content:flex-end}
+  .cinema-embedded .cinema-bottom .text-link{width:auto;min-width:250px;gap:36px}
+}
