@@ -13,7 +13,7 @@ window.BMD_GARAGE = {
     approach: 'assets/garage/politur-anfahrt-final-kandidat-v2-4k.mp4',
     description: 'Vom ersten Polierzug bis zur klaren Reflexion. Entdecke die Arbeit am Lack und das Finish danach.',
     steps: [
-      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-behandlung-final-v3-4k.mp4', poster: 'assets/garage/politur-behandlung-final-v3-4k.webp', description: 'Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
+      { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-behandlung-weiter-v4-1080p.mp4', loop: false, poster: 'assets/garage/politur-behandlung-weiter-v4.webp', description: 'Die Maschine wird in überlappenden Bahnen über die Haube geführt. Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
       { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Lackbild', video: null, poster: 'assets/garage/lack-nachher-v3.webp', before: 'assets/garage/lack-vorher-v3.webp', after: 'assets/garage/lack-nachher-v3.webp', description: 'KI-Visualisierung unter gleicher Prüfleuchte: Feine Waschkratzer streuen das Licht um den Lichtpunkt. Nach der Korrektur zeigt der glatte Klarlack ruhigere, klarere Reflexionen. Ziehe den Regler für den Vergleich. Kein dokumentiertes Kundenergebnis.' },
       { ...ceramicComparison, label: 'Keramik' }
     ]

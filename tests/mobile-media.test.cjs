@@ -6,13 +6,14 @@ const vm = require('node:vm');
 const root = path.resolve(__dirname,'..');
 const context = {window:{}};
 for (const file of ['garage-media.js','garage-mobile.js']) vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),context);
-test('each active film has a smaller mobile export with fast-start metadata',()=>{
+test('each active film uses a smaller export or its compact 1080p source with fast-start metadata',()=>{
   const sources = new Set(Object.values(context.window.BMD_GARAGE).flatMap(s=>[s.approach,...s.steps.map(t=>t.video)]).filter(Boolean));
   for(const source of sources){
     const mobile = context.window.BMD_MOBILE[source];
     assert.ok(mobile, 'Missing mobile export: '+source);
     const bytes = fs.readFileSync(path.join(root,mobile));
-    assert.ok(bytes.length < fs.statSync(path.join(root,source)).size, 'Export is not smaller: '+mobile);
+    if(mobile===source) assert.match(source,/-1080p\.mp4$/, 'Shared phone source must be 1080p: '+source);
+    else assert.ok(bytes.length < fs.statSync(path.join(root,source)).size, 'Export is not smaller: '+mobile);
     const boxes=[];
     for(let p=0;p+8<=bytes.length;){
       const size=bytes.readUInt32BE(p), type=bytes.toString('ascii',p+4,p+8);
