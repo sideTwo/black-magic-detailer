@@ -1,10 +1,10 @@
 // All treatment films are silent web exports; the paint view is a comparison.
 (() => {
 const ceramicComparison = {
-  knowledge: 'wissen-keramik', title: 'Regen zeigt den Unterschied.', label: 'Ohne / Mit',
-  video: 'assets/garage/keramik-regenvergleich-frontal-v2-1080p.mp4',
-  poster: 'assets/garage/keramik-regenvergleich-frontal-v1.webp', loop: false, fixedComparison: true, compareAt: .18,
-  description: 'Links bleibt Wasser als flacher Film auf der unversiegelten Fläche liegen. Rechts bildet es auf der versiegelten Hälfte feine Perlen. Die feste Mittellinie trennt beide Ansichten. KI-Visualisierung mit ergänzter Regensimulation, kein dokumentierter Kundentest.'
+  knowledge: 'wissen-keramik', title: 'Glatter Lack. Wasser perlt ab.', label: 'Abperlen',
+  video: 'assets/garage/keramik-abperlen-final-v4-4k.mp4',
+  poster: 'assets/garage/keramik-abperlen-glatt-v4.webp',
+  description: 'Die frühere Aufnahme mit glattem, glänzendem Lack: Wasser bildet Perlen und läuft bei ausreichender Neigung und Tropfengröße ab. KI-Visualisierung des Abperleffekts.'
 };
 window.BMD_GARAGE = {
   polish: {
@@ -52,9 +52,9 @@ window.BMD_GARAGE = {
   ceramic: {
     knowledge: 'wissen-keramik',
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
-    continuous: true,
-    description: 'Von der Garage zur Motorhaube. Erlebe, wie Regen auf unversiegeltem und versiegeltem Lack wirkt.',
-    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-frontal-regen-gesamt-v2-1080p.mp4', poster: 'assets/garage/keramik-frontal-regen-gesamt-v1.webp', compareAt: 6.18 }]
+    approach: 'assets/garage/keramik-kamerafahrt-final-v3-4k.mp4',
+    description: 'Die frühere Kamerafahrt zum glatten, spiegelnden Lack und der Abperleffekt im Detail.',
+    steps: [ceramicComparison]
   }
 };
 })();
