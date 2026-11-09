@@ -255,6 +255,9 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
 }
 
 /* Explanations stay below the picture at every size, including desktop. */
+@media(min-width:761px) and (min-height:501px), (min-width:1001px){
+  .garage-controls{display:none}
+}
 @media(min-width:1001px){
   .cinema-embedded .cinema-top{padding:8px 6%}
   .cinema-embedded .film-reading-panel{display:grid;grid-template-columns:minmax(180px,240px) minmax(0,1fr);gap:36px;padding:28px 6%}
