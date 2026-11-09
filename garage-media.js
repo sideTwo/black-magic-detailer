@@ -1,10 +1,10 @@
 // All treatment films are silent web exports; the paint view is a comparison.
 (() => {
 const ceramicComparison = {
-  knowledge: 'wissen-keramik', title: 'Glatter Lack. Wasser perlt ab.', label: 'Abperlen',
-  video: 'assets/garage/keramik-abperlen-final-v4-4k.mp4',
-  poster: 'assets/garage/keramik-abperlen-glatt-v4.webp',
-  description: 'Die frühere Aufnahme mit glattem, glänzendem Lack: Wasser bildet Perlen und läuft bei ausreichender Neigung und Tropfengröße ab. KI-Visualisierung des Abperleffekts.'
+  knowledge: 'wissen-keramik', title: 'Regen trifft auf. Wasser perlt ab.', label: 'Abperlen',
+  video: 'assets/garage/keramik-regen-v3-1080p.mp4', loop: false,
+  poster: 'assets/garage/keramik-regen-v3.webp',
+  description: 'Auf glattem, versiegeltem Lack bildet Regen kleine Wasserperlen. Tropfen verbinden sich; größere Tropfen laufen über die geneigte Fläche ab. KI-Visualisierung des Benetzungsverhaltens.'
 };
 window.BMD_GARAGE = {
   polish: {
@@ -52,9 +52,9 @@ window.BMD_GARAGE = {
   ceramic: {
     knowledge: 'wissen-keramik',
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
-    approach: 'assets/garage/keramik-kamerafahrt-final-v3-4k.mp4',
-    description: 'Die frühere Kamerafahrt zum glatten, spiegelnden Lack und der Abperleffekt im Detail.',
-    steps: [ceramicComparison]
+    continuous: true,
+    description: 'Vom Kotflügel zum glatten Lack: Regen bildet Wasserperlen, die zusammenwachsen und ablaufen.',
+    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-regen-v3-1080p.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
   }
 };
 })();
