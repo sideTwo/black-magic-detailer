@@ -31,7 +31,7 @@ window.BMD_GARAGE = {
     continuous: true,
     description: 'Zwei vorhandene Kamerafahrten im Vergleich: über die Beifahrertür oder über die Fahrertür bis zur Lederreinigung.',
     steps: [
-      { title: 'Über die Beifahrertür ins Lederdetail.', label: 'Beifahrer', video: 'assets/garage/leder-beifahrer-vergleich-v1-4k.mp4', loop: false, poster: 'assets/garage/leder-beifahrer-vergleich-v1.webp', description: 'Vergleichsfassung aus der vorhandenen Beifahrer-Kamerafahrt und der dazu passenden Bürstenaufnahme. Achte auf die Türöffnung, den Weg zum Sitz und den Anschluss zur Reinigung. KI-Visualisierung; vorhandene Bewegungs- und Fahrzeugabweichungen bleiben in dieser Vorschau sichtbar.' },
+      { title: 'Tim tritt zurück. Die Tür öffnet sich.', label: 'Beifahrer', video: 'assets/garage/leder-beifahrer-schritt-zurueck-v2-1080p.mp4', loop: false, poster: 'assets/garage/leder-beifahrer-schritt-zurueck-v2.webp', description: 'Die frühere Aufnahme zum Vergleich: Tim macht Platz, die Tür schwingt nach außen und die Kamera fährt zur Sitzfläche. Anschließend folgt die dazugehörige Bürstenaufnahme. Vorhandene KI-Visualisierung in 1080p.' },
       { title: 'Die bisherige Fahrt zur Fahrerseite.', label: 'Fahrer (bisher)', video: 'assets/garage/leder-gesamt-v19-4k.mp4', loop: false, poster: 'assets/garage/leder-gesamt-v19-4k.webp', description: 'Die bisherige Gesamtfassung bleibt zum direkten Vergleich erhalten: Kamerafahrt zur Fahrertür, Annäherung an die Sitzfläche und Reinigung mit langsamen kreisenden Bürstenbewegungen. KI-Visualisierung der Lederaufbereitung.' }
     ]
   },
