@@ -109,7 +109,7 @@
   const steps=[...document.querySelectorAll('[data-form-step]')];
   const markers=[...document.querySelectorAll('.form-progress li')];
   const status=document.getElementById('copy-status');
-  const phone='4917630595942';
+  const phone='491785104313';
   function validateCar(){
     const valid=car.value.trim().length>0;
     car.setAttribute('aria-invalid',String(!valid));
