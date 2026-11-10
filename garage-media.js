@@ -29,9 +29,9 @@ window.BMD_GARAGE = {
     knowledge: 'wissen-leder',
     title: 'Leder', eyebrow: 'LEDERAUFBEREITUNG', service: 'Lederaufbereitung',
     continuous: true,
-    description: 'Zwei vorhandene Kamerafahrten im Vergleich: über die Beifahrertür oder über die Fahrertür bis zur Lederreinigung.',
+    description: 'Vom Einstieg bis zur Sitzfläche. Entdecke die Reinigung mit weicher Bürste und Mikrofasertuch.',
     steps: [
-      { title: 'Tim tritt zurück. Die Tür öffnet sich.', label: 'Beifahrer', video: 'assets/garage/stance/leder-beifahrer-stance-v1-1080p.mp4', loop: false, poster: 'assets/garage/stance/leder-beifahrer-stance-v1.webp', description: 'Die frühere Aufnahme zum Vergleich: Tim macht Platz, die Tür schwingt nach außen und die Kamera fährt zur Sitzfläche. Anschließend folgt die dazugehörige Bürstenaufnahme. Vorhandene KI-Visualisierung in 1080p.' },
+      { title: 'Sanft bürsten. Sorgfältig nachwischen.', label: 'Beifahrer', video: 'assets/garage/leder-beifahrer-pflege-v24-4k.mp4', loop: false, poster: 'assets/garage/stance/leder-beifahrer-stance-v1.webp', description: 'Tim macht Platz. Durch die geöffnete Beifahrertür geht es zur Sitzfläche: Eine weiche Bürste arbeitet den Reinigungsschaum in kreisenden Bewegungen ein, danach nimmt ein Mikrofasertuch ihn auf. KI-Visualisierung der Lederpflege.' },
       { title: 'Die bisherige Fahrt zur Fahrerseite.', label: 'Fahrer (bisher)', video: 'assets/garage/stance/leder-fahrer-stance-v1-4k.mp4', loop: false, poster: 'assets/garage/stance/leder-fahrer-stance-v1.webp', description: 'Die bisherige Gesamtfassung bleibt zum direkten Vergleich erhalten: Kamerafahrt zur Fahrertür, Annäherung an die Sitzfläche und Reinigung mit langsamen kreisenden Bürstenbewegungen. KI-Visualisierung der Lederaufbereitung.' }
     ]
   },

@@ -5,7 +5,7 @@ window.BMD_MOBILE = {
   "assets/garage/keramik-regen-v3-1080p.mp4": "assets/garage/mobile/keramik-regen-v3-mobile-1080p-v1.mp4",
   "assets/garage/stance/felgen-stance-v1-4k.mp4": "assets/garage/mobile/felgen-stance-v1-mobile-1080p-v1.mp4",
   "assets/garage/felgen-ablauf-final-v5-4k.mp4": "assets/garage/mobile/felgen-ablauf-final-v5-mobile-1080p-v1.mp4",
-  "assets/garage/stance/leder-beifahrer-stance-v1-1080p.mp4": "assets/garage/mobile/leder-beifahrer-stance-v1-mobile-1080p-v1.mp4",
+  "assets/garage/leder-beifahrer-pflege-v24-4k.mp4": "assets/garage/mobile/leder-beifahrer-pflege-v24-mobile-1080p-v1.mp4",
   "assets/garage/stance/leder-fahrer-stance-v1-4k.mp4": "assets/garage/mobile/leder-fahrer-stance-v1-mobile-1080p-v1.mp4",
   "assets/garage/stance/kofferraum-stance-v1-4k.mp4": "assets/garage/mobile/kofferraum-stance-v1-mobile-1080p-v1.mp4",
   "assets/garage/kofferraum-reinigung-buerste-final-v3-4k.mp4": "assets/garage/mobile/kofferraum-reinigung-buerste-final-v3-mobile-1080p-v1.mp4",
