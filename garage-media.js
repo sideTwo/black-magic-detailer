@@ -54,7 +54,7 @@ window.BMD_GARAGE = {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
     continuous: true,
     description: 'Vom Kotflügel in die nahe Makroaufnahme: Wasser trifft auf glatten Lack und bildet sichtbare Perlen.',
-    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-makro-v8-kling-4k.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
+    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-makro-v9-smooth-4k.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
   }
 };
 })();
