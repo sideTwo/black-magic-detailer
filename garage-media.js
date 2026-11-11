@@ -1,10 +1,10 @@
 // All treatment films are silent web exports; the paint view is a comparison.
 (() => {
 const ceramicComparison = {
-  knowledge: 'wissen-keramik', title: 'Regen trifft auf. Wasser perlt ab.', label: 'Abperlen',
-  video: 'assets/garage/keramik-regen-v3-1080p.mp4', loop: false,
-  poster: 'assets/garage/keramik-regen-v3.webp',
-  description: 'Auf glattem, versiegeltem Lack bildet Regen kleine Wasserperlen. Tropfen verbinden sich; größere Tropfen laufen über die geneigte Fläche ab. KI-Visualisierung des Benetzungsverhaltens.'
+  knowledge: 'wissen-keramik', title: 'Wasser trifft auf. Perlen rollen ab.', label: 'Abperlen',
+  video: 'assets/garage/keramik-makro-v8-kuehl-1080p.mp4', loop: false,
+  poster: 'assets/garage/keramik-makro-v8-kuehl.webp',
+  description: 'Die Makroaufnahme zeigt Wasserperlen auf glattem, versiegeltem Lack. Tropfen verbinden sich und bewegen sich über die geneigte Oberfläche. KI-Visualisierung des Benetzungsverhaltens.'
 };
 window.BMD_GARAGE = {
   polish: {
@@ -53,8 +53,8 @@ window.BMD_GARAGE = {
     knowledge: 'wissen-keramik',
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
     continuous: true,
-    description: 'Vom Kotflügel zum glatten Lack: Regen bildet Wasserperlen, die zusammenwachsen und ablaufen.',
-    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-regen-v3-1080p.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
+    description: 'Vom Kotflügel in die nahe Makroaufnahme: Wasser trifft auf glatten Lack und bildet sichtbare Perlen.',
+    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-makro-v8-kuehl-1080p.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
   }
 };
 })();
