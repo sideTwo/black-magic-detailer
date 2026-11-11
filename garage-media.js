@@ -2,8 +2,8 @@
 (() => {
 const ceramicComparison = {
   knowledge: 'wissen-keramik', title: 'Wasser trifft auf. Perlen rollen ab.', label: 'Abperlen',
-  video: 'assets/garage/keramik-makro-v8-kuehl-1080p.mp4', loop: false,
-  poster: 'assets/garage/keramik-makro-v8-kuehl.webp',
+  video: 'assets/garage/keramik-makro-v8-kling-4k.mp4', loop: false,
+  poster: 'assets/garage/keramik-makro-v8-kling-4k.webp',
   description: 'Die Makroaufnahme zeigt Wasserperlen auf glattem, versiegeltem Lack. Tropfen verbinden sich und bewegen sich über die geneigte Oberfläche. KI-Visualisierung des Benetzungsverhaltens.'
 };
 window.BMD_GARAGE = {
@@ -54,7 +54,7 @@ window.BMD_GARAGE = {
     title: 'Keramik', eyebrow: 'KERAMIKVERSIEGELUNG', service: 'Keramikversiegelung',
     continuous: true,
     description: 'Vom Kotflügel in die nahe Makroaufnahme: Wasser trifft auf glatten Lack und bildet sichtbare Perlen.',
-    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-makro-v8-kuehl-1080p.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
+    steps: [{ ...ceramicComparison, video: 'assets/garage/keramik-gesamt-makro-v8-kling-4k.mp4', poster: 'assets/garage/tim-garage-filmkonsistent-v22-4k.webp' }]
   }
 };
 })();
