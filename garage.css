@@ -270,3 +270,45 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
   .cinema-embedded .cinema-bottom{display:flex;justify-content:flex-end}
   .cinema-embedded .cinema-bottom .text-link{width:auto;min-width:250px;gap:36px}
 }
+
+/* Compact, separated labels keep the car and Tim readable. */
+@media(min-width:761px){
+  .garage-pin{width:44px;height:44px;padding:0;justify-content:center;border:0;border-radius:50%;background:#0a0d1070;transform:translate(-50%,-50%);box-shadow:none}
+  .garage-pin.pin-flip{transform:translate(-50%,-50%)}
+  .garage-pin .pin-dot{width:24px;height:24px;background:#0a0d10a6}
+  .garage-pin .pin-label{position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);padding:7px 11px;border:1px solid #ffffff38;border-radius:4px;background:#101417ec;font-size:12px;line-height:1.4;box-shadow:0 3px 12px #0003}
+  .garage-pin .pin-label:after{content:'';position:absolute;top:100%;left:50%;height:10px;width:1px;background:#c9ab7780}
+  .garage-pin:hover,.garage-pin.hovered,.garage-pin:focus-visible{background:#c9ab7726;box-shadow:0 0 0 5px #c9ab7712}
+  .garage-pin:hover .pin-label,.garage-pin.hovered .pin-label,.garage-pin:focus-visible .pin-label{border-color:var(--gold);color:#f0d5a1}
+  .garage-intro{right:5%;top:24px}
+  .garage-intro h1{font-size:clamp(32px,3.8vw,64px)}
+}
+.film-start-status{position:absolute;z-index:8;left:50%;bottom:24px;transform:translateX(-50%);padding:10px 16px;border:1px solid #c9ab7766;border-radius:24px;background:#101417ed;color:#f3eadb;font-size:13px;white-space:nowrap;box-shadow:0 4px 18px #0003}
+.film-start-status[hidden]{display:none}
+.cinema-embedded .cinema-top{border-bottom:1px solid #ffffff18}
+.cinema-embedded .film-reading-panel{background:#111517;border-top:0}
+.cinema-embedded .film-caption h3{font-size:clamp(21px,2vw,28px);margin-bottom:10px}
+.cinema-embedded .film-caption p{line-height:1.7;color:#ced2d4}
+.cinema-embedded .film-learn{min-height:44px;margin-top:14px}
+@media(min-width:1001px){
+  .cinema-embedded .film-reading-panel{grid-template-columns:220px minmax(0,1fr);gap:48px;padding:28px 6% 20px}
+  .cinema-embedded .cinema-bottom{padding-top:0;padding-bottom:24px;background:#111517}
+  .cinema-embedded .cinema-info h2{font-size:30px}
+}
+@media(max-width:760px){
+  .garage-controls{padding:18px 5% 22px}
+  .garage-control-heading{gap:12px;align-items:flex-start}
+  .garage-control-heading a{font-size:10px}
+  .garage-menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;border:0}
+  .garage-menu button{min-height:70px;padding:12px;border:1px solid #ffffff26!important;border-radius:5px;background:#111517;gap:10px}
+  .garage-menu button>span:nth-child(2){font-size:15px;letter-spacing:0}
+  .garage-menu small{font-size:8px;line-height:1.4;letter-spacing:.4px;color:#b7babd;margin-top:5px}
+  .garage-menu .ui-icon{width:14px}
+  .garage-menu-number{color:#c9ab77}
+  .cinema-embedded .cinema-info{padding:20px 5% 0}
+  .cinema-embedded .film-caption{padding:0 5% 20px}
+  .cinema-embedded .cinema-info h2{font-size:26px;margin-bottom:12px}
+  .cinema-embedded .film-caption p{font-size:14px}
+  .film-start-status{font-size:11px;bottom:12px;padding:8px 12px}
+}
+@media(max-width:380px){.garage-menu .ui-icon{display:none}.garage-menu button>span:nth-child(2){font-size:14px}}

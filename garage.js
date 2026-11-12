@@ -18,7 +18,7 @@
   dialog.before(cinemaHome);
   let inlineCinema = false;
   let mobileMedia = false;
-  const preferMobileMedia = () => matchMedia('(max-width: 1000px), (pointer: coarse)').matches || navigator.connection?.saveData;
+  const preferMobileMedia = () => matchMedia('(max-width: 1920px), (pointer: coarse)').matches || navigator.connection?.saveData || /(^|-)2g$|3g/.test(navigator.connection?.effectiveType || '');
   const filmSource = source => ((dialog.open ? mobileMedia : preferMobileMedia()) && window.BMD_MOBILE?.[source]) || source;
   const video = document.querySelector('#service-film');
   const loadingCover = document.createElement('img');
@@ -27,6 +27,21 @@
   loadingCover.src = car.currentSrc || car.src;
   filmScreen.append(loadingCover);
   let firstFrameCallback;
+  const loadingStatus = document.createElement('div');
+  loadingStatus.className = 'film-start-status';
+  loadingStatus.setAttribute('role', 'status');
+  loadingStatus.textContent = 'Animation wird geladen …';
+  loadingStatus.hidden = true;
+  filmScreen.append(loadingStatus);
+  let loadingTimer;
+  function finishLoading() {
+    clearTimeout(loadingTimer); loadingStatus.hidden = true;
+    filmScreen.removeAttribute('aria-busy');
+  }
+  function beginLoading() {
+    finishLoading(); filmScreen.setAttribute('aria-busy', 'true');
+    loadingTimer = setTimeout(() => { if (dialog.open) loadingStatus.hidden = false; }, 350);
+  }
   const pending = document.querySelector('#film-pending');
   const error = document.querySelector('#film-error');
   const retry = document.querySelector('#film-retry');
@@ -59,8 +74,16 @@
     film.pause(); film.removeAttribute('src'); film.load();
   }
   function warmApproach(key, preload = 'auto') {
-    const source = filmSource(media[key]?.approach);
+    const service = media[key];
+    const source = filmSource(service?.approach || service?.steps[0]?.video);
     if (!source || reduced.matches || dialog.open || document.hidden || navigator.connection?.saveData) return;
+    if (!service.approach) {
+      discardWarmApproach();
+      video.preload = preload;
+      video.autoplay = false;
+      if (video.getAttribute('src') !== source) { video.src = source; video.load(); }
+      return;
+    }
     if (warmedApproach?.source === source) {
       if (preload === 'auto') warmedApproach.film.preload = 'auto';
       return;
@@ -128,6 +151,7 @@
     };
     film.addEventListener('playing', () => {
       if (!active()) return;
+      finishLoading();
       const showFirstFrame = () => { if (active()) film.style.opacity = '1'; };
       if (film.requestVideoFrameCallback) {
         current.firstFrameCallback = film.requestVideoFrameCallback(showFirstFrame);
@@ -222,11 +246,12 @@
     });
   }
   function queueLayout() { if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(layout); } }
-  function releaseFilm() {
+  function releaseFilm(keepSource = false) {
     if (firstFrameCallback !== undefined) video.cancelVideoFrameCallback?.(firstFrameCallback);
     firstFrameCallback = undefined;
     camera?.cancel(); camera = null;
-    revision++; video.pause(); video.removeAttribute('src'); video.preload = 'none'; video.load();
+    revision++; video.pause();
+    if (!keepSource) { video.removeAttribute('src'); video.preload = 'none'; video.load(); }
   }
   function playFilm() {
     if (!video.getAttribute('src')) return;
@@ -236,6 +261,7 @@
     const playback = video.play();
     playback?.catch(reason => {
       if (attemptRevision !== revision || !dialog.open || reason.name === 'AbortError') return;
+      finishLoading();
       error.querySelector('p').textContent = 'Tippe einmal, um die Animation zu starten.';
       retry.textContent = 'Animation starten';
       error.hidden = false;
@@ -256,7 +282,10 @@
     loadingCover.src = entering ? (car.currentSrc || car.src) : step.poster;
     filmScreen.classList.toggle('film-loading', Boolean(step.video));
     learn.setAttribute('href', `#${step.knowledge || service.knowledge}`);
-    releaseFilm();
+    const source = step.video && filmSource(step.video);
+    const prepared = Boolean(source && !video.error && video.getAttribute('src') === source);
+    releaseFilm(prepared);
+    if (step.video) beginLoading(); else finishLoading();
     fixedLabels.classList.remove('is-visible');
     const hasComparison = Boolean(step.before && step.after);
     error.hidden = true; pending.hidden = Boolean(step.video) || hasComparison;
@@ -287,7 +316,8 @@
     if (step.video) {
       video.autoplay = autoplay;
       video.preload = autoplay ? 'auto' : 'metadata';
-      video.src = filmSource(step.video); video.load();
+      if (!prepared) { video.src = source; video.load(); }
+      else if (video.currentTime > 0) video.currentTime = 0;
       const frameRevision = revision;
       if (video.requestVideoFrameCallback) {
         firstFrameCallback = video.requestVideoFrameCallback(() => {
@@ -384,6 +414,7 @@
     if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close();
   });
   dialog.addEventListener('close', () => {
+    finishLoading();
     stopApproach();
     dialog.classList.remove('cinema-immersive');
     releaseFilm(); document.body.classList.remove('modal-open');
@@ -417,6 +448,7 @@
     dialog.dataset.contactExit = 'true'; dialog.close();
   });
   video.addEventListener('playing', () => {
+    finishLoading();
     error.hidden = true;
     if (!video.requestVideoFrameCallback) {
       const frameRevision = revision;
@@ -432,7 +464,8 @@
     }
   });
   video.addEventListener('error', () => {
-    if (!video.getAttribute('src')) return;
+    if (!video.getAttribute('src') || !dialog.open) return;
+    finishLoading();
     error.querySelector('p').textContent = 'Die Animation konnte nicht geladen werden.';
     retry.textContent = 'Erneut versuchen'; error.hidden = false;
   });
@@ -496,12 +529,12 @@
   function updateHeader() { header.classList.toggle('scrolled', scrollY > 40); }
   addEventListener('scroll', updateHeader, { passive: true });
   updateHeader(); queueLayout();
-  // Fetch only the wheel movie's metadata after the page is ready. Intent
-  // upgrades this one reusable element to auto preload; other films stay cold.
+  // Warm one first film after page load; intent selects other services.
+  // Save-Data, reduced-motion and hidden pages never prefetch films.
   function primeWheelApproach() {
     const prime = () => {
       const bounds = scene.getBoundingClientRect();
-      if (bounds.bottom > 0 && bounds.top < innerHeight && !warmedApproach) warmApproach('wheels', 'metadata');
+      if (bounds.bottom > 0 && bounds.top < innerHeight && !warmedApproach) warmApproach('wheels', 'auto');
     };
     if ('requestIdleCallback' in window) requestIdleCallback(prime, { timeout: 1500 });
     else setTimeout(prime, 800);
@@ -509,3 +542,4 @@
   if (document.readyState === 'complete') primeWheelApproach();
   else addEventListener('load', primeWheelApproach, { once: true });
 })();
+
