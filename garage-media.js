@@ -23,7 +23,7 @@ window.BMD_GARAGE = {
     title: 'Felgen', eyebrow: 'FELGENREINIGUNG', service: 'Felgenreinigung',
     description: 'Sorgfalt bis ins Detail. Vom Felgenreiniger über die Arbeit mit der Bürste bis zum sauberen Ergebnis.',
     approach: 'assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4',
-    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-ablauf-v7-spuelkorrektur-4k.mp4', loop: false, poster: 'assets/garage/felgen-ablauf-final-v5-4k.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt. KI-Visualisierung der Felgenreinigung.' }]
+    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-ablauf-v8-farbabgleich-4k.mp4', loop: false, poster: 'assets/garage/felgen-ablauf-v8-farbabgleich.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt. KI-Visualisierung der Felgenreinigung.' }]
   },
   leather: {
     knowledge: 'wissen-leder',
