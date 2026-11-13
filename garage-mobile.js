@@ -1,7 +1,7 @@
 // Locally encoded 1080p variants; original cuts and frame rate preserved.
 window.BMD_MOBILE = {
   "assets/garage/politur-anfahrt-final-kandidat-v2-4k.mp4": "assets/garage/mobile/politur-anfahrt-final-kandidat-v2-mobile-1080p-v1.mp4",
-  "assets/garage/politur-behandlung-v5-ruhiger-1080p.mp4": "assets/garage/politur-behandlung-v5-ruhiger-1080p.mp4",
+  "assets/garage/politur-gesamt-v6-smooth-4k.mp4": "assets/garage/mobile/politur-gesamt-v6-smooth-mobile-1080p.mp4",
   "assets/garage/keramik-makro-v8-kling-4k.mp4": "assets/garage/mobile/keramik-makro-v8-kling-mobile-1080p-v2.mp4",
   "assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4": "assets/garage/mobile/felgen-anfahrt-final-kandidat-v1-mobile-1080p-v1.mp4",
   "assets/garage/felgen-ablauf-v8-farbabgleich-4k.mp4": "assets/garage/mobile/felgen-ablauf-v8-farbabgleich-mobile-1080p.mp4",
