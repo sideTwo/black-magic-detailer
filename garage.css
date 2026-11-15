@@ -4,6 +4,9 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
 .garage-scene{position:relative;width:100%;height:min(calc(100svh - var(--hero-header-height)),56.25vw);min-height:320px;overflow:hidden;isolation:isolate}
 .garage-photo{position:absolute;inset:0;width:100%}
 .garage-image{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.garage-image-filters{position:absolute;overflow:hidden;pointer-events:none}
+/* Gentle edge detail only: keep the actual camera-start photograph and face intact. */
+.garage-image,.film-screen>.film-loading-cover,.camera-flight img{filter:url(#garage-gentle-detail)}
 .garage-picture{position:absolute;inset:0}
 .garage-shade{display:none}
 .garage-intro{position:absolute;right:6%;top:34px;pointer-events:none;z-index:1}
@@ -79,8 +82,9 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
 .camera-film-inline video{object-fit:cover;object-position:50% 40%}
 .camera-film{background-size:cover;background-position:50% 40%;background-repeat:no-repeat}
 .camera-film-inline{background-size:cover;background-position:50% 40%}
-.film-screen>.film-loading-cover{position:absolute;inset:0;z-index:2;width:100%;height:100%;opacity:0;visibility:hidden;pointer-events:none}
-.film-screen.film-loading>.film-loading-cover{opacity:1;visibility:visible}
+.film-screen>.film-loading-cover{position:absolute;inset:0;z-index:2;width:100%;height:100%;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 200ms linear,visibility 0s linear 200ms}
+.film-screen.film-loading>.film-loading-cover{opacity:1;visibility:visible;transition:none}
+@media(prefers-reduced-motion:reduce){.film-screen>.film-loading-cover{transition:none}}
 .film-screen.film-loading>#service-film{opacity:0}
 .garage-inline-screen.film-loading{background:transparent}
 .film-screen>.film-error{z-index:5}
