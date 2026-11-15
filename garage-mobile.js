@@ -6,7 +6,6 @@ window.BMD_MOBILE = {
   "assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4": "assets/garage/mobile/felgen-anfahrt-final-kandidat-v1-mobile-1080p-v1.mp4",
   "assets/garage/felgen-ablauf-v8-farbabgleich-4k.mp4": "assets/garage/mobile/felgen-ablauf-v8-farbabgleich-mobile-1080p.mp4",
   "assets/garage/leder-beifahrer-gesamt-v50-4k.mp4": "assets/garage/mobile/leder-beifahrer-gesamt-v50-mobile-1080p.mp4",
-  "assets/garage/leder-gesamt-v19-4k.mp4": "assets/garage/mobile/leder-gesamt-v19-mobile-1080p-v1.mp4",
   "assets/garage/heck-kamerafahrt-final-v4-4k.mp4": "assets/garage/mobile/heck-kamerafahrt-final-v4-mobile-1080p-v1.mp4",
   "assets/garage/kofferraum-reinigung-buerste-final-v3-4k.mp4": "assets/garage/mobile/kofferraum-reinigung-buerste-final-v3-mobile-1080p-v1.mp4",
   "assets/garage/waesche-kamerafahrt-final-v2-4k.mp4": "assets/garage/mobile/waesche-kamerafahrt-final-v2-mobile-1080p-v1.mp4",
