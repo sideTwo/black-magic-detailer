@@ -32,6 +32,16 @@ test('available films and posters exist; pending treatments never claim a missin
   }
 });
 
+test('wheel, wash and cargo journeys include their treatment in one film without a second-player handoff', () => {
+  for (const key of ['wheels', 'wash', 'cargo']) {
+    const service = services[key];
+    assert.equal(service.continuous, true, `${key}: camera and cleaning must stay in one player`);
+    assert.equal(service.approach, undefined, `${key}: no separate approach can cover the cleaning`);
+    assert.match(service.steps[0].video, /gesamt.*-1080p\.mp4$/);
+    assert.equal(service.steps[0].loop, false, `${key}: keep the clean final frame`);
+  }
+});
+
 test('the entry uses the camera-start image without static scenery beside the film', () => {
   assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-filmkonsistent-v22-4k.webp"/);
   assert.doesNotMatch(html, /class="garage-backdrop"/);

@@ -3,12 +3,9 @@ window.BMD_MOBILE = {
   "assets/garage/politur-anfahrt-final-kandidat-v2-4k.mp4": "assets/garage/mobile/politur-anfahrt-final-kandidat-v2-mobile-1080p-v1.mp4",
   "assets/garage/politur-gesamt-v6-smooth-4k.mp4": "assets/garage/mobile/politur-gesamt-v6-smooth-mobile-1080p.mp4",
   "assets/garage/keramik-makro-v8-kling-4k.mp4": "assets/garage/mobile/keramik-makro-v8-kling-mobile-1080p-v2.mp4",
-  "assets/garage/felgen-anfahrt-final-kandidat-v1-4k.mp4": "assets/garage/mobile/felgen-anfahrt-final-kandidat-v1-mobile-1080p-v1.mp4",
-  "assets/garage/felgen-ablauf-v8-farbabgleich-4k.mp4": "assets/garage/mobile/felgen-ablauf-v8-farbabgleich-mobile-1080p.mp4",
+  "assets/garage/felgen-gesamt-v9-durchgehend-1080p.mp4": "assets/garage/felgen-gesamt-v9-durchgehend-1080p.mp4",
   "assets/garage/leder-beifahrer-gesamt-v50-4k.mp4": "assets/garage/mobile/leder-beifahrer-gesamt-v50-mobile-1080p.mp4",
-  "assets/garage/heck-kamerafahrt-final-v4-4k.mp4": "assets/garage/mobile/heck-kamerafahrt-final-v4-mobile-1080p-v1.mp4",
-  "assets/garage/kofferraum-reinigung-buerste-final-v3-4k.mp4": "assets/garage/mobile/kofferraum-reinigung-buerste-final-v3-mobile-1080p-v1.mp4",
-  "assets/garage/waesche-kamerafahrt-final-v3-ohne-m-4k.mp4": "assets/garage/mobile/waesche-kamerafahrt-final-v3-ohne-m-mobile-1080p.mp4",
-  "assets/garage/waesche-behandlung-final-v3-4k.mp4": "assets/garage/mobile/waesche-behandlung-final-v3-mobile-1080p-v1.mp4",
+  "assets/garage/kofferraum-gesamt-v4-durchgehend-1080p.mp4": "assets/garage/kofferraum-gesamt-v4-durchgehend-1080p.mp4",
+  "assets/garage/waesche-gesamt-v4-ohne-m-1080p.mp4": "assets/garage/waesche-gesamt-v4-ohne-m-1080p.mp4",
   "assets/garage/keramik-gesamt-makro-v9-smooth-4k.mp4": "assets/garage/mobile/keramik-gesamt-makro-v9-smooth-mobile-1080p.mp4"
 };
