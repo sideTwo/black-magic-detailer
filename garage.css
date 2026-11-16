@@ -316,3 +316,40 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
   .film-start-status{font-size:11px;bottom:12px;padding:8px 12px}
 }
 @media(max-width:380px){.garage-menu .ui-icon{display:none}.garage-menu button>span:nth-child(2){font-size:14px}}
+
+/* Give the interactive paint comparison a visible entry before any submenu. */
+.garage-comparison-entry{padding:24px 6% 20px;background:#111517;border-top:1px solid #c9ab7738}
+.garage-comparison-card{display:grid;grid-template-columns:144px minmax(0,1fr) auto;align-items:center;gap:28px;width:100%;padding:0;border:0;background:transparent;color:#eeeae2;text-align:left;cursor:pointer}
+.garage-comparison-preview{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border:1px solid #c9ab7759;border-radius:4px}
+.garage-comparison-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.garage-comparison-preview img+img{clip-path:inset(0 50% 0 0)}
+.garage-comparison-preview:after{content:'';position:absolute;inset:0 auto 0 50%;width:1px;background:#e8ce9a}
+.garage-comparison-preview>span{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:8px;letter-spacing:.8px;color:#f5f0e7;text-shadow:0 1px 4px #000}
+.garage-comparison-copy{display:grid;gap:5px;min-width:0}
+.garage-comparison-kicker{font-size:10px;letter-spacing:1.2px;color:#dfc38e}
+.garage-comparison-copy strong{font-family:inherit;font-size:clamp(20px,2vw,27px);font-weight:600;line-height:1.3;letter-spacing:-.5px}
+.garage-comparison-copy>span:last-child{font-size:14px;line-height:1.6;color:#bdc3c5}
+.garage-comparison-action,.film-compare-cta{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:48px;padding:12px 18px;border:1px solid #c9ab77;border-radius:3px;background:#c9ab77;color:#111416;font-size:14px;font-weight:600;line-height:1.5}
+.garage-comparison-action .ui-icon,.film-compare-cta .ui-icon{width:22px;height:22px;flex-shrink:0}
+.garage-comparison-card:hover .garage-comparison-action,.film-compare-cta:hover{background:#dfc38e;border-color:#dfc38e}
+.garage-comparison-card:focus-visible,.film-compare-cta:focus-visible{outline:2px solid #f3dfba;outline-offset:5px}
+.garage-comparison-entry>p{margin:12px 0 0;font-size:11px;line-height:1.6;color:#aeb5b8}
+.has-inline-film .garage-comparison-entry{display:none}
+.film-compare-cta{margin:18px 14px 0 0;vertical-align:top;cursor:pointer}
+.film-compare-cta[hidden]{display:none}
+@media(max-width:1100px){
+  .garage-comparison-card{grid-template-columns:128px minmax(0,1fr);gap:16px 22px}
+  .garage-comparison-action{grid-column:2;justify-self:start}
+  .garage-comparison-preview{grid-row:1 / 3;align-self:start}
+}
+@media(max-width:600px){
+  .garage-comparison-entry{padding:22px 5% 18px}
+  .garage-comparison-card{grid-template-columns:96px minmax(0,1fr);gap:16px}
+  .garage-comparison-preview{grid-row:auto;margin-top:4px}
+  .garage-comparison-copy strong{font-size:20px}
+  .garage-comparison-kicker{font-size:8px;letter-spacing:.7px}
+  .garage-comparison-copy>span:last-child{font-size:13px}
+  .garage-comparison-action{grid-column:1 / -1;justify-self:stretch;font-size:14px}
+  .garage-comparison-preview>span{font-size:6px;letter-spacing:.3px}
+  .film-compare-cta{width:100%;margin-right:0;font-size:14px}
+}

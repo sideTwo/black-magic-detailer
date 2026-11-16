@@ -48,6 +48,7 @@
   const contact = document.querySelector('#film-contact');
   const learn = document.querySelector('#film-learn');
   const comparison = document.querySelector('#film-compare');
+  const compareEntry = document.querySelector('#film-compare-cta');
   const paintRange = document.querySelector('#paint-range');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const compactCinema = () => matchMedia('(max-width: 760px), (max-width: 1000px) and (max-height: 500px)').matches;
@@ -291,6 +292,7 @@
     if (step.video) beginLoading(); else finishLoading();
     fixedLabels.classList.remove('is-visible');
     const hasComparison = Boolean(step.before && step.after);
+    compareEntry.hidden = selected !== 'polish' || hasComparison;
     error.hidden = true; pending.hidden = Boolean(step.video) || hasComparison;
     video.hidden = !step.video;
     document.querySelector('#film-still').hidden = Boolean(step.video) || hasComparison;
@@ -362,13 +364,18 @@
   function openService(key, source) {
     const service = media[key];
     if (!service) return;
+    const requestedStep = Number(source?.dataset.garageStep || 0);
+    const entryIndex = Number.isInteger(requestedStep) && service.steps[requestedStep] ? requestedStep : 0;
     // Give the film and its reading panel the complete garage frame even if
     // the launcher was clicked after scrolling the picture partly offscreen.
     if (!dialog.open && !compactCinema() && scene.getBoundingClientRect().top < 0) {
       scene.scrollIntoView({ block: 'start', behavior: 'instant' });
     }
     const origin = scene.getBoundingClientRect();
-    selected = key; opener = source;
+    selected = key;
+    // A comparison shortcut inside the panel must keep the original return
+    // target: its own button becomes hidden when the comparison opens.
+    if (!dialog.contains(source)) opener = source;
     if (!dialog.open) {
       inlineCinema = true;
       if (inlineCinema) {
@@ -401,15 +408,18 @@
       else dialog.showModal();
     }
     if (!inlineCinema) document.body.classList.add('modal-open');
-    setStep(0, !canUseFilmedApproach(service, origin), true);
-    approachService(key, origin);
+    setStep(entryIndex, entryIndex !== 0 || !canUseFilmedApproach(service, origin), entryIndex === 0);
+    if (entryIndex === 0) approachService(key, origin);
+    else if (service.steps[entryIndex].before) paintRange.focus({ preventScroll: true });
     if (inlineCinema && (origin.top < header.getBoundingClientRect().bottom || origin.bottom > innerHeight)) {
       scene.scrollIntoView({ block: 'start', behavior: reduced.matches ? 'instant' : 'smooth' });
     }
   }
   launchers.forEach(button => {
     for (const event of ['pointerenter', 'focusin', 'pointerdown']) {
-      button.addEventListener(event, () => warmApproach(button.dataset.garageService), { passive: true });
+      button.addEventListener(event, () => {
+        if (!button.dataset.garageStep) warmApproach(button.dataset.garageService);
+      }, { passive: true });
     }
     button.addEventListener('click', () => openService(button.dataset.garageService, button));
     button.addEventListener('mouseenter', () => launchers.forEach(el => el.classList.toggle('hovered', el.dataset.garageService === button.dataset.garageService)));
