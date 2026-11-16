@@ -17,16 +17,15 @@
   const cinemaHome = document.createComment('Garage cinema');
   dialog.before(cinemaHome);
   let inlineCinema = false;
-  let mobileMedia = false;
-  const preferMobileMedia = () => matchMedia('(max-width: 1920px), (pointer: coarse)').matches || navigator.connection?.saveData || /(^|-)2g$|3g/.test(navigator.connection?.effectiveType || '');
-  const filmSource = source => ((dialog.open ? mobileMedia : preferMobileMedia()) && window.BMD_MOBILE?.[source]) || source;
+  // Use the existing lighter 1080p encodes on desktop as well as phones.
+  const filmSource = source => window.BMD_MOBILE?.[source] || source;
   const video = document.querySelector('#service-film');
   const loadingCover = document.createElement('img');
   loadingCover.className = 'film-loading-cover'; loadingCover.alt = '';
   loadingCover.setAttribute('aria-hidden', 'true');
   loadingCover.src = car.currentSrc || car.src;
   filmScreen.append(loadingCover);
-  let firstFrameCallback;
+  let startGate;
   const loadingStatus = document.createElement('div');
   loadingStatus.className = 'film-start-status';
   loadingStatus.setAttribute('role', 'status');
@@ -59,6 +58,20 @@
   document.querySelector('.film-screen').append(fixedLabels);
   let selected = 'polish', currentStep = 0, opener, revision = 0, layoutQueued = false, camera;
   let approach, knowledgeTarget, warmedApproach;
+  function waitForView(active) {
+    // A category below the garage first scrolls the picture into view.
+    // Do not spend the opening seconds while that scroll is still moving.
+    return new Promise(done => {
+      let lastPosition = scrollY, stableSince = performance.now();
+      const check = now => {
+        if (!active()) { done(); return; }
+        if (scrollY !== lastPosition) { lastPosition = scrollY; stableSince = now; }
+        if (now - stableSince >= 100) done();
+        else requestAnimationFrame(check);
+      };
+      requestAnimationFrame(check);
+    });
+  }
   function createApproachFilm() {
     const film = document.createElement('video');
     film.muted = true; film.defaultMuted = true; film.playsInline = true;
@@ -97,9 +110,8 @@
     if (approach) {
       approach.animations.forEach(animation => animation.cancel());
       approach.timers?.forEach(clearTimeout);
-      if (approach.frameCallback !== undefined) video.cancelVideoFrameCallback?.(approach.frameCallback);
+      approach.startGate?.cancel();
       if (approach.film) {
-        if (approach.firstFrameCallback !== undefined) approach.film.cancelVideoFrameCallback?.(approach.firstFrameCallback);
         approach.film.pause(); approach.film.removeAttribute('src'); approach.film.load();
       }
       approach.layer.remove(); approach = null;
@@ -141,49 +153,41 @@
     const active = () => approach === current && revision === current.revision && dialog.open;
     const fallback = () => { if (active()) { stopApproach(); playFilm(); } };
     const reveal = () => {
-      if (!active()) return;
+      if (!active()) return Promise.resolve();
       dialog.classList.remove('camera-filming', 'camera-inline');
       dialog.querySelector('.cinema-body').inert = false;
       dialog.querySelector('.cinema-bottom').inert = false;
       const fade = layer.animate([{opacity:1},{opacity:0}], {duration:220,fill:'both'});
       current.animations.push(fade);
-      fade.finished.then(() => { if (active()) stopApproach(); }).catch(() => {});
+      return fade.finished.then(() => { if (active()) stopApproach(); }).catch(() => {});
     };
+    current.reveal = reveal;
     film.addEventListener('playing', () => {
       if (!active()) return;
-      finishLoading();
-      const showFirstFrame = () => { if (active()) film.style.opacity = '1'; };
-      if (film.requestVideoFrameCallback) {
-        current.firstFrameCallback = film.requestVideoFrameCallback(showFirstFrame);
-      } else requestAnimationFrame(() => requestAnimationFrame(showFirstFrame));
       current.timers.forEach(clearTimeout); current.timers = [];
       // Prepare the treatment while the camera travels, after the approach's
       // first frame is playing so two cold movies do not compete at the click.
       if (video.getAttribute('src')) video.preload = 'auto';
-      const duration = Number.isFinite(film.duration) ? film.duration : 4;
-      current.timers.push(setTimeout(fallback, (duration + 12) * 1000));
     }, {once:true});
     film.addEventListener('ended', () => {
       if (!active()) return;
       current.timers.forEach(clearTimeout); current.timers = [];
       if (!video.getAttribute('src')) { reveal(); return; }
-      // Keep the last camera frame visible until the treatment has actually
-      // presented a frame. play() resolving alone can expose the poster/black.
-      if (video.requestVideoFrameCallback) {
-        current.frameCallback = video.requestVideoFrameCallback(() => {
-          current.frameCallback = undefined; reveal();
-        });
-      }
-      playFilm()?.then(() => {
-        if (!active()) return;
-        if (!video.requestVideoFrameCallback) reveal();
-        else current.timers.push(setTimeout(reveal, 1500));
-      }).catch(() => { if (active()) stopApproach(); });
+      // The treatment gate fades out this last camera frame while the
+      // treatment is still paused at zero, then starts its media clock.
+      playFilm()?.catch(() => { if (active()) stopApproach(); });
     }, {once:true});
     film.addEventListener('error', fallback, {once:true});
-    current.timers.push(setTimeout(fallback, 10000));
     if (film.getAttribute('src') !== source) film.src = source;
-    film.play()?.catch(fallback);
+    current.startGate = window.BMD_VIDEO_START(film, {
+      active,
+      reveal: () => waitForView(active).then(() => {
+        if (active()) { film.style.opacity = '1'; finishLoading(); }
+      })
+    });
+    current.startGate.play().catch(reason => {
+      if (reason.name !== 'AbortError') fallback();
+    });
   }
   // Carry the current garage photograph toward the selected part before
   // blending to the film. Coordinates are in the original, uncropped photo.
@@ -247,8 +251,7 @@
   }
   function queueLayout() { if (!layoutQueued) { layoutQueued = true; requestAnimationFrame(layout); } }
   function releaseFilm(keepSource = false) {
-    if (firstFrameCallback !== undefined) video.cancelVideoFrameCallback?.(firstFrameCallback);
-    firstFrameCallback = undefined;
+    startGate?.cancel(); startGate = null;
     camera?.cancel(); camera = null;
     revision++; video.pause();
     if (!keepSource) { video.removeAttribute('src'); video.preload = 'none'; video.load(); }
@@ -258,7 +261,7 @@
     if (document.hidden) return Promise.resolve();
     const attemptRevision = revision;
     video.muted = true;
-    const playback = video.play();
+    const playback = startGate ? startGate.play() : video.play();
     playback?.catch(reason => {
       if (attemptRevision !== revision || !dialog.open || reason.name === 'AbortError') return;
       finishLoading();
@@ -315,18 +318,23 @@
     video.setAttribute('aria-label', `${service.title}: ${step.title}`);
     [...steps.children].forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
     if (step.video) {
-      video.autoplay = autoplay;
+      video.autoplay = false;
       video.preload = autoplay ? 'auto' : 'metadata';
       if (!prepared) { video.src = source; video.load(); }
       else if (video.currentTime > 0) video.currentTime = 0;
       const frameRevision = revision;
-      if (video.requestVideoFrameCallback) {
-        firstFrameCallback = video.requestVideoFrameCallback(() => {
-          if (revision !== frameRevision) return;
-          firstFrameCallback = undefined;
+      const active = () => revision === frameRevision && dialog.open;
+      startGate = window.BMD_VIDEO_START(video, {
+        active,
+        reveal: () => waitForView(active).then(() => {
+          if (!active()) return;
           filmScreen.classList.remove('film-loading');
-        });
-      }
+          finishLoading();
+          if (approach?.film?.ended) return approach.reveal();
+          // Let the existing 200ms cover fade finish before time advances.
+          return new Promise(done => setTimeout(done, reduced.matches ? 0 : 200));
+        })
+      });
       if (autoplay) playFilm();
     }
   }
@@ -363,7 +371,6 @@
     selected = key; opener = source;
     if (!dialog.open) {
       inlineCinema = true;
-      mobileMedia = Boolean(preferMobileMedia());
       if (inlineCinema) {
         garage.querySelector('.garage-controls').before(dialog);
         scene.append(filmScreen);
@@ -451,12 +458,6 @@
   video.addEventListener('playing', () => {
     finishLoading();
     error.hidden = true;
-    if (!video.requestVideoFrameCallback) {
-      const frameRevision = revision;
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (revision === frameRevision) filmScreen.classList.remove('film-loading');
-      }));
-    }
     const zoom = media[selected]?.steps[currentStep]?.zoom || 1;
     if (!camera && zoom > 1 && !reduced.matches) {
       camera = video.animate([{ transform: 'scale(1)' }, { transform: `scale(${zoom})` }], {
@@ -505,7 +506,7 @@
       approach?.animations.forEach(animation => animation.play());
       if (approach?.film && !approach.film.ended) {
         const current = approach;
-        current.film.play()?.catch(() => { if (approach === current) { stopApproach(); playFilm(); } });
+        current.startGate.play().catch(reason => { if (reason.name !== 'AbortError' && approach === current) { stopApproach(); playFilm(); } });
       }
       else if (video.getAttribute('src')) playFilm();
     }

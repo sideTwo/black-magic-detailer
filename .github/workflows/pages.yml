@@ -26,6 +26,7 @@ jobs:
           node tests/garage.test.cjs
           node tests/mobile-media.test.cjs
           node tests/services.test.cjs
+          node tests/video-start.test.cjs
       - name: Prepare website without unused video archives
         run: node scripts/build-pages.cjs
       - uses: actions/upload-pages-artifact@v4
