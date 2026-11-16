@@ -34,22 +34,6 @@
   document.addEventListener('focusin',e=>{if(!nav.contains(e.target)&&!menu.contains(e.target))closeMenu()});
   mobileMenu.addEventListener('change',()=>closeMenu(mobileMenu.matches&&nav.contains(document.activeElement)));
 
-  const serviceTabs=[...document.querySelectorAll('[data-service-tab]')];
-  function selectService(index,focus=false){
-    serviceTabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;document.getElementById(tab.getAttribute('aria-controls')).hidden=i!==index});
-    if(focus)serviceTabs[index].focus();
-  }
-  serviceTabs.forEach((tab,i)=>{
-    tab.addEventListener('click',()=>selectService(i));
-    tab.addEventListener('keydown',e=>{
-      let next;
-      if(e.key==='ArrowDown'||e.key==='ArrowRight')next=(i+1)%serviceTabs.length;
-      if(e.key==='ArrowUp'||e.key==='ArrowLeft')next=(i+serviceTabs.length-1)%serviceTabs.length;
-      if(e.key==='Home')next=0;if(e.key==='End')next=serviceTabs.length-1;
-      if(next!==undefined){e.preventDefault();selectService(next,true)}
-    });
-  });
-
   const compare=document.querySelector('.compare-range');
   function updateCompare(){
     const value=Number(compare.value);
