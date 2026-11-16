@@ -44,7 +44,7 @@ window.BMD_GARAGE = {
   wash: {
     knowledge: 'wissen-waesche',
     title: 'Außenwäsche', eyebrow: 'SNOW FOAM', service: 'Außenwäsche',
-    approach: 'assets/garage/waesche-kamerafahrt-final-v2-4k.mp4',
+    approach: 'assets/garage/waesche-kamerafahrt-final-v3-ohne-m-4k.mp4',
     description: 'Der Anfang eines guten Finishs. Gründliche Vorreinigung und eine schonende Wäsche des Fahrzeugs.',
     steps: [{ title: 'Schaum auftragen. Gründlich abspülen.', label: 'Snow Foam', video: 'assets/garage/waesche-behandlung-final-v3-4k.mp4', poster: 'assets/garage/waesche-behandlung-final-v3-4k.webp', description: 'Tenside helfen, fettigen Straßenfilm anzulösen. Der Schaum hält den Reiniger auf der Fläche; abgespült werden Reiniger und gelöster Schmutz. Die Einwirkzeit ist verkürzt dargestellt; danach folgt die Handwäsche.' }]
   },
