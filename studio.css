@@ -302,3 +302,7 @@
 /* Keep reconstructed customer photos distinct from unedited documentation. */
 .photo-edit-label{position:absolute;top:12px;left:12px;max-width:calc(100% - 24px);padding:5px 9px;border-radius:6px;background:#101112e8;color:#eeeae2;font-size:.6875rem;font-weight:400;line-height:1.5}
 .contact-photo-note{display:block;font-size:.6875rem;line-height:1.5;margin-top:4px;color:var(--studio-secondary)}
+.photo-disclosure{max-width:960px;margin:0 0 32px;padding:16px 20px;border-left:2px solid var(--gold);background:#191816;border-radius:0 12px 12px 0;color:var(--studio-secondary);font-size:.875rem;line-height:1.75}
+.photo-disclosure strong{display:block;margin-bottom:6px;color:var(--studio-paper);font-weight:600}
+.photo-disclosure p{margin:0}
+.gallery-disclosure{max-width:850px;margin:12px 0 0;color:#bfbab1;font-size:.8125rem;line-height:1.65}
