@@ -298,3 +298,7 @@
   .project-photo:hover > img { transform: none; }
   .studio-section .reveal { opacity: 1; transform: none; }
 }
+
+/* Keep reconstructed customer photos distinct from unedited documentation. */
+.photo-edit-label{position:absolute;top:12px;left:12px;max-width:calc(100% - 24px);padding:5px 9px;border-radius:6px;background:#101112e8;color:#eeeae2;font-size:.6875rem;font-weight:400;line-height:1.5}
+.contact-photo-note{display:block;font-size:.6875rem;line-height:1.5;margin-top:4px;color:var(--studio-secondary)}

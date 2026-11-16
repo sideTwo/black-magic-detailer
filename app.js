@@ -58,39 +58,39 @@
   const galleryImage=document.getElementById('gallery-image');
   const projectGalleries={
     classic:{title:'Mercedes-Benz 190 E',photos:[
-      ['mercedes-profile','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes-Benz 190 E'],
-      ['mercedes-paint','Lichtreflexionen auf der Motorhaube.','Weiße Motorhaube mit klaren Lichtreflexionen'],
-      ['mercedes-interior','Wieder gern einsteigen.','Mercedes-Innenraum mit karierten Stoffsitzen'],
-      ['detail-after','Sorgfalt bis in die Tankmulde.','Gereinigte Tankmulde am Mercedes']
+      ['mercedes-profile-rekonstruiert-v2','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes-Benz 190 E'],
+      ['mercedes-paint-rekonstruiert-v2','Lichtreflexionen auf der Motorhaube.','Weiße Motorhaube mit klaren Lichtreflexionen'],
+      ['mercedes-interior-rekonstruiert-v2','Wieder gern einsteigen.','Mercedes-Innenraum mit karierten Stoffsitzen'],
+      ['detail-after-rekonstruiert-v2','Sorgfalt bis in die Tankmulde.','Gereinigte Tankmulde am Mercedes']
     ]},
     bmw:{title:'BMW · Innenraum & Felgen',photos:[
-      ['bmw-suv-felge-20261116','Die Felge im Detail.','Nahaufnahme einer gereinigten zweifarbigen BMW-Felge'],
-      ['bmw-suv-sitze-20261116','Sitze, Nähte und Oberflächen.','BMW-Innenraum mit schwarzen Ledersitzen'],
-      ['bmw-suv-cockpit-20261116','Ein Blick in den Fahrerbereich.','BMW-Fahrersitz und Cockpit nach der Aufbereitung']
+      ['bmw-suv-felge-20261116-rekonstruiert-v2','Die Felge im Detail.','Nahaufnahme einer gereinigten zweifarbigen BMW-Felge'],
+      ['bmw-suv-sitze-20261116-rekonstruiert-v2','Sitze, Nähte und Oberflächen.','BMW-Innenraum mit schwarzen Ledersitzen'],
+      ['bmw-suv-cockpit-20261116-rekonstruiert-v2','Ein Blick in den Fahrerbereich.','BMW-Fahrersitz und Cockpit nach der Aufbereitung']
     ]},
     audi:{title:'Audi TT · Innenraum & Lack',photos:[
-      ['audi-sitze-20261116','Leder und Kontrastnähte.','Schwarze Audi-Sportsitze mit Rautennähten'],
-      ['audi-cockpit-20261116','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze'],
-      ['audi-lackdetail-20261116','Reflexionen unter dem Werkstattlicht.','Lichtreflexionen auf einer hellen lackierten Karosseriefläche']
+      ['audi-sitze-20261116-rekonstruiert-v2','Leder und Kontrastnähte.','Schwarze Audi-Sportsitze mit Rautennähten'],
+      ['audi-cockpit-20261116-rekonstruiert-v2','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze'],
+      ['audi-lackdetail-20261116-rekonstruiert-v2','Reflexionen unter dem Werkstattlicht.','Lichtreflexionen auf einer hellen lackierten Karosseriefläche']
     ]},
     mercedes:{title:'Mercedes-Benz · Innenraum',photos:[
-      ['mercedes-kompakt-fussraum-20261116','Sorgfalt bis in den Fußraum.','Gereinigter Mercedes-Beifahrerfußraum und Sitz'],
-      ['mercedes-kompakt-rueckbank-20261116','Auch auf der Rückbank.','Mercedes-Rückbank mit schwarzen Sitzen und roten Nähten'],
-      ['mercedes-kompakt-kofferraum-20261116','Zum Schluss: geordneter Teppichflor.','Gereinigter Kofferraum mit gebürstetem Streifenmuster']
+      ['mercedes-kompakt-fussraum-20261116-rekonstruiert-v2','Sorgfalt bis in den Fußraum.','Gereinigter Mercedes-Beifahrerfußraum und Sitz'],
+      ['mercedes-kompakt-rueckbank-20261116-rekonstruiert-v2','Auch auf der Rückbank.','Mercedes-Rückbank mit schwarzen Sitzen und roten Nähten'],
+      ['mercedes-kompakt-kofferraum-20261116-rekonstruiert-v2','Zum Schluss: geordneter Teppichflor.','Gereinigter Kofferraum mit gebürstetem Streifenmuster']
     ]},
     hyundai:{title:'Hyundai · Außen & innen',photos:[
-      ['hyundai-seitenansicht-20261116','Das Fahrzeug von der Seite.','Dunkler Hyundai in vollständiger Seitenansicht'],
-      ['hyundai-sitze-20261116','Die Vordersitze im Detail.','Schwarze Hyundai-Vordersitze nach der Aufbereitung'],
-      ['hyundai-cockpit-20261116','Der Fahrerbereich.','Hyundai-Lenkrad und gereinigtes Cockpit']
+      ['hyundai-seitenansicht-20261116-rekonstruiert-v2','Das Fahrzeug von der Seite.','Dunkler Hyundai in vollständiger Seitenansicht'],
+      ['hyundai-sitze-20261116-rekonstruiert-v2','Die Vordersitze im Detail.','Schwarze Hyundai-Vordersitze nach der Aufbereitung'],
+      ['hyundai-cockpit-20261116-rekonstruiert-v2','Der Fahrerbereich.','Hyundai-Lenkrad und gereinigtes Cockpit']
     ]},
     skoda:{title:'Škoda · Lack & Innenraum',photos:[
-      ['skoda-lackdetail-20261116','Klare Reflexionen auf dunklem Lack.','Baumreflexionen auf einer dunklen Škoda-Motorhaube'],
-      ['skoda-cockpit-20261116','Sitzflächen, Konsole und Cockpit.','Škoda-Innenraum mit schwarzen Sitzen und Rautennähten'],
-      ['skoda-kofferraum-20261116','Ein sauberer Laderaum.','Gereinigter Škoda-Kofferraum']
+      ['skoda-lackdetail-20261116-rekonstruiert-v2','Klare Reflexionen auf dunklem Lack.','Baumreflexionen auf einer dunklen Škoda-Motorhaube'],
+      ['skoda-cockpit-20261116-rekonstruiert-v2','Sitzflächen, Konsole und Cockpit.','Škoda-Innenraum mit schwarzen Sitzen und Rautennähten'],
+      ['skoda-kofferraum-20261116-rekonstruiert-v2','Ein sauberer Laderaum.','Gereinigter Škoda-Kofferraum']
     ]},
     paint:{title:'Lackkorrektur · Vorher & nachher',photos:[
-      ['lackkorrektur-vorher-20261116','Vorher: deutlich sichtbare Spuren am Heck.','Helle Kratz- und Abriebspuren auf einer dunklen Heckstoßstange'],
-      ['lackkorrektur-nachher-20261116','Nachher: das Lackbild nach der Bearbeitung.','Dunkle Heckstoßstange mit klaren Reflexionen nach der Bearbeitung']
+      ['lackkorrektur-vorher-20261116-rekonstruiert-v2','Vorher: deutlich sichtbare Spuren am Heck.','Helle Kratz- und Abriebspuren auf einer dunklen Heckstoßstange'],
+      ['lackkorrektur-nachher-20261116-rekonstruiert-v2','Nachher: das Lackbild nach der Bearbeitung.','Dunkle Heckstoßstange mit klaren Reflexionen nach der Bearbeitung']
     ]}
   };
   let activeProject=projectGalleries.classic,photoIndex=0,galleryOpener;

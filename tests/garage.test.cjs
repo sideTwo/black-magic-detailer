@@ -43,7 +43,7 @@ test('wheel, wash and cargo journeys include their treatment in one film without
 });
 
 test('the entry uses the camera-start image without static scenery beside the film', () => {
-  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-filmkonsistent-v22-4k.webp"/);
+  assert.match(html, /class="garage-image" src="assets\/garage\/tim-garage-rekonstruiert-v23-1080.webp"/);
   assert.doesNotMatch(html, /class="garage-backdrop"/);
   assert.doesNotMatch(html, /src="(?:hero|media-config)\.js|class="story"|mobile-sequence/);
   const player = html.match(/<video[^>]+id="service-film"[^>]*>/)[0];
