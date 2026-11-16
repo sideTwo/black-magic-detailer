@@ -72,24 +72,54 @@
 
   const gallery=document.getElementById('project-gallery');
   const galleryImage=document.getElementById('gallery-image');
-  const photos=[
-    ['mercedes-feature','Das fertige Fahrzeug.','Weißer Mercedes-Benz 190 E nach der Aufbereitung'],
-    ['mercedes-front','Ein Klassiker mit Charakter.','Mercedes von schräg vorne vor einem historischen Gebäude'],
-    ['mercedes-rear','Das Finish aus einem anderen Blickwinkel.','Heck des aufbereiteten Mercedes'],
-    ['mercedes-paint','Lichtreflexionen auf der Motorhaube.','Weiße Motorhaube mit klaren Lichtreflexionen'],
-    ['mercedes-interior','Wieder gern einsteigen.','Aufbereiteter Mercedes-Innenraum mit karierten Stoffsitzen'],
-    ['detail-after','Sorgfalt bis in die Tankmulde.','Gereinigte Tankmulde am Mercedes'],
-    ['mercedes-profile','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes']
-  ];
-  let photoIndex=0,galleryOpener;
+  const projectGalleries={
+    classic:{title:'Mercedes-Benz 190 E',photos:[
+      ['mercedes-profile','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes-Benz 190 E'],
+      ['mercedes-paint','Lichtreflexionen auf der Motorhaube.','Weiße Motorhaube mit klaren Lichtreflexionen'],
+      ['mercedes-interior','Wieder gern einsteigen.','Mercedes-Innenraum mit karierten Stoffsitzen'],
+      ['detail-after','Sorgfalt bis in die Tankmulde.','Gereinigte Tankmulde am Mercedes']
+    ]},
+    bmw:{title:'BMW · Innenraum & Felgen',photos:[
+      ['bmw-suv-felge-20261116','Die Felge im Detail.','Nahaufnahme einer gereinigten zweifarbigen BMW-Felge'],
+      ['bmw-suv-sitze-20261116','Sitze, Nähte und Oberflächen.','BMW-Innenraum mit schwarzen Ledersitzen'],
+      ['bmw-suv-cockpit-20261116','Ein Blick in den Fahrerbereich.','BMW-Fahrersitz und Cockpit nach der Aufbereitung']
+    ]},
+    audi:{title:'Audi TT · Innenraum & Lack',photos:[
+      ['audi-sitze-20261116','Leder und Kontrastnähte.','Schwarze Audi-Sportsitze mit Rautennähten'],
+      ['audi-cockpit-20261116','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze'],
+      ['audi-lackdetail-20261116','Reflexionen unter dem Werkstattlicht.','Lichtreflexionen auf einer hellen lackierten Karosseriefläche']
+    ]},
+    mercedes:{title:'Mercedes-Benz · Innenraum',photos:[
+      ['mercedes-kompakt-fussraum-20261116','Sorgfalt bis in den Fußraum.','Gereinigter Mercedes-Beifahrerfußraum und Sitz'],
+      ['mercedes-kompakt-rueckbank-20261116','Auch auf der Rückbank.','Mercedes-Rückbank mit schwarzen Sitzen und roten Nähten'],
+      ['mercedes-kompakt-kofferraum-20261116','Zum Schluss: geordneter Teppichflor.','Gereinigter Kofferraum mit gebürstetem Streifenmuster']
+    ]},
+    hyundai:{title:'Hyundai · Außen & innen',photos:[
+      ['hyundai-seitenansicht-20261116','Das Fahrzeug von der Seite.','Dunkler Hyundai in vollständiger Seitenansicht'],
+      ['hyundai-sitze-20261116','Die Vordersitze im Detail.','Schwarze Hyundai-Vordersitze nach der Aufbereitung'],
+      ['hyundai-cockpit-20261116','Der Fahrerbereich.','Hyundai-Lenkrad und gereinigtes Cockpit']
+    ]},
+    skoda:{title:'Škoda · Lack & Innenraum',photos:[
+      ['skoda-lackdetail-20261116','Klare Reflexionen auf dunklem Lack.','Baumreflexionen auf einer dunklen Škoda-Motorhaube'],
+      ['skoda-cockpit-20261116','Sitzflächen, Konsole und Cockpit.','Škoda-Innenraum mit schwarzen Sitzen und Rautennähten'],
+      ['skoda-kofferraum-20261116','Ein sauberer Laderaum.','Gereinigter Škoda-Kofferraum']
+    ]},
+    paint:{title:'Lackkorrektur · Vorher & nachher',photos:[
+      ['lackkorrektur-vorher-20261116','Vorher: deutlich sichtbare Spuren am Heck.','Helle Kratz- und Abriebspuren auf einer dunklen Heckstoßstange'],
+      ['lackkorrektur-nachher-20261116','Nachher: das Lackbild nach der Bearbeitung.','Dunkle Heckstoßstange mit klaren Reflexionen nach der Bearbeitung']
+    ]}
+  };
+  let activeProject=projectGalleries.classic,photoIndex=0,galleryOpener;
   function showPhoto(index){
+    const photos=activeProject.photos;
     photoIndex=(index+photos.length)%photos.length;
     const [file,caption,alt]=photos[photoIndex];
     galleryImage.src=`assets/projects/${file}.webp`;galleryImage.alt=alt;
+    document.getElementById('gallery-title').textContent=activeProject.title;
     document.getElementById('gallery-caption').textContent=caption;
     document.getElementById('gallery-count').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;
   }
-  document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{galleryOpener=button;showPhoto(Number(button.dataset.gallery));gallery.showModal();document.body.classList.add('modal-open')}));
+  document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{galleryOpener=button;activeProject=projectGalleries[button.dataset.project||'classic']||projectGalleries.classic;showPhoto(Number(button.dataset.gallery));gallery.showModal();document.body.classList.add('modal-open')}));
   document.getElementById('gallery-prev').addEventListener('click',()=>showPhoto(photoIndex-1));
   document.getElementById('gallery-next').addEventListener('click',()=>showPhoto(photoIndex+1));
   gallery.querySelector('.gallery-close').addEventListener('click',()=>gallery.close());
@@ -98,7 +128,7 @@
     if(e.key==='ArrowRight')next=photoIndex+1;
     if(e.key==='ArrowLeft')next=photoIndex-1;
     if(e.key==='Home')next=0;
-    if(e.key==='End')next=photos.length-1;
+    if(e.key==='End')next=activeProject.photos.length-1;
     if(next!==undefined){e.preventDefault();showPhoto(next)}
   });
   gallery.addEventListener('click',e=>{const r=gallery.getBoundingClientRect();if(e.target===gallery&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))gallery.close()});

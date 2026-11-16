@@ -1,4 +1,31 @@
 /* Quiet, photo-led content after the interactive garage. */
+.reference-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 24px; margin-bottom: clamp(64px, 7vw, 104px); }
+.reference-project { min-width: 0; }
+.reference-open { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
+.reference-image { position: relative; display: block; overflow: hidden; aspect-ratio: 4 / 3; border-radius: 18px; background: #191816; }
+.reference-image > img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.reference-view { position: absolute; bottom: 16px; right: 16px; display: inline-flex; align-items: center; gap: 12px; border: 1px solid #c9ab7766; border-radius: 100px; padding: 9px 13px; background: #11110ff2; color: #eeeae2; font-size: .75rem; line-height: 1.5; }
+.reference-view .ui-icon { width: 15px; height: 15px; }
+.reference-caption { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding-top: 18px; }
+.reference-caption strong { display: block; color: #eeeae2; font-size: 1.125rem; font-weight: 600; }
+.reference-caption small { display: block; color: #bfbab1; font-size: .875rem; margin-top: 5px; }
+.reference-caption > .ui-icon { width: 20px; height: 20px; color: #c9ab77; }
+.reference-open:hover .reference-image > img, .reference-open:focus-visible .reference-image > img { transform: scale(1.025); }
+.classic-heading { margin-bottom: 28px; }
+.studio-section .classic-heading .micro { margin-bottom: 10px; }
+.classic-heading h3, .additional-heading h3 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 600; line-height: 1.2; letter-spacing: -.04em; }
+.additional-services { margin-top: 64px; padding-top: 40px; border-top: 1px solid #c9ab7733; }
+.additional-heading { max-width: 640px; margin-bottom: 32px; }
+.additional-heading > p:last-child { color: #bfbab1; margin-top: 18px; font-size: 1rem; line-height: 1.75; }
+.additional-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.additional-grid article { display: flex; flex-direction: column; align-items: flex-start; padding-top: 22px; border-top: 1px solid #c9ab7733; min-width: 0; }
+.additional-grid h4 { font-size: 1.125rem; line-height: 1.4; font-weight: 600; color: #eeeae2; margin-bottom: 12px; }
+.additional-grid p { color: #bfbab1; font-size: 1rem; line-height: 1.75; margin-bottom: 12px; }
+.additional-grid .text-link { margin-top: auto; font-size: .875rem; gap: 12px; }
+.contact-phone { overflow-wrap: anywhere; }
+@media (max-width: 1050px) { .reference-grid, .additional-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .reference-grid, .additional-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; } .reference-view { bottom: 12px; right: 12px; } .additional-services { margin-top: 48px; } }
+@media (prefers-reduced-motion: reduce) { .reference-image > img { transition: none; } .reference-open:hover .reference-image > img, .reference-open:focus-visible .reference-image > img { transform: none; } }
 .contact-phone { margin: 20px 0; font-size: 1rem; line-height: 1.6; }
 .contact-phone a, .footer-bottom a { text-decoration: underline; text-underline-offset: .2em; }
 :root {
