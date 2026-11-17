@@ -120,8 +120,7 @@
     galleryOriginal.textContent=originalView?'Bearbeitetes Foto ansehen':'Originalfoto ansehen';
     galleryOriginal.dataset.originalView=String(originalView);
     const original=!paired&&(photo[3]==='original'||(originalView&&Boolean(photo[4])));
-    document.getElementById('gallery-source').textContent=paired?'TIMS ORIGINALFOTOS · VORHER & NACHHER':original?'TIMS ARBEIT · ORIGINALFOTO':'TIMS ARBEIT · FOTOS MIT KI AUFBEREITET';
-    document.getElementById('gallery-disclosure').textContent=paired?'Echte Vorher-/Nachher-Aufnahmen von Tim. Für das Web nur verkleinert und komprimiert; die Zustände wurden nicht mit KI rekonstruiert.':original?'Originalaufnahme von Tim. Für das Web nur verkleinert und komprimiert; keine KI-Nachbearbeitung.':'Tims echte Arbeit, fotografisch aufbereitet: KI unterstützt Schärfe, Belichtung und einen ruhigen Hintergrund. Die Bearbeitung soll die Bildqualität verbessern, nicht das Aufbereitungsergebnis.';
+    document.getElementById('gallery-source').textContent=paired?'VORHER & NACHHER · ORIGINALFOTOS':original?'TIMS ARBEIT · ORIGINALFOTO':'TIMS ARBEIT';
     document.getElementById('gallery-title').textContent=activeProject.title;
     document.getElementById('gallery-caption').textContent=caption;
     document.getElementById('gallery-count').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;

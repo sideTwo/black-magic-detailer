@@ -68,6 +68,7 @@ body.modal-open .header{width:var(--modal-page-width,100%);right:auto}
 .film-steps button[aria-pressed=true]:after{content:'';height:5px;width:5px;margin-left:auto;background:var(--gold);border-radius:50%}
 .cinema-content{min-width:0}
 .film-screen{position:relative;aspect-ratio:16/9;background:#08090a;overflow:hidden}
+.media-origin{position:absolute;right:12px;bottom:12px;z-index:6;max-width:calc(100% - 24px);padding:4px 8px;border-radius:3px;background:#111416e8;color:#eeeae2;font-size:12px;line-height:1.5;letter-spacing:0;font-weight:400;pointer-events:none}
 .film-screen video,.film-screen>img{display:block;width:100%;height:100%;object-fit:contain}
 .film-screen video{pointer-events:none;user-select:none}
 .film-screen video::-webkit-media-controls{display:none!important}

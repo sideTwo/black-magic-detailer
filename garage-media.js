@@ -4,7 +4,7 @@ const ceramicComparison = {
   knowledge: 'wissen-keramik', title: 'Wasser trifft auf. Perlen rollen ab.', label: 'Abperlen',
   video: 'assets/garage/keramik-makro-v8-kling-4k.mp4', loop: false,
   poster: 'assets/garage/keramik-makro-v8-kling-4k-rekonstruiert-v2.webp',
-  description: 'Die Makroaufnahme zeigt Wasserperlen auf glattem, versiegeltem Lack. Tropfen verbinden sich und bewegen sich über die geneigte Oberfläche. KI-Visualisierung des Benetzungsverhaltens.'
+  description: 'Die Makroaufnahme zeigt Wasserperlen auf glattem, versiegeltem Lack. Tropfen verbinden sich und bewegen sich über die geneigte Oberfläche.'
 };
 window.BMD_GARAGE = {
   polish: {
@@ -14,7 +14,7 @@ window.BMD_GARAGE = {
     description: 'Vom ersten Polierzug bis zur klaren Reflexion. Entdecke die Arbeit am Lack und das Finish danach.',
     steps: [
       { title: 'Die Politur', label: 'Polieren', video: 'assets/garage/politur-gesamt-v6-smooth-4k.mp4', loop: false, poster: 'assets/garage/tim-garage-rekonstruiert-v23-1080.webp', description: 'Die Maschine wird in überlappenden Bahnen über die Haube geführt. Feine Schleifkörper gleichen leichte Defekte in der obersten Lackschicht aus. So werden Reflexionen wieder klarer; tiefe Kratzer lassen sich nicht beliebig auspolieren.' },
-      { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Vorher / Nachher', video: null, poster: 'assets/garage/lack-nachher-v3-rekonstruiert-v2.webp', before: 'assets/garage/lack-vorher-v3-rekonstruiert-v2.webp', after: 'assets/garage/lack-nachher-v3-rekonstruiert-v2.webp', description: 'KI-Visualisierung unter gleicher Prüfleuchte: Feine Waschkratzer streuen das Licht um den Lichtpunkt. Nach der Korrektur zeigt der glatte Klarlack ruhigere, klarere Reflexionen. Ziehe den Regler für den Vergleich. Kein dokumentiertes Kundenergebnis.' },
+      { title: 'Gleiches Licht. Klareres Lackbild.', label: 'Vorher / Nachher', video: null, poster: 'assets/garage/lack-nachher-v3-rekonstruiert-v2.webp', before: 'assets/garage/lack-vorher-v3-rekonstruiert-v2.webp', after: 'assets/garage/lack-nachher-v3-rekonstruiert-v2.webp', description: 'Unter gleicher Prüfleuchte: Feine Waschkratzer streuen das Licht um den Lichtpunkt. Nach der Korrektur zeigt der glatte Klarlack ruhigere, klarere Reflexionen. Ziehe den Regler für den Vergleich.' },
       { ...ceramicComparison, label: 'Keramik' }
     ]
   },
@@ -23,7 +23,7 @@ window.BMD_GARAGE = {
     title: 'Felgen', eyebrow: 'FELGENREINIGUNG', service: 'Felgenreinigung',
     description: 'Sorgfalt bis ins Detail. Vom Felgenreiniger über die Arbeit mit der Bürste bis zum sauberen Ergebnis.',
     continuous: true,
-    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-gesamt-v9-durchgehend-1080p.mp4', loop: false, poster: 'assets/garage/felgen-ablauf-v8-farbabgleich-rekonstruiert-v2.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt. KI-Visualisierung der Felgenreinigung.' }]
+    steps: [{ title: 'Schmutz lösen. Glanz freilegen.', label: 'Felgen', video: 'assets/garage/felgen-gesamt-v9-durchgehend-1080p.mp4', loop: false, poster: 'assets/garage/felgen-ablauf-v8-farbabgleich-rekonstruiert-v2.webp', description: 'Reaktive Reiniger können sich bei Kontakt mit eisenhaltigen Partikeln violett färben. Eine weiche Bürste unterstützt das Lösen; Abspülen entfernt die Rückstände. Die Einwirkzeit ist im Film verkürzt.' }]
   },
   leather: {
     knowledge: 'wissen-leder',
@@ -31,7 +31,7 @@ window.BMD_GARAGE = {
     continuous: true,
     description: 'Vom Einstieg bis zur Sitzfläche. Entdecke die Reinigung mit weicher Bürste und kreisenden Bewegungen.',
     steps: [
-      { title: 'Weiche Bürste. Kreisende Reinigung.', label: 'Beifahrer', video: 'assets/garage/leder-beifahrer-gesamt-v50-4k.mp4', loop: false, poster: 'assets/garage/leder-beifahrer-schritt-zurueck-v2-rekonstruiert-v2.webp', description: 'Tim macht Platz. Durch die geöffnete Beifahrertür geht es zur Sitzfläche: Eine weiche Bürste arbeitet den Reinigungsschaum in kreisenden Bewegungen ein. KI-Visualisierung der Lederpflege.' }
+      { title: 'Weiche Bürste. Kreisende Reinigung.', label: 'Beifahrer', video: 'assets/garage/leder-beifahrer-gesamt-v50-4k.mp4', loop: false, poster: 'assets/garage/leder-beifahrer-schritt-zurueck-v2-rekonstruiert-v2.webp', description: 'Tim macht Platz. Durch die geöffnete Beifahrertür geht es zur Sitzfläche: Eine weiche Bürste arbeitet den Reinigungsschaum in kreisenden Bewegungen ein.' }
     ]
   },
   cargo: {

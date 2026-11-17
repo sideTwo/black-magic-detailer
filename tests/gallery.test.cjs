@@ -45,7 +45,7 @@ test('Classic interior and fuel recess pairs coexist with single photos and rese
   assert.match(f.element('gallery-before').src,/innenraum-vorher/);
   f.press('End');assertPair(f);assert.match(f.element('gallery-before').src,/tankmulde-vorher/);
   f.press('Home');assert.equal(f.element('gallery-pair').hidden,true);assert.equal(f.element('gallery-image').hidden,false);
-  assert.match(f.element('gallery-source').textContent,/KI/);
+  assert.equal(f.element('gallery-source').textContent,'TIMS ARBEIT');
   assert.match(f.element('gallery-image').src,/mercedes-profile/);
 });
 test('Closing a paired gallery restores the opener; a different project cannot retain the pair',()=>{
@@ -70,7 +70,7 @@ test('BMW footwell is shown only with BMW; Mercedes opens an identifiable Merced
   assert.match(f.element('gallery-image').src,/mercedes-kompakt-cockpit-original/);
   assert.match(f.element('gallery-image').alt,/Stern im Lenkrad/);
   assert.match(f.element('gallery-source').textContent,/ORIGINALFOTO/);
-  f.press('ArrowRight');assert.match(f.element('gallery-source').textContent,/KI/);
+  f.press('ArrowRight');assert.equal(f.element('gallery-source').textContent,'TIMS ARBEIT');
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.doesNotMatch(html+source,/mercedes-kompakt-fussraum/);
 });
@@ -80,7 +80,7 @@ test('Each enhanced Audi stage exposes its matching original and resets when adv
     assert.equal(f.element('gallery-pair').hidden,true);
     assert.match(f.element('gallery-image').src,new RegExp(`audi-politur-schritt-${n}-aufbereitet`));
     assert.match(f.element('gallery-caption').textContent,new RegExp(`Aufnahme ${n} von 3`));
-    assert.match(f.element('gallery-source').textContent,/KI/);
+    assert.equal(f.element('gallery-source').textContent,'TIMS ARBEIT');
     assert.equal(f.element('gallery-original').hidden,false);
     assert.ok(fs.existsSync(path.join(root,f.element('gallery-image').src)));
     f.element('gallery-original').listeners.click();
@@ -93,7 +93,7 @@ test('Each enhanced Audi stage exposes its matching original and resets when adv
     f.press('ArrowRight');
   }
   assert.match(f.element('gallery-title').textContent,/Audi TT/);
-  assert.match(f.element('gallery-source').textContent,/KI/);
+  assert.equal(f.element('gallery-source').textContent,'TIMS ARBEIT');
   assert.match(f.element('gallery-image').src,/audi-sitze/);
   assert.equal(f.element('gallery-original').hidden,true);
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');

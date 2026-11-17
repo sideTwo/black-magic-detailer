@@ -29,6 +29,13 @@ test('main-page local links, anchors and assets resolve without duplicate IDs',(
   for(const [,url] of html.matchAll(/\b(?:src|href)="([^"]+)"/g)){
     if(url.startsWith('#')) {assert.ok(ids.includes(url.slice(1)), 'Missing anchor: '+url);continue;}
     if(/^(?:https?:|data:|tel:|mailto:)/.test(url))continue;
-    assert.ok(fs.existsSync(path.join(root,url.split('?')[0])),'Missing local asset: '+url);
+    const target=new URL(url,'https://local.test/index.html');
+    const file=path.join(root,decodeURIComponent(target.pathname.slice(1)));
+    assert.ok(fs.existsSync(file),'Missing local asset: '+url);
+    if(target.hash){
+      const linked=fs.readFileSync(file,'utf8');
+      const linkedIds=[...linked.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+      assert.ok(linkedIds.includes(decodeURIComponent(target.hash.slice(1))),'Missing linked-page anchor: '+url);
+    }
   }
 });
