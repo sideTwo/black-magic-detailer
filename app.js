@@ -60,8 +60,8 @@
     classic:{title:'Mercedes-Benz 190 E',photos:[
       ['mercedes-profile-rekonstruiert-v2','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes-Benz 190 E'],
       ['mercedes-paint-rekonstruiert-v2','Lichtreflexionen auf der Motorhaube.','Weiße Motorhaube mit klaren Lichtreflexionen'],
-      ['mercedes-interior-rekonstruiert-v2','Wieder gern einsteigen.','Mercedes-Innenraum mit karierten Stoffsitzen'],
-      ['detail-after-rekonstruiert-v2','Sorgfalt bis in die Tankmulde.','Gereinigte Tankmulde am Mercedes']
+      {before:['mercedes-innenraum-vorher-original-v1','Verschmutzter Fahrerbereich des Mercedes-Benz 190 E vor der Reinigung'],after:['mercedes-innenraum-nachher-original-v1','Mercedes-Benz 190 E mit gereinigten karierten Sitzen und Innenraum'],caption:'Innenraum: vor und nach der Reinigung. Aus unterschiedlichen Blickwinkeln fotografiert.'},
+      {before:['tankmulde-vorher-original-v1','Verschmutzte Tankmulde des weißen Mercedes-Benz 190 E vor der Reinigung'],after:['tankmulde-nachher-original-v1','Dieselbe Tankmulde des Mercedes-Benz 190 E nach der Reinigung'],caption:'Dieselbe Tankmulde vor und nach der Reinigung. Zwei Originalaufnahmen von Tim.'}
     ]},
     bmw:{title:'BMW · Innenraum & Felgen',photos:[
       ['bmw-suv-felge-20261116-rekonstruiert-v2','Die Felge im Detail.','Nahaufnahme einer gereinigten zweifarbigen BMW-Felge'],
@@ -89,16 +89,31 @@
       ['skoda-kofferraum-20261116-rekonstruiert-v2','Ein sauberer Laderaum.','Gereinigter Škoda-Kofferraum']
     ]},
     paint:{title:'Lackkorrektur · Vorher & nachher',photos:[
-      ['lackkorrektur-vorher-20261116-rekonstruiert-v2','Vorher: deutlich sichtbare Spuren am Heck.','Helle Kratz- und Abriebspuren auf einer dunklen Heckstoßstange'],
-      ['lackkorrektur-nachher-20261116-rekonstruiert-v2','Nachher: das Lackbild nach der Bearbeitung.','Dunkle Heckstoßstange mit klaren Reflexionen nach der Bearbeitung']
+      {before:['lack-heck-vorher-original-v1','Mercedes-Heckstoßstange mit hellen Kratz- und Abriebspuren vor der Lackkorrektur'],after:['lack-heck-nachher-original-v1','Dieselbe Mercedes-Heckstoßstange nach der Lackkorrektur'],caption:'Heckstoßstange: vor und nach der Lackkorrektur. Dasselbe Fahrzeug, unterschiedliche Aufnahmewinkel.'},
+      {before:['lack-detail-vorher-original-v1','Detail der hellen Kratzspuren an der Mercedes-Heckstoßstange vor der Bearbeitung'],after:['lack-detail-nachher-original-v1','Lackdetail derselben Heckstoßstange nach der Bearbeitung'],caption:'Das Lackdetail im Vergleich. Beide Zustände stammen aus Tims Originalfotos.'}
     ]}
   };
   let activeProject=projectGalleries.classic,photoIndex=0,galleryOpener;
   function showPhoto(index){
     const photos=activeProject.photos;
     photoIndex=(index+photos.length)%photos.length;
-    const [file,caption,alt]=photos[photoIndex];
-    galleryImage.src=`assets/projects/${file}.webp`;galleryImage.alt=alt;
+    const photo=photos[photoIndex],paired=!Array.isArray(photo);
+    gallery.classList.toggle('is-paired',paired);
+    galleryImage.hidden=paired;
+    document.getElementById('gallery-pair').hidden=!paired;
+    let caption;
+    if(paired){
+      for(const state of ['before','after']){
+        const image=document.getElementById(`gallery-${state}`),[file,alt]=photo[state];
+        image.src=`assets/projects/${file}.webp`;image.alt=alt;
+      }
+      caption=photo.caption;
+    }else{
+      const [file,text,alt]=photo;
+      galleryImage.src=`assets/projects/${file}.webp`;galleryImage.alt=alt;caption=text;
+    }
+    document.getElementById('gallery-source').textContent=paired?'TIMS ORIGINALFOTOS · VORHER & NACHHER':'TIMS ARBEIT · FOTOS MIT KI AUFBEREITET';
+    document.getElementById('gallery-disclosure').textContent=paired?'Echte Vorher-/Nachher-Aufnahmen von Tim. Für das Web nur verkleinert und komprimiert; die Zustände wurden nicht mit KI rekonstruiert.':'Tims echte Arbeit, fotografisch aufbereitet: KI unterstützt Schärfe, Belichtung und einen ruhigen Hintergrund. Die Bearbeitung soll die Bildqualität verbessern, nicht das Aufbereitungsergebnis.';
     document.getElementById('gallery-title').textContent=activeProject.title;
     document.getElementById('gallery-caption').textContent=caption;
     document.getElementById('gallery-count').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;
