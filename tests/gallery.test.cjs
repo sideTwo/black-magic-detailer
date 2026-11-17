@@ -16,7 +16,7 @@ function fixture(){
       querySelector(){return element('close');},showModal(){this.open=true;},close(){this.open=false;this.listeners.close();}});
     return elements.get(id);
   }
-  const openers=[['paint',0],['classic',2],['bmw',0]].map(([project,index],i)=>Object.assign(element('opener'+i),{dataset:{project,gallery:String(index)}}));
+  const openers=[['paint',0],['classic',2],['bmw',0],['mercedes',0],['audi',2]].map(([project,index],i)=>Object.assign(element('opener'+i),{dataset:{project,gallery:String(index)}}));
   const document={getElementById:element,querySelectorAll(){return openers;},body:element('body')};
   vm.runInNewContext(galleryCode,{document});
   return {element,open(project){const opener=openers.find(e=>e.dataset.project===project);opener.listeners.click();return opener;},press(key){element('project-gallery').listeners.keydown({key,preventDefault(){}});}};
@@ -59,5 +59,26 @@ test('Misidentified paint after photo is no longer used; leasing uses the reques
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.doesNotMatch(html+source,/lackkorrektur-nachher-20261116-rekonstruiert-v2/);
   const leasing=html.match(/id="service-panel-6"[\s\S]*?<\/article>/)[0];
-  assert.match(leasing,/mercedes-kompakt-fussraum/);assert.doesNotMatch(leasing,/hyundai/i);
+  assert.match(leasing,/mercedes-kompakt-cockpit-original/);assert.doesNotMatch(leasing,/hyundai|bmw-suv|mercedes-kompakt-fussraum/i);
+});
+test('BMW footwell is shown only with BMW; Mercedes opens an identifiable Mercedes original',()=>{
+  const f=fixture();f.open('bmw');f.press('End');
+  assert.match(f.element('gallery-title').textContent,/BMW/);
+  assert.match(f.element('gallery-image').src,/bmw-suv-fussraum-original/);
+  assert.match(f.element('gallery-source').textContent,/ORIGINALFOTO/);
+  f.open('mercedes');assert.match(f.element('gallery-title').textContent,/Mercedes-Benz/);
+  assert.match(f.element('gallery-image').src,/mercedes-kompakt-cockpit-original/);
+  assert.match(f.element('gallery-image').alt,/Stern im Lenkrad/);
+  assert.match(f.element('gallery-source').textContent,/ORIGINALFOTO/);
+  f.press('ArrowRight');assert.match(f.element('gallery-source').textContent,/KI/);
+  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  assert.doesNotMatch(html+source,/mercedes-kompakt-fussraum/);
+});
+test('Audi opens directly on the original before/after paint comparison',()=>{
+  const f=fixture();f.open('audi');assertPair(f);
+  assert.match(f.element('gallery-before').src,/audi-lack-vorher-original/);
+  assert.match(f.element('gallery-after').src,/audi-lack-nachher-original/);
+  assert.match(f.element('gallery-title').textContent,/Audi TT/);
+  f.press('ArrowRight');assert.equal(f.element('gallery-pair').hidden,true);
+  assert.match(f.element('gallery-source').textContent,/KI/);
 });

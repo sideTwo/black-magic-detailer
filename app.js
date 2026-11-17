@@ -66,15 +66,16 @@
     bmw:{title:'BMW · Innenraum & Felgen',photos:[
       ['bmw-suv-felge-20261116-rekonstruiert-v2','Die Felge im Detail.','Nahaufnahme einer gereinigten zweifarbigen BMW-Felge'],
       ['bmw-suv-sitze-20261116-rekonstruiert-v2','Sitze, Nähte und Oberflächen.','BMW-Innenraum mit schwarzen Ledersitzen'],
-      ['bmw-suv-cockpit-20261116-rekonstruiert-v2','Ein Blick in den Fahrerbereich.','BMW-Fahrersitz und Cockpit nach der Aufbereitung']
+      ['bmw-suv-cockpit-20261116-rekonstruiert-v2','Ein Blick in den Fahrerbereich.','BMW-Fahrersitz und Cockpit nach der Aufbereitung'],
+      ['bmw-suv-fussraum-original-v1','Sorgfalt bis in den Fußraum.','Gereinigter BMW-Beifahrerfußraum mit M-Einstiegsleiste','original']
     ]},
     audi:{title:'Audi TT · Innenraum & Lack',photos:[
       ['audi-sitze-20261116-rekonstruiert-v2','Leder und Kontrastnähte.','Schwarze Audi-Sportsitze mit Rautennähten'],
       ['audi-cockpit-20261116-rekonstruiert-v2','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze'],
-      ['audi-lackdetail-20261116-rekonstruiert-v2','Reflexionen unter dem Werkstattlicht.','Lichtreflexionen auf einer hellen lackierten Karosseriefläche']
+      {before:['audi-lack-vorher-original-v1','Audi-TT-Lack vor der Politur mit diffusen Lichtreflexen und sichtbaren feinen Polierspuren'],after:['audi-lack-nachher-original-v1','Audi-TT-Lack nach der Politur mit klaren Reflexionen der Werkstattleuchten'],caption:'Das Lackbild des Audi TT vor und nach der Politur. Tims Originalaufnahmen aus unterschiedlichen Blickwinkeln.'}
     ]},
     mercedes:{title:'Mercedes-Benz · Innenraum',photos:[
-      ['mercedes-kompakt-fussraum-20261116-rekonstruiert-v2','Sorgfalt bis in den Fußraum.','Gereinigter Mercedes-Beifahrerfußraum und Sitz'],
+      ['mercedes-kompakt-cockpit-original-v1','Der Fahrerbereich nach der Aufbereitung.','Mercedes-Benz-Cockpit mit Stern im Lenkrad und gereinigtem Fahrerbereich','original'],
       ['mercedes-kompakt-rueckbank-20261116-rekonstruiert-v2','Auch auf der Rückbank.','Mercedes-Rückbank mit schwarzen Sitzen und roten Nähten'],
       ['mercedes-kompakt-kofferraum-20261116-rekonstruiert-v2','Zum Schluss: geordneter Teppichflor.','Gereinigter Kofferraum mit gebürstetem Streifenmuster']
     ]},
@@ -112,8 +113,9 @@
       const [file,text,alt]=photo;
       galleryImage.src=`assets/projects/${file}.webp`;galleryImage.alt=alt;caption=text;
     }
-    document.getElementById('gallery-source').textContent=paired?'TIMS ORIGINALFOTOS · VORHER & NACHHER':'TIMS ARBEIT · FOTOS MIT KI AUFBEREITET';
-    document.getElementById('gallery-disclosure').textContent=paired?'Echte Vorher-/Nachher-Aufnahmen von Tim. Für das Web nur verkleinert und komprimiert; die Zustände wurden nicht mit KI rekonstruiert.':'Tims echte Arbeit, fotografisch aufbereitet: KI unterstützt Schärfe, Belichtung und einen ruhigen Hintergrund. Die Bearbeitung soll die Bildqualität verbessern, nicht das Aufbereitungsergebnis.';
+    const original=!paired&&photo[3]==='original';
+    document.getElementById('gallery-source').textContent=paired?'TIMS ORIGINALFOTOS · VORHER & NACHHER':original?'TIMS ARBEIT · ORIGINALFOTO':'TIMS ARBEIT · FOTOS MIT KI AUFBEREITET';
+    document.getElementById('gallery-disclosure').textContent=paired?'Echte Vorher-/Nachher-Aufnahmen von Tim. Für das Web nur verkleinert und komprimiert; die Zustände wurden nicht mit KI rekonstruiert.':original?'Originalaufnahme von Tim. Für das Web nur verkleinert und komprimiert; keine KI-Nachbearbeitung.':'Tims echte Arbeit, fotografisch aufbereitet: KI unterstützt Schärfe, Belichtung und einen ruhigen Hintergrund. Die Bearbeitung soll die Bildqualität verbessern, nicht das Aufbereitungsergebnis.';
     document.getElementById('gallery-title').textContent=activeProject.title;
     document.getElementById('gallery-caption').textContent=caption;
     document.getElementById('gallery-count').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;

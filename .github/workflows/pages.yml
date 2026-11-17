@@ -23,6 +23,7 @@ jobs:
       - uses: actions/configure-pages@v5
       - name: Verify garage and media
         run: |
+          node tests/gallery.test.cjs
           node tests/garage.test.cjs
           node tests/mobile-media.test.cjs
           node tests/services.test.cjs
