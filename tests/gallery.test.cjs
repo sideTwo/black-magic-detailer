@@ -16,7 +16,7 @@ function fixture(){
       querySelector(){return element('close');},showModal(){this.open=true;},close(){this.open=false;this.listeners.close();}});
     return elements.get(id);
   }
-  const openers=[['paint',0],['classic',2],['bmw',0],['mercedes',0],['audi',2]].map(([project,index],i)=>Object.assign(element('opener'+i),{dataset:{project,gallery:String(index)}}));
+  const openers=[['paint',0],['classic',2],['bmw',0],['mercedes',0],['audi',0]].map(([project,index],i)=>Object.assign(element('opener'+i),{dataset:{project,gallery:String(index)}}));
   const document={getElementById:element,querySelectorAll(){return openers;},body:element('body')};
   vm.runInNewContext(galleryCode,{document});
   return {element,open(project){const opener=openers.find(e=>e.dataset.project===project);opener.listeners.click();return opener;},press(key){element('project-gallery').listeners.keydown({key,preventDefault(){}});}};
@@ -74,11 +74,19 @@ test('BMW footwell is shown only with BMW; Mercedes opens an identifiable Merced
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.doesNotMatch(html+source,/mercedes-kompakt-fussraum/);
 });
-test('Audi opens directly on the original before/after paint comparison',()=>{
-  const f=fixture();f.open('audi');assertPair(f);
-  assert.match(f.element('gallery-before').src,/audi-lack-vorher-original/);
-  assert.match(f.element('gallery-after').src,/audi-lack-nachher-original/);
+test('Audi documents three polishing stages as originals, followed by the interior photos',()=>{
+  const f=fixture();f.open('audi');
+  for(let n=1;n<=3;n++){
+    assert.equal(f.element('gallery-pair').hidden,true);
+    assert.match(f.element('gallery-image').src,new RegExp(`audi-politur-schritt-${n}-original`));
+    assert.match(f.element('gallery-caption').textContent,new RegExp(`Aufnahme ${n} von 3`));
+    assert.match(f.element('gallery-source').textContent,/ORIGINALFOTO/);
+    assert.ok(fs.existsSync(path.join(root,f.element('gallery-image').src)));
+    f.press('ArrowRight');
+  }
   assert.match(f.element('gallery-title').textContent,/Audi TT/);
-  f.press('ArrowRight');assert.equal(f.element('gallery-pair').hidden,true);
   assert.match(f.element('gallery-source').textContent,/KI/);
+  assert.match(f.element('gallery-image').src,/audi-sitze/);
+  const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
+  assert.doesNotMatch(html+source,/audi-lack-(vorher|nachher)-original/);
 });

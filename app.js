@@ -69,10 +69,12 @@
       ['bmw-suv-cockpit-20261116-rekonstruiert-v2','Ein Blick in den Fahrerbereich.','BMW-Fahrersitz und Cockpit nach der Aufbereitung'],
       ['bmw-suv-fussraum-original-v1','Sorgfalt bis in den Fußraum.','Gereinigter BMW-Beifahrerfußraum mit M-Einstiegsleiste','original']
     ]},
-    audi:{title:'Audi TT · Innenraum & Lack',photos:[
+    audi:{title:'Audi TT · Polierablauf & Innenraum',photos:[
+      ['audi-politur-schritt-1-original-v1','Polierablauf · Aufnahme 1 von 3. Tim hat die Arbeit am Lack in mehreren Schritten dokumentiert.','Audi-TT-Lack während der Aufbereitung, erste Aufnahme der dokumentierten Polierschritte','original'],
+      ['audi-politur-schritt-2-original-v1','Polierablauf · Aufnahme 2 von 3. Ein weiterer dokumentierter Zwischenstand der Lackaufbereitung.','Audi-TT-Lack während der Aufbereitung, zweite Aufnahme der dokumentierten Polierschritte','original'],
+      ['audi-politur-schritt-3-original-v1','Polierablauf · Aufnahme 3 von 3. Die dritte Aufnahme aus Tims Dokumentation.','Audi-TT-Lack während der Aufbereitung, dritte Aufnahme der dokumentierten Polierschritte','original'],
       ['audi-sitze-20261116-rekonstruiert-v2','Leder und Kontrastnähte.','Schwarze Audi-Sportsitze mit Rautennähten'],
-      ['audi-cockpit-20261116-rekonstruiert-v2','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze'],
-      {before:['audi-lack-vorher-original-v1','Audi-TT-Lack vor der Politur mit diffusen Lichtreflexen und sichtbaren feinen Polierspuren'],after:['audi-lack-nachher-original-v1','Audi-TT-Lack nach der Politur mit klaren Reflexionen der Werkstattleuchten'],caption:'Das Lackbild des Audi TT vor und nach der Politur. Tims Originalaufnahmen aus unterschiedlichen Blickwinkeln.'}
+      ['audi-cockpit-20261116-rekonstruiert-v2','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze']
     ]},
     mercedes:{title:'Mercedes-Benz · Innenraum',photos:[
       ['mercedes-kompakt-cockpit-original-v1','Der Fahrerbereich nach der Aufbereitung.','Mercedes-Benz-Cockpit mit Stern im Lenkrad und gereinigtem Fahrerbereich','original'],
