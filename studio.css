@@ -325,3 +325,5 @@
 }
 
 .gallery-original{margin-top:8px}
+
+.project-moments.project-moments-single { grid-template-columns: minmax(0, 1fr); max-width: 620px; }

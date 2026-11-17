@@ -31,6 +31,8 @@ Bestätigte Kontakt-E-Mail (Bilal, 17.11.2026): `info@black-detailer-mannheim.de
 
 ## Aktuell bestätigter Stand
 
+- Die zusätzliche Tankmulden-Vorschaukachel unter dem Mercedes-Projekt wurde auf Bilals Wunsch entfernt. Der große Tankmulden-Schiebevergleich und das echte Originalpaar innerhalb der Mercedes-Galerie bleiben erhalten; keine zweite Kachel wieder ergänzen. Die verbleibende Innenraumkachel verwendet ein einspaltiges Layout.
+
 - Hyundai ist auf Bilals Wunsch aus Referenzkarten und aktiver Galerie entfernt. Alte Bilddateien bleiben als Quellen erhalten.
 - Referenzen: BMW (4), Audi TT (3 Polierschritte + 2 Innenraumfotos), Mercedes-Benz (3), Škoda (2), Lackkorrektur (2 Originalpaare), zusätzlich Mercedes-Benz 190 E (2 Einzelbilder + 2 Originalpaare).
 - **Audi ist kein binäres Vorher/Nachher:** drei dokumentierte Polieraufnahmen, mit Originalfoto-Umschalter. Keine unbelegten Namen wie Grobschliff/Finish vergeben.
