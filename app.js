@@ -82,12 +82,6 @@
       ['mercedes-kompakt-rueckbank-20261116-rekonstruiert-v2','Auch auf der Rückbank.','Mercedes-Rückbank mit schwarzen Sitzen und roten Nähten'],
       ['mercedes-kompakt-kofferraum-20261116-rekonstruiert-v2','Zum Schluss: geordneter Teppichflor.','Gereinigter Kofferraum mit gebürstetem Streifenmuster']
     ]},
-    hyundai:{title:'Hyundai · Außen & innen',photos:[
-      ['hyundai-seitenansicht-20261116-rekonstruiert-v2','Das Fahrzeug von der Seite.','Dunkler Hyundai in vollständiger Seitenansicht'],
-      ['hyundai-sitze-20261116-rekonstruiert-v2','Die Vordersitze im Detail.','Schwarze Hyundai-Vordersitze nach der Aufbereitung'],
-      ['hyundai-cockpit-20261116-rekonstruiert-v2','Der Fahrerbereich.','Hyundai-Lenkrad und gereinigtes Cockpit'],
-      ['hyundai-kofferraum-20261116-rekonstruiert-v2','Ein sauberer Laderaum.','Gereinigter Hyundai-Kofferraum']
-    ]},
     skoda:{title:'Škoda · Lack & Cockpit',photos:[
       ['skoda-lackdetail-20261116-rekonstruiert-v2','Klare Reflexionen auf dunklem Lack.','Baumreflexionen auf einer dunklen Škoda-Motorhaube'],
       ['skoda-cockpit-20261116-rekonstruiert-v2','Sitzflächen, Konsole und Cockpit.','Škoda-Innenraum mit schwarzen Sitzen und Rautennähten']

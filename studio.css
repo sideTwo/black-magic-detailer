@@ -309,6 +309,7 @@
 .reference-image.reference-pair{display:grid;grid-template-columns:1fr 1fr;gap:3px}
 .reference-image.reference-sequence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px}
 .reference-pair-photo{position:relative;overflow:hidden;min-width:0;height:100%}
+.reference-pair-photo>img{display:block;width:100%;height:100%;object-fit:cover;object-position:35% center}
 .reference-pair-photo small{position:absolute;top:12px;left:10px;background:#151411e8;color:var(--studio-paper);padding:5px 9px;font-size:.75rem;border-radius:5px}
 .gallery-pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
 .gallery-pair-photo{min-width:0;background:#0d0d0d;border:1px solid #494236;border-radius:10px;overflow:hidden}

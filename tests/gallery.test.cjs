@@ -16,7 +16,7 @@ function fixture(){
       querySelector(){return element('close');},showModal(){this.open=true;},close(){this.open=false;this.listeners.close();}});
     return elements.get(id);
   }
-  const openers=[['paint',0],['classic',2],['bmw',0],['mercedes',0],['audi',0],['hyundai',0],['skoda',0]].map(([project,index],i)=>Object.assign(element('opener'+i),{dataset:{project,gallery:String(index)}}));
+  const openers=[['paint',0],['classic',2],['bmw',0],['mercedes',0],['audi',0],['skoda',0]].map(([project,index],i)=>Object.assign(element('opener'+i),{dataset:{project,gallery:String(index)}}));
   const document={getElementById:element,querySelectorAll(){return openers;},body:element('body')};
   vm.runInNewContext(galleryCode,{document});
   return {element,open(project){const opener=openers.find(e=>e.dataset.project===project);opener.listeners.click();return opener;},press(key){element('project-gallery').listeners.keydown({key,preventDefault(){}});}};
@@ -100,18 +100,13 @@ test('Each enhanced Audi stage exposes its matching original and resets when adv
   assert.doesNotMatch(html+source,/audi-lack-(vorher|nachher)-original/);
 });
 
-test('Hyundai cargo photo belongs to Hyundai; Skoda contains only its verified paint and cockpit',()=>{
-  const f=fixture();f.open('hyundai');f.press('End');
-  assert.equal(f.element('gallery-count').textContent,'04 / 04');
-  assert.match(f.element('gallery-image').src,/hyundai-kofferraum/);
-  assert.match(f.element('gallery-image').alt,/Hyundai/);
-  assert.ok(fs.existsSync(path.join(root,f.element('gallery-image').src)));
-  f.open('skoda');f.press('End');
+test('Hyundai is removed from references; Skoda contains only its verified paint and cockpit',()=>{
+  const f=fixture();f.open('skoda');f.press('End');
   assert.equal(f.element('gallery-count').textContent,'02 / 02');
   assert.match(f.element('gallery-image').src,/skoda-cockpit/);
   assert.match(f.element('gallery-title').textContent,/Škoda/);
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.doesNotMatch(html+source,/skoda-kofferraum/);
-  assert.match(html,/data-project="hyundai"[^>]*aria-label="Hyundai: 4/);
+  assert.doesNotMatch(html+source,/hyundai/i);
   assert.match(html,/data-project="skoda"[^>]*aria-label="Škoda: 2/);
 });
