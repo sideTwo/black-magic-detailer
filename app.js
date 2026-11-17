@@ -56,6 +56,7 @@
 
   const gallery=document.getElementById('project-gallery');
   const galleryImage=document.getElementById('gallery-image');
+  const galleryOriginal=document.getElementById('gallery-original');
   const projectGalleries={
     classic:{title:'Mercedes-Benz 190 E',photos:[
       ['mercedes-profile-rekonstruiert-v2','Die Linien bleiben. Der Glanz kommt zurück.','Seitliche Ansicht des weißen Mercedes-Benz 190 E'],
@@ -70,9 +71,9 @@
       ['bmw-suv-fussraum-original-v1','Sorgfalt bis in den Fußraum.','Gereinigter BMW-Beifahrerfußraum mit M-Einstiegsleiste','original']
     ]},
     audi:{title:'Audi TT · Polierablauf & Innenraum',photos:[
-      ['audi-politur-schritt-1-original-v1','Polierablauf · Aufnahme 1 von 3. Tim hat die Arbeit am Lack in mehreren Schritten dokumentiert.','Audi-TT-Lack während der Aufbereitung, erste Aufnahme der dokumentierten Polierschritte','original'],
-      ['audi-politur-schritt-2-original-v1','Polierablauf · Aufnahme 2 von 3. Ein weiterer dokumentierter Zwischenstand der Lackaufbereitung.','Audi-TT-Lack während der Aufbereitung, zweite Aufnahme der dokumentierten Polierschritte','original'],
-      ['audi-politur-schritt-3-original-v1','Polierablauf · Aufnahme 3 von 3. Die dritte Aufnahme aus Tims Dokumentation.','Audi-TT-Lack während der Aufbereitung, dritte Aufnahme der dokumentierten Polierschritte','original'],
+      ['audi-politur-schritt-1-aufbereitet-v2','Polierablauf · Aufnahme 1 von 3. Tim hat die Arbeit am Lack in mehreren Schritten dokumentiert.','Audi-TT-Lack während der Aufbereitung, erste Aufnahme der dokumentierten Polierschritte','enhanced','audi-politur-schritt-1-original-v1'],
+      ['audi-politur-schritt-2-aufbereitet-v2','Polierablauf · Aufnahme 2 von 3. Ein weiterer dokumentierter Zwischenstand der Lackaufbereitung.','Audi-TT-Lack während der Aufbereitung, zweite Aufnahme der dokumentierten Polierschritte','enhanced','audi-politur-schritt-2-original-v1'],
+      ['audi-politur-schritt-3-aufbereitet-v2','Polierablauf · Aufnahme 3 von 3. Die dritte Aufnahme aus Tims Dokumentation.','Audi-TT-Lack während der Aufbereitung, dritte Aufnahme der dokumentierten Polierschritte','enhanced','audi-politur-schritt-3-original-v1'],
       ['audi-sitze-20261116-rekonstruiert-v2','Leder und Kontrastnähte.','Schwarze Audi-Sportsitze mit Rautennähten'],
       ['audi-cockpit-20261116-rekonstruiert-v2','Der Innenraum im Ganzen.','Audi-TT-Cockpit und Sportsitze']
     ]},
@@ -97,7 +98,7 @@
     ]}
   };
   let activeProject=projectGalleries.classic,photoIndex=0,galleryOpener;
-  function showPhoto(index){
+  function showPhoto(index,originalView=false){
     const photos=activeProject.photos;
     photoIndex=(index+photos.length)%photos.length;
     const photo=photos[photoIndex],paired=!Array.isArray(photo);
@@ -113,15 +114,19 @@
       caption=photo.caption;
     }else{
       const [file,text,alt]=photo;
-      galleryImage.src=`assets/projects/${file}.webp`;galleryImage.alt=alt;caption=text;
+      galleryImage.src=`assets/projects/${originalView&&photo[4]?photo[4]:file}.webp`;galleryImage.alt=alt;caption=text;
     }
-    const original=!paired&&photo[3]==='original';
+    galleryOriginal.hidden=paired||!photo[4];
+    galleryOriginal.textContent=originalView?'Bearbeitetes Foto ansehen':'Originalfoto ansehen';
+    galleryOriginal.dataset.originalView=String(originalView);
+    const original=!paired&&(photo[3]==='original'||(originalView&&Boolean(photo[4])));
     document.getElementById('gallery-source').textContent=paired?'TIMS ORIGINALFOTOS · VORHER & NACHHER':original?'TIMS ARBEIT · ORIGINALFOTO':'TIMS ARBEIT · FOTOS MIT KI AUFBEREITET';
     document.getElementById('gallery-disclosure').textContent=paired?'Echte Vorher-/Nachher-Aufnahmen von Tim. Für das Web nur verkleinert und komprimiert; die Zustände wurden nicht mit KI rekonstruiert.':original?'Originalaufnahme von Tim. Für das Web nur verkleinert und komprimiert; keine KI-Nachbearbeitung.':'Tims echte Arbeit, fotografisch aufbereitet: KI unterstützt Schärfe, Belichtung und einen ruhigen Hintergrund. Die Bearbeitung soll die Bildqualität verbessern, nicht das Aufbereitungsergebnis.';
     document.getElementById('gallery-title').textContent=activeProject.title;
     document.getElementById('gallery-caption').textContent=caption;
     document.getElementById('gallery-count').textContent=`${String(photoIndex+1).padStart(2,'0')} / ${String(photos.length).padStart(2,'0')}`;
   }
+  galleryOriginal.addEventListener('click',()=>showPhoto(photoIndex,galleryOriginal.dataset.originalView!=='true'));
   document.querySelectorAll('[data-gallery]').forEach(button=>button.addEventListener('click',()=>{galleryOpener=button;activeProject=projectGalleries[button.dataset.project||'classic']||projectGalleries.classic;showPhoto(Number(button.dataset.gallery));gallery.showModal();document.body.classList.add('modal-open')}));
   document.getElementById('gallery-prev').addEventListener('click',()=>showPhoto(photoIndex-1));
   document.getElementById('gallery-next').addEventListener('click',()=>showPhoto(photoIndex+1));

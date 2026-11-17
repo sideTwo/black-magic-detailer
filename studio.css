@@ -322,3 +322,5 @@
   .gallery-dialog .gallery-pair img{max-height:45svh;aspect-ratio:4/3}
   .gallery-controls{position:sticky;bottom:-1px;background:#191919;padding:12px 0;margin-top:12px}
 }
+
+.gallery-original{margin-top:8px}

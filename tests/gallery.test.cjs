@@ -74,19 +74,28 @@ test('BMW footwell is shown only with BMW; Mercedes opens an identifiable Merced
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.doesNotMatch(html+source,/mercedes-kompakt-fussraum/);
 });
-test('Audi documents three polishing stages as originals, followed by the interior photos',()=>{
+test('Each enhanced Audi stage exposes its matching original and resets when advancing',()=>{
   const f=fixture();f.open('audi');
   for(let n=1;n<=3;n++){
     assert.equal(f.element('gallery-pair').hidden,true);
-    assert.match(f.element('gallery-image').src,new RegExp(`audi-politur-schritt-${n}-original`));
+    assert.match(f.element('gallery-image').src,new RegExp(`audi-politur-schritt-${n}-aufbereitet`));
     assert.match(f.element('gallery-caption').textContent,new RegExp(`Aufnahme ${n} von 3`));
-    assert.match(f.element('gallery-source').textContent,/ORIGINALFOTO/);
+    assert.match(f.element('gallery-source').textContent,/KI/);
+    assert.equal(f.element('gallery-original').hidden,false);
     assert.ok(fs.existsSync(path.join(root,f.element('gallery-image').src)));
+    f.element('gallery-original').listeners.click();
+    assert.match(f.element('gallery-image').src,new RegExp(`audi-politur-schritt-${n}-original`));
+    assert.match(f.element('gallery-source').textContent,/ORIGINALFOTO/);
+    assert.equal(f.element('gallery-original').textContent,'Bearbeitetes Foto ansehen');
+    assert.ok(fs.existsSync(path.join(root,f.element('gallery-image').src)));
+    f.element('gallery-original').listeners.click();
+    assert.match(f.element('gallery-image').src,new RegExp(`audi-politur-schritt-${n}-aufbereitet`));
     f.press('ArrowRight');
   }
   assert.match(f.element('gallery-title').textContent,/Audi TT/);
   assert.match(f.element('gallery-source').textContent,/KI/);
   assert.match(f.element('gallery-image').src,/audi-sitze/);
+  assert.equal(f.element('gallery-original').hidden,true);
   const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
   assert.doesNotMatch(html+source,/audi-lack-(vorher|nachher)-original/);
 });
