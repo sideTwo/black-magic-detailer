@@ -85,12 +85,12 @@
     hyundai:{title:'Hyundai · Außen & innen',photos:[
       ['hyundai-seitenansicht-20261116-rekonstruiert-v2','Das Fahrzeug von der Seite.','Dunkler Hyundai in vollständiger Seitenansicht'],
       ['hyundai-sitze-20261116-rekonstruiert-v2','Die Vordersitze im Detail.','Schwarze Hyundai-Vordersitze nach der Aufbereitung'],
-      ['hyundai-cockpit-20261116-rekonstruiert-v2','Der Fahrerbereich.','Hyundai-Lenkrad und gereinigtes Cockpit']
+      ['hyundai-cockpit-20261116-rekonstruiert-v2','Der Fahrerbereich.','Hyundai-Lenkrad und gereinigtes Cockpit'],
+      ['hyundai-kofferraum-20261116-rekonstruiert-v2','Ein sauberer Laderaum.','Gereinigter Hyundai-Kofferraum']
     ]},
-    skoda:{title:'Škoda · Lack & Innenraum',photos:[
+    skoda:{title:'Škoda · Lack & Cockpit',photos:[
       ['skoda-lackdetail-20261116-rekonstruiert-v2','Klare Reflexionen auf dunklem Lack.','Baumreflexionen auf einer dunklen Škoda-Motorhaube'],
-      ['skoda-cockpit-20261116-rekonstruiert-v2','Sitzflächen, Konsole und Cockpit.','Škoda-Innenraum mit schwarzen Sitzen und Rautennähten'],
-      ['skoda-kofferraum-20261116-rekonstruiert-v2','Ein sauberer Laderaum.','Gereinigter Škoda-Kofferraum']
+      ['skoda-cockpit-20261116-rekonstruiert-v2','Sitzflächen, Konsole und Cockpit.','Škoda-Innenraum mit schwarzen Sitzen und Rautennähten']
     ]},
     paint:{title:'Lackkorrektur · Vorher & nachher',photos:[
       {before:['lack-heck-vorher-original-v1','Mercedes-Heckstoßstange mit hellen Kratz- und Abriebspuren vor der Lackkorrektur'],after:['lack-heck-nachher-original-v1','Dieselbe Mercedes-Heckstoßstange nach der Lackkorrektur'],caption:'Heckstoßstange: vor und nach der Lackkorrektur. Dasselbe Fahrzeug, unterschiedliche Aufnahmewinkel.'},
