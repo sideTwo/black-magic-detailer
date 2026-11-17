@@ -541,17 +541,7 @@
   function updateHeader() { header.classList.toggle('scrolled', scrollY > 40); }
   addEventListener('scroll', updateHeader, { passive: true });
   updateHeader(); queueLayout();
-  // Warm one first film after page load; intent selects other services.
-  // Save-Data, reduced-motion and hidden pages never prefetch films.
-  function primeWheelApproach() {
-    const prime = () => {
-      const bounds = scene.getBoundingClientRect();
-      if (bounds.bottom > 0 && bounds.top < innerHeight && !warmedApproach) warmApproach('wheels', 'auto');
-    };
-    if ('requestIdleCallback' in window) requestIdleCallback(prime, { timeout: 1500 });
-    else setTimeout(prime, 800);
-  }
-  if (document.readyState === 'complete') primeWheelApproach();
-  else addEventListener('load', primeWheelApproach, { once: true });
+  // Films are warmed only on pointer or keyboard intent, never on page load.
+
 })();
 

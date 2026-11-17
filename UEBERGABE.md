@@ -23,6 +23,7 @@ Vorschau: https://sidetwo.github.io/black-magic-detailer/ . Der Zugriff auf GitH
 | `garage.js`, `video-start.js`, `garage.css` | Garagenlayout, Hotspots und gepufferter Videostart ab Sekunde 0 |
 | `services.js`, `services.css` | Auswahl der neun Leistungen |
 | `impressum.html` | Impressum und Bildhinweise |
+| `datenschutz.html` | Hinweise für das tatsächliche GitHub-Pages-Hosting und den Kontaktablauf |
 | `scripts/build-pages.cjs` | Website-Paket mit erforderlichen Medien erstellen |
 | `.github/workflows/pages.yml` | Tests, Website-Paket und GitHub-Pages-Veröffentlichung bei Push auf main |
 
@@ -49,7 +50,7 @@ Mit vorhandenem Node.js:
 node --test --test-isolation=none tests/gallery.test.cjs tests/garage.test.cjs tests/mobile-media.test.cjs tests/services.test.cjs tests/video-start.test.cjs
 ```
 
-Zuletzt 26 Tests erfolgreich. Zusätzlich Browser bei 1440 und 390 px prüfen. Insbesondere Referenzvorschau, echte Bildpaare, Audi-Originalumschalter, alle Filme ab 0, Ende/Zurück und Kontaktvorauswahl.
+Zuletzt 26 Tests erfolgreich. Abschlussrunde am 17.11. im ChatGPT-Browser bei 1440 × 900 und 390 × 844 geprüft: Hero, Referenzvorschau, Lack-Originalpaare, Audi-Originalumschalter, Filme ab 0 und bis zum Ende/Zurück sowie mobile Anfrage bis zur vorbereiteten WhatsApp-Nachricht. Keine Nachricht versendet. Details und verbleibende Prüfgrenzen in AUDIT-2026-11-17.md. Ein physisches iPhone-/Androidgerät, Safari und eine gedrosselte Verbindung sind noch separat zu prüfen.
 
 Für ein neues, **leeres** Ausgabeverzeichnis:
 
@@ -62,6 +63,12 @@ Der Parameter lautet **`--out`**, nicht `--output`. Neue Dateien vor dem Paketba
 Vor jedem Push `git fetch origin`, Stand vergleichen, nie Force-Push. Push auf `main` löst die vorhandene Pages-Pipeline aus. Keine Änderungen an Filmen allein wegen eines Layout-/Hinweiswunschs.
 
 ## Noch nicht live geschaltet / Entwürfe
+
+- Abschlussrunde vom 17.11.: E-Mail im Impressum und Datenschutzseite ergänzt; Datenschutz im Footer und bei der Anfrage verlinkt. Keine bestätigten AV-Verträge oder pauschale Rechtsfreigabe behaupten. Vertragliche Hosting-/E-Mail-/Messenger-Konfiguration muss der Betreiber bestätigen.
+- Die Hauptseite und beide Rechtstexte sind als Vorschau mit `noindex, follow` versehen. Keine `robots.txt`-Sperre davorlegen, sonst kann die Suchmaschine das noindex nicht lesen. Das ist keine Zugangssperre: Website und Repository bleiben öffentlich erreichbar.
+- Vor dem echten Domain-Launch: Domain/DNS/HTTPS und tatsächliches Hosting bestätigen, Canonical/OG-URLs und Sitemap umstellen, Datenschutzhinweise dem Hoster anpassen und nur auf der freigegebenen Hauptseite die Vorschau-Indexierungssperre entfernen. Historische Prüfseiten bleiben noindex. Kein fertiges ALL-INKL-Livepaket behaupten.
+- Kein Film wird mehr automatisch nach Seitenaufruf vorgeladen. `garage.js` bereitet erst bei Zeiger-/Tastaturabsicht vor; gepufferter Start bei 0 bleibt erhalten. Der Hauptbutton benennt WhatsApp vor Beginn der Anfrage.
+- Noch mit Tim klären: tatsächlicher Besichtigungs-/Abgabeort, Terminablauf, übliche Dauer je Leistung und mögliche Besichtigungskosten. Die Impressumsadresse nicht ungeprüft als Werkstattadresse bewerben. FAQ erklärt Anfrage, Abstimmung und Kontaktalternativen ohne erfundene Zeit-/Preisversprechen.
 
 - Die beiden Dateien `assets/garage/keramik-vergleich-rechts-v1.webp` und `assets/garage/keramik-vergleich-rechts-versiegelt-v1-1080p.mp4` sind gesicherte, bisher unbenutzte Entwürfe. **Kein Auftrag, sie in den aktiven Keramikfilm einzubauen.**
 - Weitere einzelne HTML-Prüfseiten im Repository sind historische Entwürfe, nicht die Hauptseite. Maßgeblich sind `index.html` und `garage-media.js`.
