@@ -11,6 +11,8 @@ Stand: 17.11.2026. Diese Datei und die aktuellen Quelldateien haben Vorrang vor 
 
 Vorschau: https://sidetwo.github.io/black-magic-detailer/ . Der Zugriff auf GitHub selbst muss über das eigene Konto bzw. die vorhandene Repository-Berechtigung möglich sein; die Codex-Sitzung überträgt keine Anmeldedaten.
 
+Bestätigte Kontakt-E-Mail (Bilal, 17.11.2026): `info@black-detailer-mannheim.de`. Diese Adresse steht im Kontakt, im FAQ-Mail-Link, im Impressum und im Datenschutz. Die bisherige web.de-Adresse nicht wieder einsetzen. Website-Domain und Hosting bleiben gesondert zu bestätigen.
+
 ## Maßgebliche Dateien
 
 | Datei | Zweck |
